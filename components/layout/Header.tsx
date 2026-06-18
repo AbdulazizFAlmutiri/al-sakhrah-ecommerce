@@ -33,7 +33,7 @@ export default function Header() {
       <div className="flex items-center justify-between px-4 md:px-8 py-3">
         {/* Logo placement — replace src with /public/logo/logo-full.svg */}
         <Link href="/" className="flex items-center gap-2 shrink-0">
-          <img src="/logo/logo-mark.svg" alt="Al-Sakhrah for Manufacturing" className="h-10 w-auto" />
+          <img src="/logo/logo-mark.jpg" alt="Al-Sakhrah for Manufacturing" className="h-10 w-auto" />
           <span className="hidden sm:block font-display text-xl text-brown-800 leading-tight">
             AL-SAKHRAH
             <span className="block text-[10px] font-body normal-case tracking-normal text-brown-500">
