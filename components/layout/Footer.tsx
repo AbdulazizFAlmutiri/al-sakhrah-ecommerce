@@ -1,10 +1,10 @@
 // components/layout/Footer.tsx
 import Link from "next/link";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Phone, Mail, MapPin } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-brown-950 bg-brown-900 text-sand-200 pt-16 pb-6">
+    <footer className="bg-brown-950 text-sand-200 pt-16 pb-6">
       <div className="max-w-7xl mx-auto px-4 md:px-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
         {/* Brand */}
         <div>
