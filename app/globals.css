@@ -11,8 +11,6 @@
 }
 
 @layer utilities {
-  /* Signature shape lifted from the logomark's faceted shards —
-     one angled corner instead of generic rounded-on-all-sides cards */
   .shard-clip {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 28px 100%, 0 calc(100% - 28px));
   }
