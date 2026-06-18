@@ -5,7 +5,9 @@
 
 @layer base {
   h1, h2, h3 {
-    @apply font-display uppercase tracking-wide;
+    h1, h2, h3 {
+  @apply uppercase tracking-wide;
+}
   }
 }
 
