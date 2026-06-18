@@ -1,8 +1,8 @@
 // app/page.tsx
 import Header from "../components/layout/Header";
-import Hero from "../components/sections/Hero";
-import FeaturedCategories from "../components/sections/FeaturedCategories";
-import WhyChooseUs from "../components/sections/WhyChooseUs";
+import Hero from "../components/layout/Hero";
+import FeaturedCategories from "../components/layout/FeaturedCategories";
+import WhyChooseUs from "../components/layout/WhyChooseUs";
 import Footer from "../components/layout/Footer";
 
 export default function HomePage() {
