@@ -1,28 +1,15 @@
-// Plain-JS behaviour for the page: language switch, sticky header, mobile menu,
+// Plain-JS behaviour for the page: sticky header, mobile menu, email menu,
 // and the quote form (which opens WhatsApp with the details filled in).
 // Kept framework-free so the same code also runs in a static preview.
 
 export const SITE_SCRIPT = `
 (function () {
   var root = document.documentElement;
-  var KEY = "alsakhra-lang";
-
-  function setLang(lang) {
-    root.setAttribute("data-lang", lang);
-    root.setAttribute("lang", lang);
-    root.setAttribute("dir", lang === "ar" ? "rtl" : "ltr");
-    try { localStorage.setItem(KEY, lang); } catch (e) {}
-    document.querySelectorAll("[data-ph-ar]").forEach(function (el) {
-      el.setAttribute("placeholder", el.getAttribute("data-ph-" + lang));
-    });
-  }
-  var saved = null;
-  try { saved = localStorage.getItem(KEY); } catch (e) {}
-  setLang(saved === "en" ? "en" : "ar");
-  document.querySelectorAll("[data-lang-toggle]").forEach(function (b) {
-    b.addEventListener("click", function () {
-      setLang(root.getAttribute("data-lang") === "ar" ? "en" : "ar");
-    });
+  // The page language comes from the URL (/ = Arabic, /en = English) and is set
+  // on <html data-lang> by the server; only form placeholders need swapping here.
+  var lang = root.getAttribute("data-lang") || "ar";
+  document.querySelectorAll("[data-ph-ar]").forEach(function (el) {
+    el.setAttribute("placeholder", el.getAttribute("data-ph-" + lang));
   });
 
   var header = document.getElementById("site-header");

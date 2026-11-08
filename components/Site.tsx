@@ -9,16 +9,17 @@ const WA = `https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent("�
 
 function LangButton({ className = "" }: { className?: string }) {
   return (
-    <button
-      type="button"
-      data-lang-toggle
-      className={`inline-flex items-center gap-1.5 text-sm font-semibold ${className}`}
-      aria-label="Switch language / تغيير اللغة"
-    >
-      <Languages size={17} />
-      <span className="t-ar">English</span>
-      <span className="t-en font-ar">عربي</span>
-    </button>
+    <>
+      {/* Arabic page (/) links to English (/en) and vice versa; CSS shows the right one. */}
+      <a href="/en" hrefLang="en" lang="en" className={`t-ar inline-flex items-center gap-1.5 text-sm font-semibold ${className}`}>
+        <Languages size={17} /> English
+      </a>
+      {/* Plain <a> on purpose: / and /en have different root layouts, so this is a full page load anyway. */}
+      {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+      <a href="/" hrefLang="ar" lang="ar" className={`t-en inline-flex items-center gap-1.5 font-ar text-sm font-semibold ${className}`}>
+        <Languages size={17} /> عربي
+      </a>
+    </>
   );
 }
 
