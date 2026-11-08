@@ -50,6 +50,24 @@ export const SITE_SCRIPT = `
     });
   });
 
+  document.querySelectorAll("[data-copy]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var text = btn.getAttribute("data-copy");
+      function done() {
+        var l = btn.querySelector("[data-copy-label]"), d = btn.querySelector("[data-copy-done]");
+        if (l && d) { l.hidden = true; d.hidden = false; setTimeout(function () { l.hidden = false; d.hidden = true; }, 2000); }
+      }
+      function fallback() {
+        var t = document.createElement("textarea"); t.value = text; t.style.position = "fixed"; t.style.opacity = "0";
+        document.body.appendChild(t); t.select();
+        try { document.execCommand("copy"); done(); } catch (e) { window.prompt("", text); }
+        document.body.removeChild(t);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, fallback);
+      else fallback();
+    });
+  });
+
   var form = document.getElementById("quote-form");
   if (form) form.addEventListener("submit", function (e) {
     e.preventDefault();
