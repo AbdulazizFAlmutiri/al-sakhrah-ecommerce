@@ -133,6 +133,14 @@ export const REQUEST_TYPES: L[] = [
   { ar: "توريد حكومي / مؤسسي", en: "Government / institutional supply" },
 ];
 
+// Al-Sakhra's own brands. Optional `logo`: put the logo in public/brands/ and set
+// e.g. logo: "/brands/oxin.png" — it replaces the text wordmark.
+// Optional `about`: a one-line description in both languages.
+export const BRANDS: { name: string; logo?: string; about?: L }[] = [
+  { name: "Oxin" },
+  { name: "Keen" },
+];
+
 export const SECTORS: (L & { icon: string })[] = [
   { icon: "factory", ar: "المصانع والمنشآت الصناعية", en: "Factories & industrial facilities" },
   { icon: "hospital", ar: "المستشفيات والمنشآت الصحية", en: "Hospitals & healthcare" },

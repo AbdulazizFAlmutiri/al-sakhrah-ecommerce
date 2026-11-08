@@ -1,7 +1,7 @@
 import { Menu, Mail, ChevronDown, Copy, Send, MapPin, MessageCircle, ArrowLeft, FileDown, Languages, Eye, Flag, Check } from "lucide-react";
 import { Container, Eyebrow, Icon, T, TintedPhoto } from "./ui";
 import {
-  ABOUT, CERTS, CLIENTS, CONTACT, SOCIAL, CUSTOM, REQUEST_TYPES, GOV, HERO, NAV, PRODUCTS, SECTORS, WHY,
+  ABOUT, BRANDS, CERTS, CLIENTS, CONTACT, SOCIAL, CUSTOM, REQUEST_TYPES, GOV, HERO, NAV, PRODUCTS, SECTORS, WHY,
 } from "@/lib/content";
 
 // Every phone link opens a WhatsApp chat with a short greeting already typed.
@@ -212,6 +212,29 @@ export function Products() {
               <ArrowLeft size={18} className="ltr:rotate-180" />
             </span>
           </a>
+        </div>
+
+        {/* Own brands */}
+        <div className="mt-12 grid items-center gap-6 border-t border-ink/10 pt-10 md:grid-cols-[auto_1fr]">
+          <div>
+            <h3 className="text-xl font-bold text-brand-900"><T t={{ ar: "علاماتنا التجارية", en: "Our brands" }} /></h3>
+            <p className="mt-1 text-sm text-ink/60">
+              <T t={{ ar: "منتجات من تصنيع الصخرة للصناعة", en: "Made by Al-Sakhra for Industry" }} />
+            </p>
+          </div>
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 md:ms-auto md:w-full md:max-w-xl">
+            {BRANDS.map((b) => (
+              <div key={b.name} className="flex min-h-28 flex-col items-center justify-center gap-2 border border-brand-700/15 bg-white px-6 py-6 text-center">
+                {b.logo ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={b.logo} alt={b.name} className="h-14 w-auto object-contain" />
+                ) : (
+                  <span dir="ltr" className="font-en text-4xl font-bold tracking-tight text-brand-900">{b.name}</span>
+                )}
+                {b.about && <p className="text-sm text-ink/60"><T t={b.about} /></p>}
+              </div>
+            ))}
+          </div>
         </div>
       </Container>
     </section>
