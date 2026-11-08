@@ -1,4 +1,4 @@
-import { Menu, Mail, MapPin, MessageCircle, ArrowLeft, FileDown, Languages, Eye, Flag, Check } from "lucide-react";
+import { Menu, Mail, ChevronDown, Copy, Send, MapPin, MessageCircle, ArrowLeft, FileDown, Languages, Eye, Flag, Check } from "lucide-react";
 import { Container, Eyebrow, Icon, T, TintedPhoto } from "./ui";
 import {
   ABOUT, CERTS, CLIENTS, CONTACT, SOCIAL, CUSTOM, REQUEST_TYPES, GOV, HERO, NAV, PRODUCTS, SECTORS, WHY,
@@ -323,38 +323,59 @@ export function Contact() {
               <MessageCircle className="shrink-0 text-brand-700" />
               <span className="text-lg font-bold text-brand-900" dir="ltr">{CONTACT.phoneDisplay}</span>
             </a>
-            {/* mailto: only works when the device has a mail app set up, so also offer
-                Gmail / Outlook web compose and a copy button. */}
-            <div className="bg-white p-5">
-              <a href={`mailto:${CONTACT.email}`} className="flex items-center gap-4">
+            {/* Email card: tapping it slides open a menu (Gmail / Outlook / mail app / copy),
+                because mailto: alone does nothing on devices without a mail app. */}
+            <div data-email-menu data-open="false" className="group/email bg-white transition-shadow data-[open=true]:shadow-lg data-[open=true]:shadow-brand-900/10">
+              <button
+                type="button"
+                data-email-toggle
+                aria-expanded="false"
+                aria-controls="email-options"
+                className="flex w-full items-center gap-4 p-5 text-start transition-colors hover:bg-brand-100"
+              >
                 <Mail className="shrink-0 text-brand-700" />
-                <span className="break-all text-lg font-bold text-brand-900 hover:underline">{CONTACT.email}</span>
-              </a>
-              <div className="mt-4 flex flex-wrap gap-2 text-sm font-semibold">
-                <a
-                  href={`https://mail.google.com/mail/?view=cm&fs=1&to=${CONTACT.email}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="border border-brand-700/30 px-3 py-2 text-brand-900 transition-colors hover:bg-brand-100"
-                >
-                  Gmail
-                </a>
-                <a
-                  href={`https://outlook.office.com/mail/deeplink/compose?to=${CONTACT.email}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="border border-brand-700/30 px-3 py-2 text-brand-900 transition-colors hover:bg-brand-100"
-                >
-                  Outlook
-                </a>
-                <button
-                  type="button"
-                  data-copy={CONTACT.email}
-                  className="border border-brand-700/30 px-3 py-2 text-brand-900 transition-colors hover:bg-brand-100"
-                >
-                  <span data-copy-label><T t={{ ar: "نسخ البريد", en: "Copy email" }} /></span>
-                  <span data-copy-done hidden><T t={{ ar: "تم النسخ ✓", en: "Copied ✓" }} /></span>
-                </button>
+                <span className="min-w-0 flex-1 break-all text-lg font-bold text-brand-900">{CONTACT.email}</span>
+                <ChevronDown size={20} className="shrink-0 text-brand-700 transition-transform duration-300 group-data-[open=true]/email:rotate-180" />
+              </button>
+              <div
+                id="email-options"
+                className="grid grid-rows-[0fr] opacity-0 transition-all duration-300 ease-out group-data-[open=true]/email:grid-rows-[1fr] group-data-[open=true]/email:opacity-100"
+              >
+                <div className="overflow-hidden">
+                  <p className="px-5 text-sm text-ink/60">
+                    <T t={{ ar: "كيف تريد مراسلتنا؟", en: "How would you like to email us?" }} />
+                  </p>
+                  <div className="grid grid-cols-2 gap-2 p-5 pt-3">
+                    {[
+                      { href: `https://mail.google.com/mail/?view=cm&fs=1&to=${CONTACT.email}`, label: { ar: "Gmail", en: "Gmail" }, external: true },
+                      { href: `https://outlook.office.com/mail/deeplink/compose?to=${CONTACT.email}`, label: { ar: "Outlook", en: "Outlook" }, external: true },
+                      { href: `mailto:${CONTACT.email}`, label: { ar: "تطبيق البريد", en: "Mail app" }, external: false },
+                    ].map((o) => (
+                      <a
+                        key={o.href}
+                        href={o.href}
+                        tabIndex={-1}
+                        data-email-option
+                        {...(o.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                        className="flex items-center justify-center gap-2 border border-brand-700/25 bg-surface px-3 py-3 font-semibold text-brand-900 transition-colors hover:border-brand-700 hover:bg-brand-100"
+                      >
+                        <Send size={16} className="text-brand-700 rtl:-scale-x-100" />
+                        <T t={o.label} />
+                      </a>
+                    ))}
+                    <button
+                      type="button"
+                      tabIndex={-1}
+                      data-email-option
+                      data-copy={CONTACT.email}
+                      className="flex items-center justify-center gap-2 bg-brand-900 px-3 py-3 font-semibold text-white transition-colors hover:bg-brand-700"
+                    >
+                      <Copy size={16} />
+                      <span data-copy-label><T t={{ ar: "نسخ البريد", en: "Copy email" }} /></span>
+                      <span data-copy-done hidden><T t={{ ar: "تم النسخ ✓", en: "Copied ✓" }} /></span>
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
             <a href={CONTACT.mapHref} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 bg-white p-5 transition-colors hover:bg-brand-100">

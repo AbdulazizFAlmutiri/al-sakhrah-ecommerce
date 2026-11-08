@@ -50,6 +50,23 @@ export const SITE_SCRIPT = `
     });
   });
 
+  // Email menu: slide open on tap, close on outside tap or Escape.
+  document.querySelectorAll("[data-email-menu]").forEach(function (box) {
+    var toggle = box.querySelector("[data-email-toggle]");
+    var options = box.querySelectorAll("[data-email-option]");
+    function set(open) {
+      box.setAttribute("data-open", open ? "true" : "false");
+      toggle.setAttribute("aria-expanded", String(open));
+      options.forEach(function (o) { o.tabIndex = open ? 0 : -1; });
+    }
+    toggle.addEventListener("click", function () { set(box.getAttribute("data-open") !== "true"); });
+    document.addEventListener("click", function (e) { if (!box.contains(e.target)) set(false); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") set(false); });
+    box.querySelectorAll("a[data-email-option]").forEach(function (a) {
+      a.addEventListener("click", function () { setTimeout(function () { set(false); }, 150); });
+    });
+  });
+
   document.querySelectorAll("[data-copy]").forEach(function (btn) {
     btn.addEventListener("click", function () {
       var text = btn.getAttribute("data-copy");
