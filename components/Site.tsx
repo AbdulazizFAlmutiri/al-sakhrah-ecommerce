@@ -323,7 +323,7 @@ export function Contact() {
               <MessageCircle className="shrink-0 text-brand-700" />
               <span className="text-lg font-bold text-brand-900" dir="ltr">{CONTACT.phoneDisplay}</span>
             </a>
-            {/* Email card: tapping it slides open a menu (Gmail / Outlook / mail app / copy),
+            {/* Email card: tapping it slides open a menu (Gmail / copy),
                 because mailto: alone does nothing on devices without a mail app. */}
             <div data-email-menu data-open="false" className="group/email bg-white transition-shadow data-[open=true]:shadow-lg data-[open=true]:shadow-brand-900/10">
               <button
@@ -348,8 +348,6 @@ export function Contact() {
                   <div className="grid grid-cols-2 gap-2 p-5 pt-3">
                     {[
                       { href: `https://mail.google.com/mail/?view=cm&fs=1&to=${CONTACT.email}`, label: { ar: "Gmail", en: "Gmail" }, external: true },
-                      { href: `https://outlook.office.com/mail/deeplink/compose?to=${CONTACT.email}`, label: { ar: "Outlook", en: "Outlook" }, external: true },
-                      { href: `mailto:${CONTACT.email}`, label: { ar: "تطبيق البريد", en: "Mail app" }, external: false },
                     ].map((o) => (
                       <a
                         key={o.href}
