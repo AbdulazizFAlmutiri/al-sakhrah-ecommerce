@@ -3,6 +3,7 @@ import {
   Toilet, GlassWater, HandHeart, Hospital, BedDouble, Utensils, GraduationCap, Wrench,
   Gauge, Clock, Banknote, FlaskConical, type LucideIcon,
 } from "lucide-react";
+import type { L } from "@/lib/content";
 
 const ICONS: Record<string, LucideIcon> = {
   award: Award, eye: Eye, shield: Shield, factory: Factory, badge: BadgeCheck,
@@ -17,48 +18,38 @@ export function Icon({ name, size = 22, className }: { name: string; size?: numb
   return <C size={size} strokeWidth={1.75} className={className} aria-hidden />;
 }
 
-/** Arabic text block — right-to-left, Arabic font. */
-export function Ar({ as: Tag = "p", className = "", children }: {
-  as?: React.ElementType; className?: string; children: React.ReactNode;
-}) {
+/**
+ * Bilingual text. Both languages are in the page; CSS shows the one matching
+ * <html data-lang>, so the language switch works without reloading.
+ */
+export function T({ t }: { t: L }) {
   return (
-    <Tag dir="rtl" lang="ar" className={`font-ar text-right ${className}`}>
-      {children}
-    </Tag>
+    <>
+      <span className="t-ar" lang="ar">{t.ar}</span>
+      <span className="t-en" lang="en">{t.en}</span>
+    </>
   );
 }
 
-/** Tinted background photo (grayscale + brand-blue wash). Decorative. */
+/** Grayscale photo washed with brand blue. Decorative. */
 export function TintedPhoto({ src, className = "" }: { src: string; className?: string }) {
   return (
     <div className={`photo-tint ${className}`} aria-hidden>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={src} alt="" loading="lazy" />
-    </div>
-  );
-}
-
-/** Section header: English label on the left, Arabic title on the right — as in the profile. */
-export function SectionHeading({ en, ar, sub, subAr, light = false }: {
-  en: string; ar: string; sub?: string; subAr?: string; light?: boolean;
-}) {
-  return (
-    <div className="grid gap-4 md:grid-cols-2 md:items-end mb-10 md:mb-14">
-      <div>
-        <h2 className={`text-sm font-bold tracking-[0.25em] uppercase ${light ? "text-brand-200" : "text-brand-700"}`}>
-          {en}
-        </h2>
-        {sub && <p className={`mt-3 max-w-md text-[15px] leading-relaxed ${light ? "text-brand-100/80" : "text-ink/70"}`}>{sub}</p>}
-        <span className={`mt-5 block h-[3px] w-12 ${light ? "bg-white" : "bg-brand-900"}`} />
-      </div>
-      <div>
-        <Ar as="h3" className={`text-3xl md:text-4xl font-bold ${light ? "text-white" : "text-brand-900"}`}>{ar}</Ar>
-        {subAr && <Ar className={`mt-3 leading-loose ${light ? "text-brand-100/90" : "text-ink/75"}`}>{subAr}</Ar>}
-      </div>
+      <img src={src} alt="" />
     </div>
   );
 }
 
 export function Container({ className = "", children }: { className?: string; children: React.ReactNode }) {
   return <div className={`mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 ${className}`}>{children}</div>;
+}
+
+export function Eyebrow({ t, light = false }: { t: L; light?: boolean }) {
+  return (
+    <p className={`flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] ${light ? "text-brand-200" : "text-brand-700"}`}>
+      <span className={`h-[2px] w-8 ${light ? "bg-brand-200" : "bg-brand-700"}`} />
+      <T t={t} />
+    </p>
+  );
 }

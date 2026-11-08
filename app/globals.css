@@ -13,13 +13,25 @@
   --color-surface: #f2f4f8;
   --color-ink: #13203f;
 
-  --font-sans: var(--font-latin), var(--font-arabic), ui-sans-serif, system-ui, sans-serif;
-  --font-ar: var(--font-arabic), ui-sans-serif, system-ui, sans-serif;
+  --font-ar: var(--font-arabic), Tahoma, ui-sans-serif, system-ui, sans-serif;
+  --font-en: var(--font-latin), ui-sans-serif, system-ui, sans-serif;
 }
 
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
+}
+
+/* Language switch: both languages are in the page, only one is shown */
+html[data-lang="ar"] .t-en,
+html[data-lang="en"] .t-ar {
+  display: none;
+}
+html[data-lang="ar"] body {
+  font-family: var(--font-ar);
+}
+html[data-lang="en"] body {
+  font-family: var(--font-en);
 }
 
 /* Grayscale photo washed with brand blue, like the profile's imagery */
@@ -43,7 +55,6 @@ html {
   opacity: 0.9;
 }
 
-/* Diagonal corner accent used throughout the profile */
-.corner-accent {
-  clip-path: polygon(0 0, 100% 0, 0 100%);
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
 }

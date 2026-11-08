@@ -1,5 +1,4 @@
-import Header from "@/components/Header";
-import { About, Contact, Footer, Hero, Products, Quality, Sectors, Vision, WhyUs } from "@/components/Sections";
+import { About, Contact, Footer, Header, Hero, Products, Quality, Sectors, WhatsAppFab } from "@/components/Site";
 
 export default function HomePage() {
   return (
@@ -8,14 +7,13 @@ export default function HomePage() {
       <main>
         <Hero />
         <About />
-        <Vision />
-        <Quality />
         <Products />
         <Sectors />
-        <WhyUs />
+        <Quality />
         <Contact />
       </main>
       <Footer />
+      <WhatsAppFab />
     </>
   );
 }

@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { Barlow, IBM_Plex_Sans_Arabic } from "next/font/google";
+import { SITE_SCRIPT } from "@/lib/siteScript";
 import "./globals.css";
 
 const latin = Barlow({
@@ -15,9 +17,9 @@ const arabic = IBM_Plex_Sans_Arabic({
 });
 
 export const metadata: Metadata = {
-  title: "Al-Sakhra for Industry | الصخرة للصناعة",
+  title: "الصخرة للصناعة | Al-Sakhra for Industry",
   description:
-    "Saudi national factory in Al-Kharj Industrial City manufacturing detergents and care preparations. مصنع وطني لصناعة المنظفات ومستحضرات العناية.",
+    "مصنع وطني في المدينة الصناعية بالخرج لصناعة المنظفات والمطهرات ومستحضرات العناية. Saudi factory in Al-Kharj manufacturing detergents, disinfectants and care products.",
   icons: { icon: "/logo/mark-color.png" },
 };
 
@@ -27,8 +29,12 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${latin.variable} ${arabic.variable}`}>
-      <body className="bg-white text-ink font-sans antialiased">{children}</body>
+    // Arabic is the default; the language switch (lib/siteScript.ts) changes lang/dir/data-lang.
+    <html lang="ar" dir="rtl" data-lang="ar" className={`${latin.variable} ${arabic.variable}`} suppressHydrationWarning>
+      <body className="bg-white text-ink antialiased">
+        {children}
+        <Script id="site-behaviour" strategy="afterInteractive">{SITE_SCRIPT}</Script>
+      </body>
     </html>
   );
 }
