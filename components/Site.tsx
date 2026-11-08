@@ -231,6 +231,7 @@ export function Products() {
                 ) : (
                   <span dir="ltr" className="font-en text-4xl font-bold tracking-tight text-brand-900">{b.name}</span>
                 )}
+                <span className="t-ar font-ar text-sm font-semibold text-brand-700">{b.nameAr}</span>
                 {b.about && <p className="text-sm text-ink/60"><T t={b.about} /></p>}
               </div>
             ))}

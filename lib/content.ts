@@ -136,9 +136,9 @@ export const REQUEST_TYPES: L[] = [
 // Al-Sakhra's own brands. Optional `logo`: put the logo in public/brands/ and set
 // e.g. logo: "/brands/oxin.png" — it replaces the text wordmark.
 // Optional `about`: a one-line description in both languages.
-export const BRANDS: { name: string; logo?: string; about?: L }[] = [
-  { name: "Oxin" },
-  { name: "Keen" },
+export const BRANDS: { name: string; nameAr: string; logo?: string; about?: L }[] = [
+  { name: "Oxin", nameAr: "أوكسين" },
+  { name: "Keen", nameAr: "كين" },
 ];
 
 export const SECTORS: (L & { icon: string })[] = [
