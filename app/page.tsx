@@ -1,9 +1,5 @@
-// app/page.tsx
-import Header from "../components/layout/Header";
-import Hero from "../components/layout/Hero";
-import FeaturedCategories from "../components/layout/FeaturedCategories";
-import WhyChooseUs from "../components/layout/WhyChooseUs";
-import Footer from "../components/layout/Footer";
+import Header from "@/components/Header";
+import { About, Contact, Footer, Hero, Products, Quality, Sectors, Vision, WhyUs } from "@/components/Sections";
 
 export default function HomePage() {
   return (
@@ -11,8 +7,13 @@ export default function HomePage() {
       <Header />
       <main>
         <Hero />
-        <FeaturedCategories />
-        <WhyChooseUs />
+        <About />
+        <Vision />
+        <Quality />
+        <Products />
+        <Sectors />
+        <WhyUs />
+        <Contact />
       </main>
       <Footer />
     </>

@@ -1,39 +1,34 @@
-// app/layout.tsx
-import type { Metadata } from "next";
-import { Oswald, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Barlow, IBM_Plex_Sans_Arabic } from "next/font/google";
 import "./globals.css";
 
-// Latin display face — industrial signage feel
-const displayFont = Oswald({
+const latin = Barlow({
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  variable: "--font-display",
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-latin",
 });
 
-// Latin body face
-const bodyFont = IBM_Plex_Sans({
-  subsets: ["latin"],
+const arabic = IBM_Plex_Sans_Arabic({
+  subsets: ["arabic"],
   weight: ["400", "500", "600", "700"],
-  variable: "--font-body",
-});
-
-// Utility face — specs, SKUs, batch numbers
-const monoFont = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-mono",
+  variable: "--font-arabic",
 });
 
 export const metadata: Metadata = {
-  title: "Al-Sakhrah for Manufacturing | Household Detergents",
+  title: "Al-Sakhra for Industry | الصخرة للصناعة",
   description:
-    "Rock-solid detergent manufacturing — retail and wholesale supply across the Kingdom and GCC.",
+    "Saudi national factory in Al-Kharj Industrial City manufacturing detergents and care preparations. مصنع وطني لصناعة المنظفات ومستحضرات العناية.",
+  icons: { icon: "/logo/mark-color.png" },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0a2a85",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable}`}>
-      <body className="bg-sand-50 text-brown-900 font-body antialiased">{children}</body>
+    <html lang="en" className={`${latin.variable} ${arabic.variable}`}>
+      <body className="bg-white text-ink font-sans antialiased">{children}</body>
     </html>
   );
 }

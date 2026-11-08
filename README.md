@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Al-Sakhra for Industry — Company Website
 
-## Getting Started
+الموقع التعريفي لشركة الصخرة للصناعة — bilingual (Arabic / English) company website, styled after the 2026 company profile.
 
-First, run the development server:
+Built with Next.js 16, React 19 and Tailwind CSS 4. It's one page with these sections: Hero · About · Vision & Values · Quality & Certifications · Products · Target Sectors · Why Al-Sakhrah · Contact.
+
+## Editing content
+
+- **Text, phone, email, address, products, sectors:** `lib/content.ts` (plus the longer paragraphs in `components/Sections.tsx`)
+- **Logo:** `public/logo/`
+- **Photos:** `public/images/` (grayscale photos. The site adds the blue tint automatically)
+- **Colours:** `app/globals.css` (`--color-brand-*`)
+
+## Working on any computer (PC or laptop)
+
+The code is on GitHub, so you can work on it from any computer.
+
+### First time on a new computer
+
+1. Install **Node.js 20 or newer** (LTS) from https://nodejs.org and **Git** from https://git-scm.com
+2. Open a terminal (on Windows: PowerShell) and run:
+
+```bash
+git clone https://github.com/AbdulazizFAlmutiri/al-sakhrah-ecommerce.git
+```
+
+```bash
+cd al-sakhrah-ecommerce
+```
+
+```bash
+npm install
+```
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Open http://localhost:3000 in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Moving between computers
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Before you leave one computer, save and upload your changes:
 
-## Learn More
+```bash
+git add -A
+```
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+git commit -m "Describe what you changed"
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+git push
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+When you sit down at the other computer, download the latest changes first:
 
-## Deploy on Vercel
+```bash
+git pull
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Publishing it online
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+To put the site on the internet so anyone can open it, connect this GitHub repo to [Vercel](https://vercel.com/new). The defaults work and no settings are needed. Each time you push, the live site updates automatically.
+
+## Scripts
+
+| Command         | What it does                     |
+| --------------- | -------------------------------- |
+| `npm run dev`   | Local dev server with hot reload |
+| `npm run build` | Production build                 |
+| `npm start`     | Serve the production build       |
+| `npm run lint`  | Lint the code                    |
