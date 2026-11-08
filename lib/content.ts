@@ -5,7 +5,6 @@ export type L = { ar: string; en: string };
 
 export const CONTACT = {
   phoneDisplay: "+966 55 626 8175",
-  phoneHref: "tel:+966556268175",
   whatsappNumber: "966556268175",
   email: "info@alsakhrah.com",
   address: {

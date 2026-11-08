@@ -1,10 +1,11 @@
-import { Menu, Phone, Mail, MapPin, MessageCircle, ArrowLeft, FileDown, Languages, Eye, Flag, Check } from "lucide-react";
+import { Menu, Mail, MapPin, MessageCircle, ArrowLeft, FileDown, Languages, Eye, Flag, Check } from "lucide-react";
 import { Container, Eyebrow, Icon, T, TintedPhoto } from "./ui";
 import {
   ABOUT, CERTS, CLIENTS, CONTACT, SOCIAL, CUSTOM, REQUEST_TYPES, GOV, HERO, NAV, PRODUCTS, SECTORS, WHY,
 } from "@/lib/content";
 
-const WA = `https://wa.me/${CONTACT.whatsappNumber}`;
+// Every phone link opens a WhatsApp chat with a short greeting already typed.
+const WA = `https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent("السلام عليكم، أود الاستفسار عن منتجات الصخرة للصناعة")}`;
 
 function LangButton({ className = "" }: { className?: string }) {
   return (
@@ -48,8 +49,8 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-4">
-          <a href={CONTACT.phoneHref} className="hidden items-center gap-2 text-sm font-semibold text-white/90 hover:text-white xl:inline-flex">
-            <Phone size={16} /> <span dir="ltr">{CONTACT.phoneDisplay}</span>
+          <a href={WA} target="_blank" rel="noopener noreferrer" className="hidden items-center gap-2 text-sm font-semibold text-white/90 hover:text-white xl:inline-flex">
+            <MessageCircle size={16} /> <span dir="ltr">{CONTACT.phoneDisplay}</span>
           </a>
           <LangButton className="px-2 py-2 text-white/90 hover:text-white" />
           <a
@@ -318,8 +319,8 @@ export function Contact() {
           </p>
 
           <div className="mt-8 grid gap-3">
-            <a href={CONTACT.phoneHref} className="flex items-center gap-4 bg-white p-5 transition-colors hover:bg-brand-100">
-              <Phone className="shrink-0 text-brand-700" />
+            <a href={WA} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 bg-white p-5 transition-colors hover:bg-brand-100">
+              <MessageCircle className="shrink-0 text-brand-700" />
               <span className="text-lg font-bold text-brand-900" dir="ltr">{CONTACT.phoneDisplay}</span>
             </a>
             <a href={`mailto:${CONTACT.email}`} className="flex items-center gap-4 bg-white p-5 transition-colors hover:bg-brand-100">
