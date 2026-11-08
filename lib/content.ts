@@ -110,12 +110,12 @@ export const ABOUT = {
 
 // Optional `image`: put a product photo in public/products/ and set e.g. image: "/products/bleach.jpg".
 export const PRODUCTS: (L & { icon: string; use: L; image?: string })[] = [
-  { icon: "droplet", ar: "الكلور", en: "Chlorine bleach", use: { ar: "تبييض وتعقيم الأسطح", en: "Whitening & surface sanitising" } },
-  { icon: "spray", ar: "المطهرات", en: "Disinfectants", use: { ar: "للمنشآت الصحية والعامة", en: "For healthcare & public facilities" } },
-  { icon: "brush", ar: "منظفات الأرضيات", en: "Floor cleaners", use: { ar: "للأرضيات بمختلف أنواعها", en: "For all floor types" } },
-  { icon: "toilet", ar: "جل تنظيف دورات المياه", en: "Toilet cleaning gel", use: { ar: "إزالة الترسبات والروائح", en: "Removes scale & odours" } },
-  { icon: "dish", ar: "منظفات الزجاج والأطباق", en: "Glass & dish liquids", use: { ar: "للمطابخ والمرافق", en: "For kitchens & facilities" } },
-  { icon: "hand", ar: "صابون الأيدي", en: "Hand soap", use: { ar: "لطيف على البشرة", en: "Gentle on skin" } },
+  { icon: "droplet", image: "/products/bleach.jpg", ar: "الكلور", en: "Chlorine bleach", use: { ar: "تبييض وتعقيم الأسطح", en: "Whitening & surface sanitising" } },
+  { icon: "spray", image: "/products/disinfectant.jpg", ar: "المطهرات", en: "Disinfectants", use: { ar: "للمنشآت الصحية والعامة", en: "For healthcare & public facilities" } },
+  { icon: "brush", image: "/products/floor-cleaner.jpg", ar: "منظفات الأرضيات", en: "Floor cleaners", use: { ar: "للأرضيات بمختلف أنواعها", en: "For all floor types" } },
+  { icon: "toilet", image: "/products/toilet-gel.jpg", ar: "جل تنظيف دورات المياه", en: "Toilet cleaning gel", use: { ar: "إزالة الترسبات والروائح", en: "Removes scale & odours" } },
+  { icon: "dish", image: "/products/dish-liquid.jpg", ar: "منظفات الزجاج والأطباق", en: "Glass & dish liquids", use: { ar: "للمطابخ والمرافق", en: "For kitchens & facilities" } },
+  { icon: "hand", image: "/products/hand-soap.jpg", ar: "صابون الأيدي", en: "Hand soap", use: { ar: "لطيف على البشرة", en: "Gentle on skin" } },
 ];
 
 export const CUSTOM = {
@@ -136,9 +136,55 @@ export const REQUEST_TYPES: L[] = [
 // Al-Sakhra's own brands. Optional `logo`: put the logo in public/brands/ and set
 // e.g. logo: "/brands/oxin.png" — it replaces the text wordmark.
 // Optional `about`: a one-line description in both languages.
-export const BRANDS: { name: string; nameAr: string; logo?: string; about?: L }[] = [
-  { name: "Oxin", nameAr: "أوكسين" },
-  { name: "Keen", nameAr: "كين" },
+export type Brand = {
+  name: string;
+  nameAr: string;
+  logo: string;
+  style: "light" | "gradient";
+  about: L;
+  products: L[];
+  catalog: string;
+  store?: string;
+};
+
+export const BRANDS: Brand[] = [
+  {
+    name: "Oxin",
+    nameAr: "أوكسين",
+    logo: "/brands/oxin.png",
+    style: "light",
+    about: { ar: "نظافة كاملة وحماية تدوم للمنزل والملابس.", en: "Complete cleaning and lasting protection for home and laundry." },
+    products: [
+      { ar: "مطهر ومنظف الأسطح والأرضيات 3 لتر (4 روائح)", en: "Surface & floor disinfectant 3L (4 scents)" },
+      { ar: "شامبو العباية 2 لتر", en: "Abaya shampoo 2L" },
+      { ar: "شامبو الملابس 2 لتر", en: "Clothes shampoo 2L" },
+      { ar: "منعم ومعطر الملابس 2 لتر", en: "Fabric softener 2L" },
+      { ar: "منظف فعّال للأسطح والأرضيات", en: "Active surface & floor cleaner" },
+      { ar: "صابون اليدين 2.2 لتر", en: "Liquid hand soap 2.2L" },
+    ],
+    catalog: "/catalogs/oxin-catalog-2026.pdf",
+    store: "https://oxin.sa",
+  },
+  {
+    name: "Keen",
+    nameAr: "كين",
+    logo: "/brands/keen-white.png",
+    style: "gradient",
+    about: { ar: "مجموعة متنوعة لا غنى عنها في الحياة اليومية.", en: "A wide everyday range for home and facilities." },
+    products: [
+      { ar: "منظف الصحون", en: "Dishwashing liquid" },
+      { ar: "منظف الزجاج", en: "Glass cleaner" },
+      { ar: "صابون اليد", en: "Hand soap" },
+      { ar: "منظف ومبيض الملابس", en: "Liquid bleach" },
+      { ar: "مسحوق غسيل الملابس", en: "Laundry powder" },
+      { ar: "منظف ومطهر الأرضيات", en: "Floor cleaner & disinfectant" },
+      { ar: "سوبر جل وكين فلاش", en: "Super gel & Flash toilet cleaner" },
+      { ar: "مطهر عام ومزيل الدهون", en: "Disinfectant & degreaser" },
+      { ar: "شامبو العباية والسجاد والملابس", en: "Abaya, carpet & clothes shampoo" },
+      { ar: "منعم ومعطر الملابس", en: "Fabric softener" },
+    ],
+    catalog: "/catalogs/keen-catalog.pdf",
+  },
 ];
 
 export const SECTORS: (L & { icon: string })[] = [

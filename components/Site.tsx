@@ -190,13 +190,14 @@ export function Products() {
         <div className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
           {PRODUCTS.map((p) => (
             <div key={p.en} className="group bg-white p-5 transition-colors hover:bg-brand-900 md:p-6">
-              {p.image && (
+              {p.image ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={p.image} alt="" className="-mx-5 -mt-5 mb-5 aspect-[4/3] w-[calc(100%+2.5rem)] max-w-none object-contain bg-surface md:-mx-6 md:-mt-6 md:w-[calc(100%+3rem)]" />
+                <img src={p.image} alt="" loading="lazy" className="-mx-5 -mt-5 mb-1 aspect-[4/3] w-[calc(100%+2.5rem)] max-w-none object-cover md:-mx-6 md:-mt-6 md:w-[calc(100%+3rem)]" />
+              ) : (
+                <span className="grid h-12 w-12 place-items-center bg-brand-100 text-brand-700 transition-colors group-hover:bg-white/10 group-hover:text-white">
+                  <Icon name={p.icon} size={24} />
+                </span>
               )}
-              <span className="grid h-12 w-12 place-items-center bg-brand-100 text-brand-700 transition-colors group-hover:bg-white/10 group-hover:text-white">
-                <Icon name={p.icon} size={24} />
-              </span>
               <h3 className="mt-6 text-lg font-bold text-brand-900 transition-colors group-hover:text-white"><T t={p} /></h3>
               <p className="mt-1 text-sm text-ink/60 transition-colors group-hover:text-white/70"><T t={p.use} /></p>
             </div>
@@ -215,26 +216,52 @@ export function Products() {
         </div>
 
         {/* Own brands */}
-        <div className="mt-12 grid items-center gap-6 border-t border-ink/10 pt-10 md:grid-cols-[auto_1fr]">
-          <div>
-            <h3 className="text-xl font-bold text-brand-900"><T t={{ ar: "علاماتنا التجارية", en: "Our brands" }} /></h3>
-            <p className="mt-1 text-sm text-ink/60">
-              <T t={{ ar: "منتجات من تصنيع الصخرة للصناعة", en: "Made by Al-Sakhra for Industry" }} />
-            </p>
+        <div className="mt-14 border-t border-ink/10 pt-12">
+          <div className="flex flex-col justify-between gap-2 md:flex-row md:items-end">
+            <h3 className="text-2xl font-bold text-brand-900 md:text-3xl"><T t={{ ar: "علاماتنا التجارية", en: "Our brands" }} /></h3>
+            <p className="text-ink/60"><T t={{ ar: "من تصنيع الصخرة للصناعة في الخرج", en: "Made by Al-Sakhra for Industry in Al-Kharj" }} /></p>
           </div>
-          <div className="grid grid-cols-2 gap-3 sm:gap-4 md:ms-auto md:w-full md:max-w-xl">
-            {BRANDS.map((b) => (
-              <div key={b.name} className="flex min-h-28 flex-col items-center justify-center gap-2 border border-brand-700/15 bg-white px-6 py-6 text-center">
-                {b.logo ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={b.logo} alt={b.name} className="h-14 w-auto object-contain" />
-                ) : (
-                  <span dir="ltr" className="font-en text-4xl font-bold tracking-tight text-brand-900">{b.name}</span>
-                )}
-                <span className="t-ar font-ar text-sm font-semibold text-brand-700">{b.nameAr}</span>
-                {b.about && <p className="text-sm text-ink/60"><T t={b.about} /></p>}
-              </div>
-            ))}
+          <div className="mt-8 grid gap-5 lg:grid-cols-2">
+            {BRANDS.map((b) => {
+              const g = b.style === "gradient";
+              return (
+                <article
+                  key={b.name}
+                  className={`flex flex-col p-6 md:p-8 ${g ? "bg-gradient-to-br from-[#ef3b2d] via-[#c42bb3] to-[#6a2ad8] text-white" : "border border-brand-700/15 bg-white"}`}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={b.logo} alt={`${b.name} — ${b.nameAr}`} className="h-16 w-auto self-start object-contain md:h-20" />
+                  <p className={`mt-5 text-lg font-semibold ${g ? "" : "text-brand-900"}`}><T t={b.about} /></p>
+                  <ul className="mt-5 flex flex-wrap gap-2">
+                    {b.products.map((x) => (
+                      <li key={x.en} className={`px-3 py-1.5 text-sm ${g ? "bg-white/15" : "bg-surface text-ink/80"}`}><T t={x} /></li>
+                    ))}
+                  </ul>
+                  <div className="mt-auto flex flex-wrap gap-3 pt-7">
+                    <a
+                      href={b.catalog}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`inline-flex items-center gap-2 px-5 py-3 font-semibold transition-colors ${g ? "bg-white text-[#7a2ad0] hover:bg-white/90" : "bg-brand-900 text-white hover:bg-brand-700"}`}
+                    >
+                      <FileDown size={18} />
+                      <T t={{ ar: `كتالوج ${b.nameAr}`, en: `${b.name} catalog` }} />
+                    </a>
+                    {b.store && (
+                      <a
+                        href={b.store}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 border border-brand-900/30 px-5 py-3 font-semibold text-brand-900 transition-colors hover:bg-brand-100"
+                      >
+                        <T t={{ ar: "تسوّق من المتجر", en: "Shop online" }} />
+                        <span dir="ltr" className="text-sm opacity-70">{b.store.replace("https://", "")}</span>
+                      </a>
+                    )}
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </div>
       </Container>
