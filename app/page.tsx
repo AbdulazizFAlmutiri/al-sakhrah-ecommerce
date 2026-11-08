@@ -1,4 +1,4 @@
-import { About, Contact, Footer, Header, Hero, Products, Quality, Sectors, WhatsAppFab } from "@/components/Site";
+import { About, Clients, Contact, Footer, Header, Hero, Products, Quality, Sectors, WhatsAppFab } from "@/components/Site";
 
 export default function HomePage() {
   return (
@@ -6,6 +6,7 @@ export default function HomePage() {
       <Header />
       <main>
         <Hero />
+        <Clients />
         <About />
         <Products />
         <Sectors />

@@ -1,7 +1,7 @@
 import { Menu, Phone, Mail, MapPin, MessageCircle, ArrowLeft, FileDown, Languages, Eye, Flag, Check } from "lucide-react";
 import { Container, Eyebrow, Icon, T, TintedPhoto } from "./ui";
 import {
-  ABOUT, CERTS, CONTACT, CUSTOM, GOV, HERO, NAV, PRODUCTS, SECTORS, WHY,
+  ABOUT, CERTS, CLIENTS, CONTACT, SOCIAL, CUSTOM, GOV, HERO, NAV, PRODUCTS, SECTORS, WHY,
 } from "@/lib/content";
 
 const WA = `https://wa.me/${CONTACT.whatsappNumber}`;
@@ -48,6 +48,9 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-4">
+          <a href={CONTACT.phoneHref} className="hidden items-center gap-2 text-sm font-semibold text-white/90 hover:text-white xl:inline-flex">
+            <Phone size={16} /> <span dir="ltr">{CONTACT.phoneDisplay}</span>
+          </a>
           <LangButton className="px-2 py-2 text-white/90 hover:text-white" />
           <a
             href="#contact"
@@ -185,6 +188,10 @@ export function Products() {
         <div className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
           {PRODUCTS.map((p) => (
             <div key={p.en} className="group bg-white p-5 transition-colors hover:bg-brand-900 md:p-6">
+              {p.image && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={p.image} alt="" className="-mx-5 -mt-5 mb-5 aspect-[4/3] w-[calc(100%+2.5rem)] max-w-none object-contain bg-surface md:-mx-6 md:-mt-6 md:w-[calc(100%+3rem)]" />
+              )}
               <span className="grid h-12 w-12 place-items-center bg-brand-100 text-brand-700 transition-colors group-hover:bg-white/10 group-hover:text-white">
                 <Icon name={p.icon} size={24} />
               </span>
@@ -263,7 +270,30 @@ export function Quality() {
               <h3 className="mt-5 text-2xl font-bold text-brand-900" dir="ltr">{c.code}</h3>
               <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-brand-700"><T t={c.label} /></p>
               <p className="mt-3 text-sm leading-relaxed text-ink/70"><T t={c.body} /></p>
+              {c.file && (
+                <a href={c.file} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 hover:underline">
+                  <FileDown size={16} /> <T t={{ ar: "عرض الشهادة", en: "View certificate" }} />
+                </a>
+              )}
             </article>
+          ))}
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------ Clients (shown once CLIENTS has entries) */
+export function Clients() {
+  if (CLIENTS.length === 0) return null;
+  return (
+    <section className="border-y border-ink/10 bg-white py-10">
+      <Container>
+        <p className="text-center text-sm font-semibold text-ink/60"><T t={{ ar: "يثق بنا", en: "Trusted by" }} /></p>
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
+          {CLIENTS.map((c) => (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img key={c.name} src={c.logo} alt={c.name} className="h-10 w-auto object-contain opacity-70 grayscale transition hover:opacity-100 hover:grayscale-0 md:h-12" />
           ))}
         </div>
       </Container>
@@ -337,6 +367,10 @@ export function Contact() {
                 placeholder="مثال: 500 جالون مطهر، 200 كرتون صابون أيدي شهريًا"
               />
             </div>
+            <label htmlFor="q-sds" className="flex items-center gap-3 text-sm text-ink/80 sm:col-span-2">
+              <input id="q-sds" name="sds" type="checkbox" className="h-4 w-4 accent-brand-700" />
+              <T t={{ ar: "أحتاج نشرات بيانات السلامة (SDS) والمواصفات الفنية", en: "I need safety data sheets (SDS) and technical specs" }} />
+            </label>
           </div>
           <button type="submit" className="mt-6 inline-flex w-full items-center justify-center gap-2 bg-brand-900 px-6 py-4 font-semibold text-white transition-colors hover:bg-brand-700">
             <MessageCircle size={20} />
@@ -369,7 +403,12 @@ export function Footer() {
             <a key={l.href} href={l.href} className="hover:text-white"><T t={l} /></a>
           ))}
         </nav>
-        <LangButton className="text-white/80 hover:text-white" />
+        <div className="flex items-center gap-5">
+          {SOCIAL.map((x) => (
+            <a key={x.name} href={x.href} target="_blank" rel="noopener noreferrer" className="hover:text-white">{x.name}</a>
+          ))}
+          <LangButton className="text-white/80 hover:text-white" />
+        </div>
       </Container>
     </footer>
   );

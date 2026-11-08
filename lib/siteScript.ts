@@ -49,8 +49,8 @@ export const SITE_SCRIPT = `
     var d = new FormData(form);
     var ar = root.getAttribute("data-lang") === "ar";
     var lines = ar
-      ? ["طلب عرض سعر من الموقع", "الاسم: " + d.get("name"), "الجهة: " + d.get("company"), "القطاع: " + d.get("sector"), "التفاصيل: " + d.get("details")]
-      : ["Quote request from the website", "Name: " + d.get("name"), "Company: " + d.get("company"), "Sector: " + d.get("sector"), "Details: " + d.get("details")];
+      ? ["طلب عرض سعر من الموقع", "الاسم: " + d.get("name"), "الجهة: " + d.get("company"), "القطاع: " + d.get("sector"), "التفاصيل: " + d.get("details")].concat(d.get("sds") ? ["يرجى إرسال نشرات بيانات السلامة (SDS) والمواصفات الفنية"] : [])
+      : ["Quote request from the website", "Name: " + d.get("name"), "Company: " + d.get("company"), "Sector: " + d.get("sector"), "Details: " + d.get("details")].concat(d.get("sds") ? ["Please include safety data sheets (SDS) and technical specs"] : []);
     var url = "https://wa.me/" + form.getAttribute("data-wa") + "?text=" + encodeURIComponent(lines.join("\\n"));
     window.open(url, "_blank", "noopener");
     var link = document.getElementById("quote-fallback");

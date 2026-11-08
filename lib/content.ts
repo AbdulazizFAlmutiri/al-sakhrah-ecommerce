@@ -36,7 +36,9 @@ export const HERO = {
   },
 };
 
-export const CERTS: { code: string; label: L; body: L; icon: string }[] = [
+// Optional `file`: put a certificate scan (PDF or image) in public/certificates/
+// and set e.g. file: "/certificates/iso-9001.pdf" — a "View certificate" link appears.
+export const CERTS: { code: string; label: L; body: L; icon: string; file?: string }[] = [
   {
     code: "ISO 9001", icon: "badge",
     label: { ar: "شهادة الأيزو 9001", en: "ISO 9001 certified" },
@@ -99,7 +101,8 @@ export const ABOUT = {
   ] as L[],
 };
 
-export const PRODUCTS: (L & { icon: string; use: L })[] = [
+// Optional `image`: put a product photo in public/products/ and set e.g. image: "/products/bleach.jpg".
+export const PRODUCTS: (L & { icon: string; use: L; image?: string })[] = [
   { icon: "droplet", ar: "الكلور", en: "Chlorine bleach", use: { ar: "تبييض وتعقيم الأسطح", en: "Whitening & surface sanitising" } },
   { icon: "spray", ar: "المطهرات", en: "Disinfectants", use: { ar: "للمنشآت الصحية والعامة", en: "For healthcare & public facilities" } },
   { icon: "brush", ar: "منظفات الأرضيات", en: "Floor cleaners", use: { ar: "للأرضيات بمختلف أنواعها", en: "For all floor types" } },
@@ -140,3 +143,11 @@ export const WHY: (L & { icon: string })[] = [
   { icon: "banknote", ar: "أسعار تنافسية ودعم فني مستمر", en: "Competitive pricing & ongoing technical support" },
   { icon: "flask", ar: "مرونة في التركيبات الخاصة", en: "Flexible custom formulations" },
 ];
+
+// Clients / partners. Add logos to public/clients/ and list them here, e.g.
+// { name: "King Fahad Hospital", logo: "/clients/kfh.png" }
+// The "Trusted by" strip appears on the site automatically once this list has entries.
+export const CLIENTS: { name: string; logo: string }[] = [];
+
+// Social media links (leave empty to hide). Example: { name: "LinkedIn", href: "https://linkedin.com/company/..." }
+export const SOCIAL: { name: string; href: string }[] = [];
