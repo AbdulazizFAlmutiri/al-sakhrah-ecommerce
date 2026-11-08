@@ -43,14 +43,21 @@ export const SITE_SCRIPT = `
   window.addEventListener("scroll", paint, { passive: true });
   paint();
 
+  document.querySelectorAll("[data-request-type]").forEach(function (el) {
+    el.addEventListener("click", function () {
+      var sel = document.getElementById("q-type");
+      if (sel) sel.selectedIndex = Number(el.getAttribute("data-request-type"));
+    });
+  });
+
   var form = document.getElementById("quote-form");
   if (form) form.addEventListener("submit", function (e) {
     e.preventDefault();
     var d = new FormData(form);
     var ar = root.getAttribute("data-lang") === "ar";
     var lines = ar
-      ? ["طلب عرض سعر من الموقع", "الاسم: " + d.get("name"), "الجهة: " + d.get("company"), "القطاع: " + d.get("sector"), "التفاصيل: " + d.get("details")].concat(d.get("sds") ? ["يرجى إرسال نشرات بيانات السلامة (SDS) والمواصفات الفنية"] : [])
-      : ["Quote request from the website", "Name: " + d.get("name"), "Company: " + d.get("company"), "Sector: " + d.get("sector"), "Details: " + d.get("details")].concat(d.get("sds") ? ["Please include safety data sheets (SDS) and technical specs"] : []);
+      ? ["طلب عرض سعر من الموقع", "الاسم: " + d.get("name"), "الجهة: " + d.get("company"), "نوع الطلب: " + d.get("type"), "القطاع: " + d.get("sector"), "التفاصيل: " + d.get("details")].concat(d.get("sds") ? ["يرجى إرسال نشرات بيانات السلامة (SDS) والمواصفات الفنية"] : [])
+      : ["Quote request from the website", "Name: " + d.get("name"), "Company: " + d.get("company"), "Request type: " + d.get("type"), "Sector: " + d.get("sector"), "Details: " + d.get("details")].concat(d.get("sds") ? ["Please include safety data sheets (SDS) and technical specs"] : []);
     var url = "https://wa.me/" + form.getAttribute("data-wa") + "?text=" + encodeURIComponent(lines.join("\\n"));
     window.open(url, "_blank", "noopener");
     var link = document.getElementById("quote-fallback");

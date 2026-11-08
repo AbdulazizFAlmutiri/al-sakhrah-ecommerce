@@ -31,8 +31,8 @@ export const HERO = {
     en: "Your trusted partner for cleaning and care solutions",
   },
   sub: {
-    ar: "من الأساس حتى التسليم: نصنّع منظفات ومطهرات بجودة معتمدة للمنشآت والجهات الحكومية والقطاع الخاص.",
-    en: "From foundation to final delivery: certified detergents and disinfectants for facilities, government and private-sector buyers.",
+    ar: "من الأساس حتى التسليم: نصنّع منظفات ومطهرات بجودة معتمدة للمنشآت والجهات الحكومية والقطاع الخاص، ونصنّع لعلامتك التجارية الخاصة.",
+    en: "From foundation to final delivery: certified detergents and disinfectants for facilities, government and private-sector buyers, plus private label manufacturing under your brand.",
   },
 };
 
@@ -69,6 +69,14 @@ export const CERTS: { code: string; label: L; body: L; icon: string; file?: stri
     body: {
       ar: "ترخيص صادر عن وزارة الصناعة والثروة المعدنية يغطي نشاط تصنيع المنظفات والمستحضرات.",
       en: "Issued by the Ministry of Industry and Mineral Resources for detergent manufacturing.",
+    },
+  },
+  {
+    code: "Saudi Made", icon: "award",
+    label: { ar: "صناعة سعودية", en: "Saudi Made" },
+    body: {
+      ar: "منتجاتنا حاصلة على شعار برنامج «صنع في السعودية» للمنتجات الوطنية.",
+      en: "Our products carry the national \"Made in Saudi\" programme mark.",
     },
   },
 ];
@@ -112,12 +120,19 @@ export const PRODUCTS: (L & { icon: string; use: L; image?: string })[] = [
 ];
 
 export const CUSTOM = {
-  title: { ar: "تركيبات خاصة حسب الطلب", en: "Custom formulations" },
+  title: { ar: "التصنيع لعلامتك الخاصة (Private Label)", en: "Private label manufacturing" },
   body: {
-    ar: "مرونة عالية في تلبية متطلبات التركيبات والتعبئة الخاصة لعملائنا.",
-    en: "Flexible production for your own formulation and packaging requirements.",
+    ar: "نصنّع ونعبّئ المنتجات باسم علامتك التجارية، مع تركيبات خاصة حسب متطلباتك.",
+    en: "We manufacture and fill products under your brand, with custom formulations to your specification.",
   },
 };
+
+export const REQUEST_TYPES: L[] = [
+  { ar: "عرض سعر لمنتجات", en: "Product quote" },
+  { ar: "تصنيع لعلامة خاصة (Private Label)", en: "Private label manufacturing" },
+  { ar: "تركيبة خاصة", en: "Custom formulation" },
+  { ar: "توريد حكومي / مؤسسي", en: "Government / institutional supply" },
+];
 
 export const SECTORS: (L & { icon: string })[] = [
   { icon: "factory", ar: "المصانع والمنشآت الصناعية", en: "Factories & industrial facilities" },

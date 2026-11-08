@@ -1,7 +1,7 @@
 import { Menu, Phone, Mail, MapPin, MessageCircle, ArrowLeft, FileDown, Languages, Eye, Flag, Check } from "lucide-react";
 import { Container, Eyebrow, Icon, T, TintedPhoto } from "./ui";
 import {
-  ABOUT, CERTS, CLIENTS, CONTACT, SOCIAL, CUSTOM, GOV, HERO, NAV, PRODUCTS, SECTORS, WHY,
+  ABOUT, CERTS, CLIENTS, CONTACT, SOCIAL, CUSTOM, REQUEST_TYPES, GOV, HERO, NAV, PRODUCTS, SECTORS, WHY,
 } from "@/lib/content";
 
 const WA = `https://wa.me/${CONTACT.whatsappNumber}`;
@@ -115,9 +115,9 @@ export function Hero() {
 
       {/* Certification strip — proof up front */}
       <div className="border-t border-white/15 bg-brand-950/60 backdrop-blur-sm">
-        <Container className="grid grid-cols-2 md:grid-cols-4">
+        <Container className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
           {CERTS.map((c) => (
-            <div key={c.code} className="flex items-center gap-3 border-white/10 py-5 odd:border-e md:border-e md:last:border-e-0 md:px-6 md:first:ps-0">
+            <div key={c.code} className="flex items-center gap-3 py-5 pe-3 last:col-span-2 sm:last:col-span-1">
               <Icon name={c.icon} className="shrink-0 text-brand-200" />
               <div className="min-w-0 px-1">
                 <p className="font-bold text-white" dir="ltr">{c.code}</p>
@@ -199,14 +199,14 @@ export function Products() {
               <p className="mt-1 text-sm text-ink/60 transition-colors group-hover:text-white/70"><T t={p.use} /></p>
             </div>
           ))}
-          <a href="#contact" className="col-span-2 flex flex-col justify-between gap-6 bg-brand-900 p-6 text-white transition-colors hover:bg-brand-700">
+          <a href="#contact" data-request-type="1" className="col-span-2 flex flex-col justify-between gap-6 bg-brand-900 p-6 text-white transition-colors hover:bg-brand-700">
             <div>
               <Icon name="flask" size={26} className="text-brand-200" />
               <h3 className="mt-4 text-xl font-bold"><T t={CUSTOM.title} /></h3>
               <p className="mt-2 text-white/75"><T t={CUSTOM.body} /></p>
             </div>
             <span className="inline-flex items-center gap-2 font-semibold">
-              <T t={{ ar: "ناقش طلبك معنا", en: "Discuss your requirements" }} />
+              <T t={{ ar: "اطلب عرض تصنيع لعلامتك", en: "Request a private label quote" }} />
               <ArrowLeft size={18} className="ltr:rotate-180" />
             </span>
           </a>
@@ -263,9 +263,9 @@ export function Quality() {
             <T t={{ ar: "الثقة تُبنى قبل المنتج", en: "Trust is built before the product" }} />
           </h2>
         </div>
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {CERTS.map((c) => (
-            <article key={c.code} className="border-t-[3px] border-brand-900 bg-surface p-6">
+            <article key={c.code} className="border-t-[3px] border-brand-900 bg-surface p-5">
               <span className="grid h-11 w-11 place-items-center bg-brand-700 text-white"><Icon name={c.icon} /></span>
               <h3 className="mt-5 text-2xl font-bold text-brand-900" dir="ltr">{c.code}</h3>
               <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-brand-700"><T t={c.label} /></p>
@@ -344,7 +344,15 @@ export function Contact() {
               <label htmlFor="q-company" className={label}><T t={{ ar: "الجهة / الشركة", en: "Company" }} /></label>
               <input id="q-company" name="company" className={field} autoComplete="organization" />
             </div>
-            <div className="sm:col-span-2">
+            <div>
+              <label htmlFor="q-type" className={label}><T t={{ ar: "نوع الطلب", en: "Request type" }} /></label>
+              <select id="q-type" name="type" className={field} defaultValue={`${REQUEST_TYPES[0].ar} / ${REQUEST_TYPES[0].en}`}>
+                {REQUEST_TYPES.map((r) => (
+                  <option key={r.en} value={`${r.ar} / ${r.en}`}>{r.ar} · {r.en}</option>
+                ))}
+              </select>
+            </div>
+            <div>
               <label htmlFor="q-sector" className={label}><T t={{ ar: "القطاع", en: "Sector" }} /></label>
               <select id="q-sector" name="sector" className={field} defaultValue="">
                 <option value="" disabled>— اختر · Select —</option>
