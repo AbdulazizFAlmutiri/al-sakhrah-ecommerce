@@ -112,7 +112,7 @@ export function Hero() {
         </div>
 
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/logo/logo-white.png" alt="Al-Sakhra for Industry — الصخرة للصناعة" className="mx-auto hidden h-72 w-auto lg:block" />
+        <img src="/logo/logo-white.png" alt="Al-Sakhra for Industry, الصخرة للصناعة" className="mx-auto hidden h-72 w-auto lg:block" />
       </Container>
 
       {/* Certification strip — proof up front */}
@@ -230,7 +230,7 @@ export function Products() {
                   className={`flex flex-col p-6 md:p-8 ${g ? "bg-gradient-to-br from-[#ef3b2d] via-[#c42bb3] to-[#6a2ad8] text-white" : "border border-brand-700/15 bg-white"}`}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={b.logo} alt={`${b.name} — ${b.nameAr}`} className="h-16 w-auto self-start object-contain md:h-20" />
+                  <img src={b.logo} alt={`${b.name} (${b.nameAr})`} className="h-16 w-auto self-start object-contain md:h-20" />
                   <p className={`mt-5 text-lg font-semibold ${g ? "" : "text-brand-900"}`}><T t={b.about} /></p>
                   <ul className="mt-5 flex flex-wrap gap-2">
                     {b.products.map((x) => (
@@ -313,7 +313,7 @@ export function Quality() {
         <div className="max-w-2xl">
           <Eyebrow t={{ ar: "ضمان الجودة والاعتمادات", en: "Quality & certifications" }} />
           <h2 className="mt-4 text-3xl font-bold text-brand-900 md:text-4xl">
-            <T t={{ ar: "الثقة تُبنى قبل المنتج", en: "Trust is built before the product" }} />
+            <T t={{ ar: "شهاداتنا وتراخيصنا", en: "Our certificates and licences" }} />
           </h2>
         </div>
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
@@ -367,7 +367,7 @@ export function Contact() {
             <T t={{ ar: "لنبدأ طلبك", en: "Let's start your order" }} />
           </h2>
           <p className="mt-4 text-ink/70">
-            <T t={{ ar: "أرسل تفاصيل طلبك وسيتواصل معك فريق المبيعات.", en: "Send us your requirements and our sales team will get back to you." }} />
+            <T t={{ ar: "أرسل تفاصيل طلبك ونرد عليك بعرض سعر.", en: "Send us the details and we'll reply with a quote." }} />
           </p>
 
           <div className="mt-8 grid gap-3">
@@ -457,7 +457,7 @@ export function Contact() {
             <div>
               <label htmlFor="q-sector" className={label}><T t={{ ar: "القطاع", en: "Sector" }} /></label>
               <select id="q-sector" name="sector" className={field} defaultValue="">
-                <option value="" disabled>— اختر · Select —</option>
+                <option value="" disabled>اختر · Select</option>
                 {SECTORS.map((s) => (
                   <option key={s.en} value={`${s.ar} / ${s.en}`}>{s.ar} · {s.en}</option>
                 ))}
