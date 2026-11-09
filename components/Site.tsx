@@ -227,38 +227,21 @@ export function Products() {
               return (
                 <article
                   key={b.name}
-                  className={`flex flex-col p-6 md:p-8 ${g ? "bg-gradient-to-br from-[#ef3b2d] via-[#c42bb3] to-[#6a2ad8] text-white" : "border border-brand-700/15 bg-white"}`}
+                  className={`flex min-h-48 flex-col items-center justify-center gap-5 p-8 ${g ? "bg-gradient-to-br from-[#ef3b2d] via-[#c42bb3] to-[#6a2ad8]" : "border border-brand-700/15 bg-white"}`}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={b.logo} alt={`${b.name} (${b.nameAr})`} className="h-16 w-auto self-start object-contain md:h-20" />
-                  <p className={`mt-5 text-lg font-semibold ${g ? "" : "text-brand-900"}`}><T t={b.about} /></p>
-                  <ul className="mt-5 flex flex-wrap gap-2">
-                    {b.products.map((x) => (
-                      <li key={x.en} className={`px-3 py-1.5 text-sm ${g ? "bg-white/15" : "bg-surface text-ink/80"}`}><T t={x} /></li>
-                    ))}
-                  </ul>
-                  <div className="mt-auto flex flex-wrap gap-3 pt-7">
+                  <img src={b.logo} alt={`${b.name} (${b.nameAr})`} className="h-20 w-auto object-contain md:h-24" />
+                  {b.store && (
                     <a
-                      href={b.catalog}
+                      href={b.store}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`inline-flex items-center gap-2 px-5 py-3 font-semibold transition-colors ${g ? "bg-white text-[#7a2ad0] hover:bg-white/90" : "bg-brand-900 text-white hover:bg-brand-700"}`}
+                      className="inline-flex items-center gap-2 border border-brand-900/30 px-5 py-2.5 text-sm font-semibold text-brand-900 transition-colors hover:bg-brand-100"
                     >
-                      <FileDown size={18} />
-                      <T t={{ ar: `كتالوج ${b.nameAr}`, en: `${b.name} catalog` }} />
+                      <T t={{ ar: "تسوّق من المتجر", en: "Shop online" }} />
+                      <span dir="ltr" className="opacity-70">{b.store.replace("https://", "")}</span>
                     </a>
-                    {b.store && (
-                      <a
-                        href={b.store}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 border border-brand-900/30 px-5 py-3 font-semibold text-brand-900 transition-colors hover:bg-brand-100"
-                      >
-                        <T t={{ ar: "تسوّق من المتجر", en: "Shop online" }} />
-                        <span dir="ltr" className="text-sm opacity-70">{b.store.replace("https://", "")}</span>
-                      </a>
-                    )}
-                  </div>
+                  )}
                 </article>
               );
             })}
