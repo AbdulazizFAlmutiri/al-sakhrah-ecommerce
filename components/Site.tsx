@@ -313,7 +313,7 @@ export function Quality() {
         <div className="max-w-2xl">
           <Eyebrow t={{ ar: "ضمان الجودة والاعتمادات", en: "Quality & certifications" }} />
           <h2 className="mt-4 text-3xl font-bold text-brand-900 md:text-4xl">
-            <T t={{ ar: "شهاداتنا وتراخيصنا", en: "Our certificates and licences" }} />
+            <T t={{ ar: "الثقة تُبنى قبل المنتج", en: "Trust is built before the product" }} />
           </h2>
         </div>
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
@@ -367,7 +367,7 @@ export function Contact() {
             <T t={{ ar: "لنبدأ طلبك", en: "Let's start your order" }} />
           </h2>
           <p className="mt-4 text-ink/70">
-            <T t={{ ar: "أرسل تفاصيل طلبك ونرد عليك بعرض سعر.", en: "Send us the details and we'll reply with a quote." }} />
+            <T t={{ ar: "أرسل تفاصيل طلبك وسيتواصل معك فريق المبيعات.", en: "Send us your requirements and our sales team will get back to you." }} />
           </p>
 
           <div className="mt-8 grid gap-3">

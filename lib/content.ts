@@ -26,12 +26,12 @@ export const NAV: (L & { href: string })[] = [
 export const HERO = {
   eyebrow: { ar: "مصنع وطني · المدينة الصناعية بالخرج", en: "Saudi national factory · Al-Kharj Industrial City" },
   title: {
-    ar: "نصنع المنظفات والمطهرات ومستحضرات العناية في الخرج",
-    en: "We make detergents, disinfectants and care products in Al-Kharj",
+    ar: "شريكك الموثوق لحلول المنظفات ومستحضرات العناية",
+    en: "Your trusted partner for cleaning and care solutions",
   },
   sub: {
-    ar: "منتجاتنا معتمدة، ونورّدها للمنشآت والجهات الحكومية والقطاع الخاص. ونصنّع أيضًا تحت علامتك التجارية، من التصنيع حتى التسليم.",
-    en: "Our products are certified, and we supply facilities, government bodies and private companies. We also manufacture under your own brand and handle everything through to delivery.",
+    ar: "من الأساس حتى التسليم: نصنّع منظفات ومطهرات بجودة معتمدة للمنشآت والجهات الحكومية والقطاع الخاص، ونصنّع لعلامتك التجارية الخاصة.",
+    en: "From foundation to final delivery: certified detergents and disinfectants for facilities, government and private-sector buyers, plus private label manufacturing under your brand.",
   },
 };
 
@@ -42,40 +42,40 @@ export const CERTS: { code: string; label: L; body: L; icon: string; file?: stri
     code: "ISO 9001", icon: "badge",
     label: { ar: "شهادة الأيزو 9001", en: "ISO 9001 certified" },
     body: {
-      ar: "كل دفعة إنتاج تمر بنفس خطوات الفحص الموثقة، من التصنيع والتعبئة حتى الفحص النهائي.",
-      en: "Every batch goes through the same documented checks, from production and filling to final inspection.",
+      ar: "نظام إدارة جودة موثق يضبط مراحل التصنيع والتعبئة والفحص النهائي لكل دفعة إنتاج.",
+      en: "A documented quality system covering manufacturing, filling and final inspection of every batch.",
     },
   },
   {
     code: "SFDA", icon: "shield",
     label: { ar: "ترخيص هيئة الغذاء والدواء", en: "SFDA approved" },
     body: {
-      ar: "منتجاتنا مطابقة لاشتراطات السلامة والتصنيع في المملكة.",
-      en: "Our products meet the Kingdom's safety and manufacturing requirements.",
+      ar: "اعتماد رسمي يؤكد مطابقة منتجاتنا لاشتراطات السلامة والتصنيع المعتمدة في المملكة.",
+      en: "Official approval that our products meet the Kingdom's safety and manufacturing requirements.",
     },
   },
   {
     code: "LCGPA", icon: "building",
     label: { ar: "شهادة المحتوى المحلي", en: "Local Content certified" },
     body: {
-      ar: "الشراء منا يمنحكم أفضلية في المنافسات الحكومية وبرامج توطين سلاسل الإمداد.",
-      en: "Buying from us gives you preference in government tenders and supply-chain localisation programmes.",
+      ar: "تصنيف معتمد يمنح شركاءنا أفضلية في المنافسات الحكومية وبرامج توطين سلاسل الإمداد.",
+      en: "Gives our partners preference in government tenders and supply-chain localisation programmes.",
     },
   },
   {
     code: "MIM", icon: "landmark",
     label: { ar: "الترخيص الصناعي الرسمي", en: "Official industrial licence" },
     body: {
-      ar: "مرخّصون من وزارة الصناعة والثروة المعدنية لتصنيع المنظفات والمستحضرات.",
-      en: "Licensed by the Ministry of Industry and Mineral Resources to make detergents.",
+      ar: "ترخيص صادر عن وزارة الصناعة والثروة المعدنية يغطي نشاط تصنيع المنظفات والمستحضرات.",
+      en: "Issued by the Ministry of Industry and Mineral Resources for detergent manufacturing.",
     },
   },
   {
     code: "Saudi Made", icon: "award",
     label: { ar: "صناعة سعودية", en: "Saudi Made" },
     body: {
-      ar: "منتجاتنا تحمل شعار برنامج «صنع في السعودية».",
-      en: "Our products carry the \"Made in Saudi\" mark.",
+      ar: "منتجاتنا حاصلة على شعار برنامج «صنع في السعودية» للمنتجات الوطنية.",
+      en: "Our products carry the national \"Made in Saudi\" programme mark.",
     },
   },
 ];
@@ -83,21 +83,21 @@ export const CERTS: { code: string; label: L; body: L; icon: string; file?: stri
 export const ABOUT = {
   title: { ar: "من نحن", en: "Who we are" },
   body: {
-    ar: "نحن مصنع سعودي في المدينة الصناعية بالخرج، نصنع المنظفات ومستحضرات العناية. بدأنا مع التوسع الصناعي الذي جاءت به رؤية 2030، ونبيع منتجاتنا داخل المملكة وخارجها. الجودة عندنا هي الأساس في كل طلب.",
-    en: "We are a Saudi factory in Al-Kharj Industrial City that makes detergents and care products. We started during the industrial growth that came with Vision 2030, and we sell in the Kingdom and abroad. Quality comes first in every order.",
+    ar: "مصنع الصخرة للصناعة مصنع وطني في المدينة الصناعية بالخرج، تأسس في ظل الحراك الصناعي الذي تقوده رؤية 2030 ليكون جهة متخصصة في صناعة المنظفات ومستحضرات العناية. نقدم حلولاً متكاملة لعملائنا محليًا وعالميًا، مستندين على التزام ثابت بالجودة.",
+    en: "Al-Sakhra is a Saudi national factory in Al-Kharj Industrial City, founded amid the industrial growth driven by Vision 2030 to specialise in detergents and care preparations. We deliver integrated solutions to clients locally and internationally, grounded in a firm commitment to quality.",
   },
   vision: {
     title: { ar: "رؤيتنا", en: "Vision" },
     body: {
-      ar: "أن نكون أكثر مصنع منظفات ومستحضرات عناية يثق به العملاء في المنطقة.",
-      en: "To be the detergent and personal care factory that customers in the region trust most.",
+      ar: "أن نكون المصنع الرائد والأكثر موثوقية في قطاع المنظفات ومستحضرات العناية على مستوى المنطقة.",
+      en: "To be the region's leading and most trusted factory for detergents and personal care.",
     },
   },
   mission: {
     title: { ar: "رسالتنا", en: "Mission" },
     body: {
-      ar: "نصنع منتجات آمنة وعالية الجودة بدقة، ونطوّر تركيباتنا باستمرار، ونلبّي طلبات السوق بسرعة.",
-      en: "We make safe, high-quality products with care, keep improving our formulas, and respond quickly to what the market needs.",
+      ar: "منتجات آمنة وعالية الجودة بأسلوب يوازن بين دقة التصنيع والابتكار المستمر وسرعة الاستجابة للسوق.",
+      en: "Safe, high-quality products that balance manufacturing precision, innovation and fast response to the market.",
     },
   },
   values: [
@@ -121,8 +121,8 @@ export const PRODUCTS: (L & { icon: string; use: L; image?: string })[] = [
 export const CUSTOM = {
   title: { ar: "التصنيع لعلامتك الخاصة (Private Label)", en: "Private label manufacturing" },
   body: {
-    ar: "عندك علامة تجارية؟ نصنّع المنتج ونعبّئه باسمها، ونجهّز تركيبة خاصة إذا احتجت.",
-    en: "Have your own brand? We make and fill the product under its name, and prepare a custom formula if you need one.",
+    ar: "نصنّع ونعبّئ المنتجات باسم علامتك التجارية، مع تركيبات خاصة حسب متطلباتك.",
+    en: "We manufacture and fill products under your brand, with custom formulations to your specification.",
   },
 };
 
@@ -153,7 +153,7 @@ export const BRANDS: Brand[] = [
     nameAr: "أوكسين",
     logo: "/brands/oxin.png",
     style: "light",
-    about: { ar: "منظفات للمنزل والغسيل.", en: "Cleaning products for the home and laundry." },
+    about: { ar: "نظافة كاملة وحماية تدوم للمنزل والملابس.", en: "Complete cleaning and lasting protection for home and laundry." },
     products: [
       { ar: "مطهر ومنظف الأسطح والأرضيات 3 لتر (4 روائح)", en: "Surface & floor disinfectant 3L (4 scents)" },
       { ar: "شامبو العباية 2 لتر", en: "Abaya shampoo 2L" },
@@ -170,7 +170,7 @@ export const BRANDS: Brand[] = [
     nameAr: "كين",
     logo: "/brands/keen-white.png",
     style: "gradient",
-    about: { ar: "منتجات تنظيف للاستخدام اليومي في البيت والمنشآت.", en: "Everyday cleaning products for homes and facilities." },
+    about: { ar: "مجموعة متنوعة لا غنى عنها في الحياة اليومية.", en: "A wide everyday range for home and facilities." },
     products: [
       { ar: "منظف الصحون", en: "Dishwashing liquid" },
       { ar: "منظف الزجاج", en: "Glass cleaner" },
@@ -200,8 +200,8 @@ export const GOV = {
   eyebrow: { ar: "التوريد المؤسسي والحكومي", en: "Institutional & government supply" },
   title: { ar: "كميات كبيرة، في الوقت المحدد", en: "Large volumes, delivered on time" },
   body: {
-    ar: "نورّد للجهات الحكومية والمؤسسات الكبيرة بشكل منتظم، ومنتجاتنا مطابقة لاشتراطات المحتوى المحلي.",
-    en: "We supply government bodies and large institutions on a regular basis, and our products meet Local Content requirements.",
+    ar: "حلول توريد متكاملة ومستدامة للجهات الحكومية والمؤسسات الكبرى، مع الامتثال التام لاشتراطات المحتوى المحلي.",
+    en: "Integrated, sustainable supply for government agencies and large institutions, fully compliant with Local Content requirements.",
   },
 };
 
