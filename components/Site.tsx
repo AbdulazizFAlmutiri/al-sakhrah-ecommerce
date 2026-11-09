@@ -104,10 +104,6 @@ export function Hero() {
               <T t={{ ar: "اطلب عرض سعر", en: "Request a quote" }} />
               <ArrowLeft size={18} className="ltr:rotate-180" />
             </a>
-            <a href={CONTACT.profilePdf} download className="inline-flex items-center justify-center gap-2 border border-white/50 px-7 py-3.5 font-semibold text-white transition-colors hover:bg-white/10">
-              <FileDown size={18} />
-              <T t={{ ar: "حمّل بروفايل الشركة", en: "Company profile (PDF)" }} />
-            </a>
           </div>
         </div>
 

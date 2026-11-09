@@ -12,7 +12,6 @@ export const CONTACT = {
     en: "Industrial City, Al-Kharj, Kingdom of Saudi Arabia",
   },
   mapHref: "https://www.google.com/maps/search/?api=1&query=Al-Kharj+Industrial+City+Saudi+Arabia",
-  profilePdf: "/Al-Sakhra-Company-Profile.pdf",
 };
 
 export const NAV: (L & { href: string })[] = [
