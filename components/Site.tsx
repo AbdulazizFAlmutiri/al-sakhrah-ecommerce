@@ -139,8 +139,7 @@ export function About() {
     <section id="about" className="bg-white py-16 md:py-24">
       <Container className="grid gap-12 lg:grid-cols-2 lg:items-center">
         <div>
-          <Eyebrow t={{ ar: "مصنع وطني في الخرج", en: "Made in Al-Kharj" }} />
-          <h2 className="mt-4 text-3xl font-bold text-brand-900 md:text-4xl"><T t={ABOUT.title} /></h2>
+          <h2 className="text-3xl font-bold text-brand-900 md:text-4xl"><T t={ABOUT.title} /></h2>
           <p className="mt-5 text-lg leading-loose text-ink/75"><T t={ABOUT.body} /></p>
           <ul className="mt-7 grid gap-3 sm:grid-cols-2">
             {ABOUT.values.map((v) => (
@@ -219,7 +218,6 @@ export function Products() {
         <div className="mt-14 border-t border-ink/10 pt-12">
           <div className="flex flex-col justify-between gap-2 md:flex-row md:items-end">
             <h3 className="text-2xl font-bold text-brand-900 md:text-3xl"><T t={{ ar: "علاماتنا التجارية", en: "Our brands" }} /></h3>
-            <p className="text-ink/60"><T t={{ ar: "من تصنيع الصخرة للصناعة في الخرج", en: "Made by Al-Sakhra for Industry in Al-Kharj" }} /></p>
           </div>
           <div className="mt-8 grid gap-5 lg:grid-cols-2">
             {BRANDS.map((b) => {
