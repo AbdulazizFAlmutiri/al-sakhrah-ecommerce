@@ -224,7 +224,7 @@ export function Products() {
                   className={`flex min-h-48 flex-col items-center justify-center gap-5 p-8 ${g ? "bg-gradient-to-br from-[#ef3b2d] via-[#c42bb3] to-[#6a2ad8]" : "border border-brand-700/15 bg-white"}`}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={b.logo} alt={`${b.name} (${b.nameAr})`} className={`w-auto object-contain ${b.name === "Oxin" ? "h-24 md:h-28" : "h-20 md:h-24"}`} />
+                  <img src={b.logo} alt={`${b.name} (${b.nameAr})`} className="h-24 w-auto object-contain md:h-28" />
                 </article>
               );
             })}
