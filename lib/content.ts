@@ -141,12 +141,11 @@ export type Brand = {
   nameAr: string;
   logo: string;
   style: "light" | "gradient";
-  store?: string;
 };
 
 export const BRANDS: Brand[] = [
-  { name: "Oxin", nameAr: "أوكسين", logo: "/brands/oxin.png", style: "light", store: "https://oxin.sa" },
-  { name: "Keen", nameAr: "كين", logo: "/brands/keen-white.png", style: "gradient" },
+  { name: "Oxin", nameAr: "أوكسين", logo: "/brands/oxin.png", style: "light" },
+  { name: "Keen", nameAr: "كين", logo: "/brands/keen.png", style: "light" },
 ];
 
 export const SECTORS: (L & { icon: string })[] = [

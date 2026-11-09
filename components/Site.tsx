@@ -231,17 +231,6 @@ export function Products() {
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={b.logo} alt={`${b.name} (${b.nameAr})`} className="h-20 w-auto object-contain md:h-24" />
-                  {b.store && (
-                    <a
-                      href={b.store}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 border border-brand-900/30 px-5 py-2.5 text-sm font-semibold text-brand-900 transition-colors hover:bg-brand-100"
-                    >
-                      <T t={{ ar: "تسوّق من المتجر", en: "Shop online" }} />
-                      <span dir="ltr" className="opacity-70">{b.store.replace("https://", "")}</span>
-                    </a>
-                  )}
                 </article>
               );
             })}
