@@ -1,7 +1,7 @@
 import { Menu, Mail, ChevronDown, Copy, Send, MapPin, MessageCircle, ArrowLeft, FileDown, Languages, Eye, Flag, Check } from "lucide-react";
 import { Container, Eyebrow, Icon, T, TintedPhoto } from "./ui";
 import {
-  ABOUT, BRANDS, CERTS, CLIENTS, CONTACT, SOCIAL, CUSTOM, REQUEST_TYPES, GOV, HERO, NAV, PRODUCTS, SECTORS, WHY,
+  ABOUT, BRANDS, CERTS, LEGAL, CLIENTS, CONTACT, SOCIAL, CUSTOM, REQUEST_TYPES, GOV, HERO, NAV, PRODUCTS, SECTORS, WHY,
 } from "@/lib/content";
 
 // Every phone link opens a WhatsApp chat with a short greeting already typed.
@@ -466,17 +466,29 @@ export function Contact() {
 
 /* ------------------------------------------------------------ Footer + floating WhatsApp */
 export function Footer() {
+  const reg = [
+    { label: { ar: "السجل التجاري (الرقم الموحد)", en: "CR (unified number)" }, value: LEGAL.cr },
+    { label: { ar: "الرقم الضريبي", en: "VAT number" }, value: LEGAL.vat },
+    { label: { ar: "الترخيص الصناعي", en: "Industrial licence" }, value: LEGAL.industrialLicence },
+  ];
   return (
     <footer className="bg-brand-950 text-white/70">
       <Container className="flex flex-col items-center justify-between gap-4 py-8 text-sm md:flex-row">
         <div className="flex items-center gap-3">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/logo/mark-white.png" alt="" className="h-7 w-auto" />
-          <span>© {new Date().getFullYear()} <T t={{ ar: "الصخرة للصناعة", en: "Al-Sakhra for Industry" }} /></span>
+          <span>
+            © {new Date().getFullYear()} <T t={LEGAL.name} />. <T t={{ ar: "جميع الحقوق محفوظة.", en: "All rights reserved." }} />
+          </span>
         </div>
         <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2" aria-label="Footer">
+          {/* Full paths so the links also work from the privacy page */}
           {NAV.map((l) => (
-            <a key={l.href} href={l.href} className="hover:text-white"><T t={l} /></a>
+            <span key={l.href} className="contents">
+              { }
+              <a href={`/${l.href}`} className="t-ar hover:text-white">{l.ar}</a>
+              <a href={`/en${l.href}`} className="t-en hover:text-white">{l.en}</a>
+            </span>
           ))}
         </nav>
         <div className="flex items-center gap-5">
@@ -486,6 +498,23 @@ export function Footer() {
           <LangButton className="text-white/80 hover:text-white" />
         </div>
       </Container>
+      <div className="border-t border-white/10">
+        <Container className="flex flex-col items-center justify-between gap-3 py-5 text-xs text-white/55 md:flex-row">
+          <ul className="flex flex-wrap justify-center gap-x-6 gap-y-1.5">
+            {reg.map((r) => (
+              <li key={r.value}>
+                <T t={r.label} />: <span dir="ltr" className="font-semibold text-white/75 tabular-nums">{r.value}</span>
+              </li>
+            ))}
+          </ul>
+          <span className="flex gap-x-5">
+            { }
+            <a href="/privacy" className="t-ar hover:text-white">سياسة الخصوصية</a>
+            { }
+            <a href="/en/privacy" className="t-en hover:text-white">Privacy policy</a>
+          </span>
+        </Container>
+      </div>
     </footer>
   );
 }

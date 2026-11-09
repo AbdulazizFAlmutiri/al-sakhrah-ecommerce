@@ -1,4 +1,4 @@
-import { CONTACT } from "./content";
+import { CONTACT, LEGAL } from "./content";
 
 // Public address of the site. On Vercel this is the production domain
 // (it switches to alsakhrah.com automatically once that domain is connected).
@@ -35,15 +35,23 @@ export function organizationJsonLd(lang: "ar" | "en") {
     alternateName: lang === "ar" ? SITE_NAME.en : SITE_NAME.ar,
     url: `${SITE_URL}${lang === "en" ? "/en" : "/"}`,
     logo: `${SITE_URL}/logo/logo-color.png`,
+    legalName: LEGAL.name[lang],
+    vatID: LEGAL.vat,
+    taxID: LEGAL.vat,
+    identifier: [
+      { "@type": "PropertyValue", propertyID: "CR Unified Number", value: LEGAL.cr },
+      { "@type": "PropertyValue", propertyID: "Industrial Licence", value: LEGAL.industrialLicence },
+    ],
     email: CONTACT.email,
     telephone: "+966556268175",
     description: SEO[lang].description,
     address: {
       "@type": "PostalAddress",
       addressLocality: "Al-Kharj",
+      postalCode: "16417",
       addressRegion: "Riyadh Province",
       addressCountry: "SA",
-      streetAddress: lang === "ar" ? "المدينة الصناعية بالخرج" : "Al-Kharj Industrial City",
+      streetAddress: lang === "ar" ? "3090 الدلم 375، المدينة الصناعية بالخرج" : "3090 Aldlam 375, Al-Kharj Industrial City",
     },
     contactPoint: {
       "@type": "ContactPoint",

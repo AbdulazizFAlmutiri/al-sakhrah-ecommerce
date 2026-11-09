@@ -17,7 +17,7 @@ export const SITE_SCRIPT = `
   var menuBtn = document.getElementById("menu-btn");
   function paint() {
     var solid = window.scrollY > 24 || (menu && !menu.hidden);
-    header.setAttribute("data-solid", solid ? "true" : "false");
+    if (header) header.setAttribute("data-solid", solid ? "true" : "false");
   }
   function setMenu(open) {
     if (!menu) return;

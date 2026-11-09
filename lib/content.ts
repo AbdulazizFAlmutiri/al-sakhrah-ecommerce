@@ -14,6 +14,15 @@ export const CONTACT = {
   mapHref: "https://www.google.com/maps/search/?api=1&query=Al-Kharj+Industrial+City+Saudi+Arabia",
 };
 
+// Official registration details (from the CR, VAT and industrial licence certificates).
+export const LEGAL = {
+  name: { ar: "مصنع الصخرة للصناعة", en: "AlSakhra Factory for Manufacturing" },
+  entity: { ar: "شركة ذات مسؤولية محدودة", en: "Limited liability company" },
+  cr: "7017539201",
+  vat: "312902370700003",
+  industrialLicence: "421224414",
+};
+
 export const NAV: (L & { href: string })[] = [
   { href: "#about", ar: "من نحن", en: "About" },
   { href: "#products", ar: "منتجاتنا", en: "Products" },
