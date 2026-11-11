@@ -1886,8 +1886,10 @@ begin
   perform tests.login(v_admin);
   v_new := admin_create_user(' Aref ', 'عارف', 'driver', 'ur', 'temp-pass-1');
   perform tests.expect_eq((select username from profiles where user_id = v_new), 'aref', 'normalized');
+  perform tests.logout();
   perform tests.expect_eq((select email from auth.users where id = v_new)::text, 'aref@users.ops.local', 'email');
   perform tests.expect_eq((select count(*) from auth.identities where user_id = v_new), 1::bigint, 'identity');
+  perform tests.login(v_admin);
   perform tests.expect_error($q$select admin_create_user('aref','x','driver','en','temp-pass-1')$q$, 'username_taken');
   perform tests.expect_error($q$select admin_create_user('عارف','x','driver','en','temp-pass-1')$q$, 'invalid_username');
   perform tests.expect_error($q$select admin_create_user('bob','x','driver','en','short')$q$, 'weak_password');
