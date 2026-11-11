@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy-900: #001a4d;
+  --color-navy-800: #00256b;
+  --color-navy-700: #003087;
+  --color-royal-700: #003a9c;
+  --color-royal-600: #0047bb;
+  --color-royal-500: #2a66d0;
+  --color-royal-100: #dbe6fa;
+  --color-royal-50: #eef3fc;
+  --color-mist-50: #f1f4f9;
+  --color-mist-100: #e6ebf3;
+  --color-mist-200: #d3dbe8;
+  --color-mist-300: #b4c0d4;
+  --color-ink-900: #0f1b33;
+  --color-ink-700: #33415f;
+  --color-ink-500: #5d6b88;
+  --color-ok-600: #13804a;
+  --color-ok-50: #e8f6ee;
+  --color-bad-600: #c4262e;
+  --color-bad-50: #fdecee;
+  --color-warn-600: #b25e09;
+  --color-warn-50: #fff4e5;
+
+  --font-sans: var(--font-barlow), var(--font-almarai), var(--font-naskh), system-ui, sans-serif;
+}
+
+:root:lang(ar) {
+  --font-sans: var(--font-almarai), var(--font-barlow), system-ui, sans-serif;
+}
+:root:lang(ur) {
+  --font-sans: var(--font-almarai), var(--font-naskh), var(--font-barlow), system-ui, sans-serif;
+}
+
+body {
+  background: var(--color-mist-50);
+  color: var(--color-ink-900);
+  font-family: var(--font-sans);
+}
+
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
+  line-height: 1;
+}
+
+/* Diagonal corner accent from the company profile */
+.corner-accent {
+  position: relative;
+  overflow: hidden;
+}
+.corner-accent::after {
+  content: "";
+  position: absolute;
+  inset-inline-end: 0;
+  top: 0;
+  width: 56px;
+  height: 56px;
+  background: var(--color-royal-600);
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+}
+
+/* Latin eyebrow labels in spaced caps, as in the profile */
+.eyebrow {
+  font-family: var(--font-barlow), sans-serif;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
