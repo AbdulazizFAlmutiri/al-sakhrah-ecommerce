@@ -60,6 +60,9 @@ begin
   perform set_config('role', 'anon', true);
   perform tests.expect_error('select count(*) from orders', 'permission denied');
   perform tests.expect_error('select count(*) from profiles', 'permission denied');
+  perform tests.expect_error($q$select admin_create_user('x1','x','driver','en','temp-pass-1')$q$, 'permission denied');
+  perform tests.expect_error($q$select transition_order(gen_random_uuid(), 'ready')$q$, 'permission denied');
+  perform tests.expect_eq(login_is_locked('nobody'), false, 'anon can check lock');
   perform set_config('role', 'none', true);
 end $$;
 rollback;
