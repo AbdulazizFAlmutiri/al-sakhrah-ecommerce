@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Almarai, Barlow, Noto_Naskh_Arabic } from "next/font/google";
 import "./globals.css";
+import { dirFor } from "@/lib/i18n";
+import { getLocale } from "@/lib/i18n/server";
 
 const almarai = Almarai({ subsets: ["arabic"], weight: ["300", "400", "700", "800"], variable: "--font-almarai" });
 const barlow = Barlow({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700"], variable: "--font-barlow" });
@@ -11,9 +13,10 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const locale = await getLocale();
   return (
-    <html lang="ar" dir="rtl" className={`${almarai.variable} ${barlow.variable} ${naskh.variable}`}>
+    <html lang={locale} dir={dirFor(locale)} className={`${almarai.variable} ${barlow.variable} ${naskh.variable}`}>
       <head>
         {/* eslint-disable-next-line @next/next/no-page-custom-font */}
         <link

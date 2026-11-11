@@ -1,9 +1,8 @@
-import { Logo } from "@/components/brand/Logo";
+import { redirect } from "next/navigation";
+import { requireUser } from "@/lib/auth/session";
+import { homeFor } from "@/lib/auth/roles";
 
-export default function Page() {
-  return (
-    <main className="grid min-h-screen place-items-center">
-      <Logo className="w-56" />
-    </main>
-  );
+export default async function Home() {
+  const user = await requireUser();
+  redirect(user.mustChangePassword ? "/account/password" : homeFor(user.role));
 }
