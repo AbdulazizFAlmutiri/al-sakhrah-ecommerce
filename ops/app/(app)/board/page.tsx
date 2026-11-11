@@ -3,7 +3,7 @@ import { requireRole } from "@/lib/auth/session";
 import { getT } from "@/lib/i18n/server";
 import { getActiveDrivers, getFailedOrders, getOrdersForDate, getReasons } from "@/lib/orders/queries";
 import { groupByDriver } from "@/lib/orders/group";
-import { addDays, isIsoDate, riyadhToday } from "@/lib/time";
+import { addDays, formatTime, isIsoDate, riyadhToday } from "@/lib/time";
 import { ORDER_STATUSES } from "@/lib/orders/status";
 import { Age } from "@/components/orders/Age";
 import { LiveRefresh } from "@/components/orders/LiveRefresh";
@@ -91,6 +91,7 @@ export default async function BoardPage({ searchParams }: { searchParams: Promis
                       <div className="flex flex-col items-end gap-1">
                         <StatusChip status={o.status} t={t} />
                         <Age since={o.status_changed_at} t={t} now={now} />
+                        {o.status === "on_the_way" && o.eta && <span className="text-xs font-bold text-navy-700">{t("board.eta", { time: formatTime(o.eta) })}</span>}
                       </div>
                     </div>
                     <OrderCardActions id={o.id} status={o.status} external={o.external} reasons={reasonOpts} labels={cardLabels} />

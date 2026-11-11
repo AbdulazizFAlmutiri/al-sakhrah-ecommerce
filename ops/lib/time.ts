@@ -20,3 +20,8 @@ export function ageParts(fromIso: string, now: Date = new Date()): { h: number; 
   const mins = Math.max(0, Math.floor((now.getTime() - new Date(fromIso).getTime()) / 60000));
   return { h: Math.floor(mins / 60), m: mins % 60 };
 }
+
+/** "08:42" in Riyadh time with Latin digits (matches PO numbers on screen). */
+export function formatTime(iso: string): string {
+  return new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "Asia/Riyadh" }).format(new Date(iso));
+}

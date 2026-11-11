@@ -19,6 +19,7 @@ export const NAV_BY_ROLE: Record<Role, NavItem[]> = {
     { href: "/admin/users", key: "nav.users", icon: "group" },
     { href: "/board", key: "nav.board", icon: "local_shipping" },
     { href: "/board/new", key: "nav.new_order", icon: "add_box" },
+    { href: "/board/map", key: "nav.map", icon: "map" },
     { href: "/board/failed", key: "nav.failed", icon: "assignment_late" },
     { href: "/customers", key: "nav.customers", icon: "storefront" },
     { href: "/warehouse", key: "nav.warehouse", icon: "inventory_2" },
@@ -27,6 +28,7 @@ export const NAV_BY_ROLE: Record<Role, NavItem[]> = {
   sales: [
     { href: "/board", key: "nav.board", icon: "local_shipping" },
     { href: "/board/new", key: "nav.new_order", icon: "add_box" },
+    { href: "/board/map", key: "nav.map", icon: "map" },
     { href: "/board/failed", key: "nav.failed", icon: "assignment_late" },
     { href: "/customers", key: "nav.customers", icon: "storefront" },
   ],

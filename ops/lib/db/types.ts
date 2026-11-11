@@ -510,6 +510,17 @@ export type Database = {
       }
       riyadh_today: { Args: never; Returns: string }
       set_my_locale: { Args: { p_locale: AppLocale }; Returns: undefined }
+      start_trip: { Args: { p_lat?: number; p_lng?: number }; Returns: string }
+      set_trip_route: { Args: { p_trip: string; p_stops: Json; p_polyline?: string; p_distance_m?: number }; Returns: undefined }
+      record_proof: {
+        Args: {
+          p_client_id: string; p_order_id: string; p_outcome: ProofOutcome; p_reason_id?: string; p_note?: string;
+          p_photo_path?: string; p_lat?: number; p_lng?: number; p_accuracy?: number; p_recorded_at?: string
+        }
+        Returns: Database["public"]["Tables"]["proofs"]["Row"]
+      }
+      end_trip: { Args: { p_reason?: string }; Returns: undefined }
+      haversine_m: { Args: { lat1: number; lng1: number; lat2: number; lng2: number }; Returns: number }
       transition_order: {
         Args: { p_meta?: Json; p_order_id: string; p_to: OrderStatus }
         Returns: OrderRow
