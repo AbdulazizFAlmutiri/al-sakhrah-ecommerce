@@ -33,7 +33,7 @@ export function LiveMap({ trips, warehouse, warehouseLabel }: { trips: MapTripVi
       g.clearLayers();
       const bounds: [number, number][] = [];
       if (warehouse) {
-        L.marker([warehouse.lat, warehouse.lng], { icon: L.divIcon({ className: "", html: `<div style="background:#003087;color:#fff;padding:4px 8px;font:700 12px Almarai,sans-serif;white-space:nowrap">🏭 ${warehouseLabel}</div>`, iconAnchor: [20, 12] }) }).addTo(g);
+        L.marker([warehouse.lat, warehouse.lng], { icon: L.divIcon({ className: "", html: `<div style="background:#003087;color:#fff;padding:4px 8px;font:700 12px Almarai,sans-serif;white-space:nowrap"><span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle">factory</span> ${warehouseLabel}</div>`, iconAnchor: [20, 12] }) }).addTo(g);
         bounds.push([warehouse.lat, warehouse.lng]);
       }
       for (const t of trips) {
@@ -50,7 +50,7 @@ export function LiveMap({ trips, warehouse, warehouseLabel }: { trips: MapTripVi
         }
         if (t.last) {
           L.marker([t.last.lat, t.last.lng], { zIndexOffset: 1000, icon: L.divIcon({ className: "", iconAnchor: [16, 16],
-            html: `<div style="display:flex;align-items:center;gap:6px;background:${t.last.stale ? "#5d6b88" : t.color};color:#fff;padding:6px 10px;font:700 13px Almarai,sans-serif;white-space:nowrap;box-shadow:0 6px 16px rgba(0,0,0,.25)">🚚 ${t.driver}</div>` }) }).addTo(g);
+            html: `<div style="display:flex;align-items:center;gap:6px;background:${t.last.stale ? "#5d6b88" : t.color};color:#fff;padding:6px 10px;font:700 13px Almarai,sans-serif;white-space:nowrap;box-shadow:0 6px 16px rgba(0,0,0,.25)"><span class="material-symbols-outlined" style="font-size:18px">local_shipping</span>${t.driver}</div>` }) }).addTo(g);
           bounds.push([t.last.lat, t.last.lng]);
         }
       }

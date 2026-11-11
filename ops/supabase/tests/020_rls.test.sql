@@ -11,6 +11,7 @@ begin
   insert into customers(name) values ('الحسين توب') returning id into v_cust;
   insert into branches(customer_id, name, lat, lng) values (v_cust, 'مخرج ٦', 24.75, 46.72) returning id into v_b1;
   insert into branches(customer_id, name, lat, lng) values (v_cust, 'الربوة', 24.69, 46.76) returning id into v_b2;
+  insert into customers(name) values ('متجر آخر لا يخص السائق');
   insert into sales_reps(name) values ('مجد') returning id into v_rep;
   insert into orders(branch_id, sales_rep_id, po_number, driver_id, created_by)
     values (v_b1, v_rep, 'PO-1', v_drv, v_sales) returning id into v_o1;
@@ -22,7 +23,7 @@ begin
   perform tests.expect_eq((select count(*) from orders), 1::bigint, 'driver orders');
   perform tests.expect_eq((select count(*) from branches), 1::bigint, 'driver branches');
   perform tests.expect_eq((select count(*) from profiles), 1::bigint, 'driver profiles');
-  perform tests.expect_eq((select count(*) from customers), 0::bigint, 'driver customers');
+  perform tests.expect_eq((select count(*) from customers), 1::bigint, 'driver sees own store only');
   -- driver cannot insert orders or change po_number
   perform tests.expect_error(
     format($q$insert into orders(branch_id, sales_rep_id, po_number, driver_id, created_by) values (%L,%L,'X',%L,%L)$q$, v_b1, v_rep, v_drv, v_drv),
