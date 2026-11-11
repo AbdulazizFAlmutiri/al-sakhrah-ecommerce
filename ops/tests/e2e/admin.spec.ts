@@ -32,11 +32,11 @@ test("admin signs in, creates a driver, driver lands on driver home", async ({ p
   await d.goto("/login");
   await d.locator('input[name="username"]').fill(driverName);
   await d.locator('input[name="password"]').fill("temp-pass-123");
-  await d.locator('button[type="submit"]').click();
+  await d.locator("form", { has: d.locator('input[name="password"]') }).locator('button[type="submit"]').click();
   await expect(d).toHaveURL(/\/account\/password/);
   await d.locator('input[name="password"]').fill("driver-pass-123");
   await d.locator('input[name="confirm"]').fill("driver-pass-123");
-  await d.locator('button[type="submit"]').click();
+  await d.locator("form", { has: d.locator('input[name="confirm"]') }).locator('button[type="submit"]').click();
   await expect(d).toHaveURL(/\/driver/);
   await expect(d.locator("html")).toHaveAttribute("lang", "ur");
   await expect(d.locator("html")).toHaveAttribute("dir", "rtl");
@@ -52,4 +52,6 @@ test("admin signs in, creates a driver, driver lands on driver home", async ({ p
   const row = page.locator("li", { hasText: driverName });
   await row.locator('input[name="active"]').uncheck();
   await row.getByRole("button", { name: "حفظ" }).click();
+  await expect(row.getByText("تم الحفظ")).toBeVisible();
+  await expect(row.locator('input[name="active"]')).not.toBeChecked();
 });

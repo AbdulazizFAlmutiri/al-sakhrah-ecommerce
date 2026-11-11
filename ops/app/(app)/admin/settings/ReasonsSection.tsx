@@ -11,11 +11,11 @@ type Labels = { code: string; ar: string; en: string; ur: string; icon: string; 
 
 function ReasonForm({ r, labels }: { r?: Reason; labels: Labels }) {
   const [state, action, pending] = useActionState<ActionState, FormData>(saveReasonAction, {});
-  const input = "h-9 border border-mist-300 px-2 text-sm";
+  const input = "h-9 w-full min-w-0 border border-mist-300 px-2 text-sm";
   return (
-    <form action={action} className="grid items-center gap-2 border-b border-mist-200 py-3 md:grid-cols-[40px_1fr_1fr_1fr_1fr_1fr_70px_80px_auto]">
+    <form action={action} className="grid items-center gap-2 border-b border-mist-200 py-3 grid-cols-2 lg:grid-cols-[32px_repeat(5,minmax(0,1fr))_64px_auto_auto]">
       {r && <input type="hidden" name="id" value={r.id} />}
-      <Icon name={r?.icon ?? "add"} className="text-2xl text-royal-600" />
+      <Icon name={r?.icon ?? "add"} className="col-span-2 text-2xl text-royal-600 lg:col-span-1" />
       <input name="code" defaultValue={r?.code} aria-label={labels.code} placeholder={labels.code} dir="ltr" className={input} required />
       <input name="label_ar" defaultValue={r?.label_ar} aria-label={labels.ar} placeholder={labels.ar} dir="rtl" className={input} required />
       <input name="label_en" defaultValue={r?.label_en} aria-label={labels.en} placeholder={labels.en} dir="ltr" className={input} required />
@@ -23,7 +23,7 @@ function ReasonForm({ r, labels }: { r?: Reason; labels: Labels }) {
       <input name="icon" defaultValue={r?.icon} aria-label={labels.icon} placeholder={labels.icon} dir="ltr" className={input} required />
       <input name="sort" type="number" defaultValue={r?.sort ?? 0} aria-label={labels.sort} className={input} />
       <label className="flex items-center gap-1 text-sm"><input type="checkbox" name="active" defaultChecked={r?.active ?? true} />{labels.active}</label>
-      <div className="flex items-center gap-2">
+      <div className="col-span-2 flex items-center gap-2 lg:col-span-1">
         <Button type="submit" variant={r ? "secondary" : "primary"} disabled={pending}>{r ? labels.save : labels.add}</Button>
         <FormMessage kind="error">{state.error ? labels.errors[state.error] : null}</FormMessage>
         <FormMessage kind="success">{state.ok ? labels.saved : null}</FormMessage>

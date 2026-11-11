@@ -21,6 +21,7 @@
 
 - Next.js version: `16.2.9`, pinned to match the marketing site. Before writing Next.js code, read the matching guide in `node_modules/next/dist/docs/01-app/`. Middleware is called **`proxy.ts`** in this version and runs on Node.js. `cookies()` is async.
 - Do not enable `cacheComponents`. Every page is per-user and dynamic.
+- Sandbox only: Node's built-in `fetch` ignores `HTTPS_PROXY`, so run `next start`/`next dev` with `NODE_USE_ENV_PROXY=1` inside the cloud sandbox (the Playwright `webServer` command does this). Not needed on Vercel.
 - Locales: exactly `ar`, `en`, `ur`, with `ar` as the default. `ar` and `ur` are RTL; `en` is LTR.
 - Every UI string goes through `t(key)`. Never hard-code visible text in components.
 - Brand colours: navy `#003087`, royal `#0047BB`, background `#F1F4F9`. Fonts: Almarai (Arabic), Barlow (Latin and digits), Noto Naskh Arabic (Urdu fallback). Icons: Material Symbols Outlined, weight 300.
