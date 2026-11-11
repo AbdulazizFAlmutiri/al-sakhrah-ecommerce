@@ -7,6 +7,11 @@ const MAP: [needle: string, key: MessageKey][] = [
   ["cannot_modify_self", "users.error_self"],
   ["not_authorized", "common.not_authorized"],
   ["sales_reps_name_key", "settings.error_rep_taken"],
+  ["customers_name_key", "customers.error_taken"],
+  ["branches_customer_id_name_key", "customers.error_taken"],
+  ["invalid_transition", "order.error_transition"],
+  ["undo_window_passed", "wh.error_undo"],
+  ["invalid_driver", "order.error_driver"],
 ];
 
 export function dbErrorKey(message: string): MessageKey {

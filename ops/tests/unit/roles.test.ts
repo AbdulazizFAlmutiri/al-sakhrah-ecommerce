@@ -37,4 +37,9 @@ describe("canOpen", () => {
     expect(canOpen("driver", "/board")).toBe(false);
     expect(canOpen("warehouse", "/warehouse")).toBe(true);
   });
+  it("lets sales and admin manage customers", () => {
+    expect(canOpen("sales", "/customers")).toBe(true);
+    expect(canOpen("warehouse", "/customers")).toBe(false);
+    expect(canOpen("driver", "/board/new")).toBe(false);
+  });
 });

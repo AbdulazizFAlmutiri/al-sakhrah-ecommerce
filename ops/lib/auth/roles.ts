@@ -18,10 +18,18 @@ export const NAV_BY_ROLE: Record<Role, NavItem[]> = {
   admin: [
     { href: "/admin/users", key: "nav.users", icon: "group" },
     { href: "/board", key: "nav.board", icon: "local_shipping" },
+    { href: "/board/new", key: "nav.new_order", icon: "add_box" },
+    { href: "/board/failed", key: "nav.failed", icon: "assignment_late" },
+    { href: "/customers", key: "nav.customers", icon: "storefront" },
     { href: "/warehouse", key: "nav.warehouse", icon: "inventory_2" },
     { href: "/admin/settings", key: "nav.settings", icon: "settings" },
   ],
-  sales: [{ href: "/board", key: "nav.board", icon: "local_shipping" }],
+  sales: [
+    { href: "/board", key: "nav.board", icon: "local_shipping" },
+    { href: "/board/new", key: "nav.new_order", icon: "add_box" },
+    { href: "/board/failed", key: "nav.failed", icon: "assignment_late" },
+    { href: "/customers", key: "nav.customers", icon: "storefront" },
+  ],
   warehouse: [{ href: "/warehouse", key: "nav.warehouse", icon: "inventory_2" }],
   driver: [{ href: "/driver", key: "nav.driver", icon: "route" }],
 };
@@ -30,6 +38,7 @@ export const NAV_BY_ROLE: Record<Role, NavItem[]> = {
 export const ROUTE_ROLES: { prefix: string; roles: Role[] }[] = [
   { prefix: "/admin", roles: ["admin"] },
   { prefix: "/board", roles: ["admin", "sales"] },
+  { prefix: "/customers", roles: ["admin", "sales"] },
   { prefix: "/warehouse", roles: ["admin", "warehouse"] },
   { prefix: "/driver", roles: ["driver"] },
 ];

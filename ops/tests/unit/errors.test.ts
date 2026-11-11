@@ -11,4 +11,11 @@ describe("dbErrorKey", () => {
     expect(dbErrorKey('duplicate key value violates unique constraint "sales_reps_name_key"')).toBe("settings.error_rep_taken");
     expect(dbErrorKey("something else")).toBe("common.error_generic");
   });
+  it("maps order and customer errors", () => {
+    expect(dbErrorKey('duplicate key value violates unique constraint "customers_name_key"')).toBe("customers.error_taken");
+    expect(dbErrorKey('duplicate key value violates unique constraint "branches_customer_id_name_key"')).toBe("customers.error_taken");
+    expect(dbErrorKey("invalid_transition")).toBe("order.error_transition");
+    expect(dbErrorKey("undo_window_passed")).toBe("wh.error_undo");
+    expect(dbErrorKey("invalid_driver")).toBe("order.error_driver");
+  });
 });
