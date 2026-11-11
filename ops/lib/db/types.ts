@@ -29,6 +29,7 @@ type OrderRow = {
   ready_at: string | null
   sales_rep_id: string
   status: OrderStatus
+  status_changed_at: string
   stop_seq: number | null
   trip_id: string | null
   updated_at: string
@@ -236,6 +237,7 @@ export type Database = {
           ready_at?: string | null
           sales_rep_id: string
           status?: OrderStatus
+          status_changed_at?: string
           stop_seq?: number | null
           trip_id?: string | null
           updated_at?: string
@@ -256,6 +258,7 @@ export type Database = {
           ready_at?: string | null
           sales_rep_id?: string
           status?: OrderStatus
+          status_changed_at?: string
           stop_seq?: number | null
           trip_id?: string | null
           updated_at?: string
