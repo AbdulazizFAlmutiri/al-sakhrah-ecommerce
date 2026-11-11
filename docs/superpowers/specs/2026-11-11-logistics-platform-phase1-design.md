@@ -99,7 +99,7 @@ The date range defaults to today, with presets for yesterday, this week and this
 
 Taken from the company profile and logo guideline, not from the current marketing site.
 - **Colours:** navy `#003087` (Pantone 287 C), royal blue `#0047BB` (Pantone 2145 C), page background `#F1F4F9`, white cards, and status colours (green, red, amber) tuned to sit with the blues.
-- **Fonts:** Almarai for Arabic and Urdu UI text (Urdu falls back to Noto Nastaliq Urdu if Almarai lacks glyphs), and Barlow for Latin text and numbers. Both come from Google Fonts. The logo's own fonts (29LT Zawi, DIN Next) appear only in the logo artwork.
+- **Fonts:** Almarai for Arabic and Urdu UI text (Urdu falls back to Noto Naskh Arabic for Urdu-only letters such as ے ں ٹ, because Nastaliq is too tall for dense UI), and Barlow for Latin text and numbers. Both come from Google Fonts. The logo's own fonts (29LT Zawi, DIN Next) appear only in the logo artwork.
 - **Icons:** Material Symbols Outlined (light).
 - **Shape:** square-cornered cards with a blue top rule, diagonal corner accents, and Latin section labels in spaced caps.
 - **Logo:** the vector "S" logo, extracted from the supplied PDF to SVG.
@@ -148,14 +148,14 @@ ops/
 Status changes go through a single Postgres function, `transition_order(order_id, to_status, meta)`. It enforces the state machine and the role allowed for each transition, and writes `order_events` in the same transaction.
 
 ### 10.4 Authentication and security
-- **Login:** username and password. Supabase Auth requires an email, so each username maps to an internal address `<username>@users.ops.local`, which is never shown to users. Only admins create accounts, through a server action that uses the service-role key. Public sign-up is disabled.
+- **Login:** username and password. Supabase Auth requires an email, so each username maps to an internal address `<username>@users.ops.local`, which is never shown to users. Only admins create accounts. Account management runs in `security definer` Postgres functions (`admin_create_user`, `admin_reset_password`, `admin_update_user`) that check the caller is an admin, so the app never holds the Supabase service-role key. Public sign-up is disabled.
 - **Passwords:** minimum 8 characters. Admin reset sets a temporary password that must be changed at the next login.
 - **Row Level Security on every table:**
   - Drivers can read only their own orders, trips and branches on their orders, and insert only their own locations and proofs.
   - The warehouse role can read today's orders and can only transition `new` ↔ `ready`.
   - Sales and admin can read everything; only admin can write `profiles`, `sales_reps`, `failure_reasons` and `warehouses`.
 - **Route guards:** `proxy.ts` redirects unauthenticated users to `/login`. Every layout checks the role server-side, and every server action re-checks the role before acting, so nothing relies on hidden UI alone.
-- **Secrets:** the service-role key, the Routes key and the Supabase JWT secret are server-only environment variables, never exposed through `NEXT_PUBLIC_`.
+- **Secrets:** the Google Routes server key is a server-only environment variable, never exposed through `NEXT_PUBLIC_`. The Supabase service-role key is not used by the app.
 - **Photos:** stored in a private bucket and viewed only through signed URLs valid for 10 minutes.
 - **Login rate limiting:** Supabase Auth's built-in limits, plus a lockout of 5 failed attempts per username per 15 minutes.
 
