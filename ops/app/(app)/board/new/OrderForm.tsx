@@ -47,7 +47,7 @@ function Fields({ branches, reps, drivers, today, initialBranch, labels, state, 
         ) : (
           <input
             autoFocus value={q} placeholder={labels.search} role="combobox" aria-expanded={open} aria-controls="branch-list"
-            onChange={(e) => { setQ(e.target.value); setOpen(true); }} onFocus={() => setOpen(true)}
+            onChange={(e) => { setQ(e.target.value); setOpen(e.target.value.trim().length > 0); }}
             className="h-11 w-full border border-mist-300 bg-white px-3 text-base outline-none focus:border-royal-600 focus:ring-2 focus:ring-royal-100"
           />
         )}

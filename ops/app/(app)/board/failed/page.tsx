@@ -12,7 +12,7 @@ export default async function FailedPage() {
   const [failed, drivers, reasons] = await Promise.all([getFailedOrders(), getActiveDrivers(), getReasons()]);
   const reasonById = new Map(reasons.map((r) => [r.id, r]));
   const tomorrow = addDays(riyadhToday(), 1);
-  const fmt = new Intl.DateTimeFormat(locale === "en" ? "en-GB" : "ar-SA-u-nu-latn-ca-gregory", { dateStyle: "medium", timeStyle: "short", timeZone: "Asia/Riyadh" });
+  const fmt = new Intl.DateTimeFormat(locale === "en" ? "en-GB" : locale === "ur" ? "ur-PK" : "ar-SA-u-nu-latn-ca-gregory", { dateStyle: "medium", timeStyle: "short", timeZone: "Asia/Riyadh" });
   const labels = {
     reschedule: t("failed.reschedule"), cancel: t("failed.cancel"), date: t("order.date"), driver: t("order.driver"),
     external: t("board.external"), note: t("board.note"), choose: t("order.choose"),
@@ -35,7 +35,7 @@ export default async function FailedPage() {
                   <div className="mt-1 flex flex-wrap items-center gap-3 text-sm text-ink-500">
                     <span className="flex items-center gap-1 font-bold text-bad-600"><Icon name={r?.icon ?? "help"} />{label}</span>
                     <span>{t("board.po")}: <span dir="ltr">{o.po_number}</span></span>
-                    <span dir="ltr">{fmt.format(new Date(o.failed_at))}</span>
+                    <span>{fmt.format(new Date(o.failed_at))}</span>
                   </div>
                   {o.note && <p className="mt-2 bg-mist-50 p-2 text-sm">{o.note}</p>}
                 </div>

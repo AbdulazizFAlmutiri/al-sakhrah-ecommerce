@@ -1814,7 +1814,7 @@ test("sales creates orders, warehouse readies them, sales closes and reschedules
   await card2.getByText("المحل مقفل").click();
   await card2.locator('input[name="note"]').fill("مقفل وقت الظهر");
   await card2.getByRole("button", { name: "تأكيد" }).click();
-  await expect(card2).toContainText("لم يتم التسليم");
+  await expect(card2.locator("form")).toHaveCount(0);
 
   // reschedule from the not-delivered list
   await sales.goto("/board/failed");
