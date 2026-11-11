@@ -19,13 +19,13 @@ export function ReadyButton({ id, status, readyAt, labels }: {
       {status === "new" ? (
         <form action={action}>
           <input type="hidden" name="id" value={id} /><input type="hidden" name="to" value="ready" />
-          <button disabled={pending} className="flex h-14 min-w-36 items-center justify-center gap-2 bg-ok-600 px-6 text-lg font-extrabold text-white disabled:opacity-60">
+          <button disabled={pending} className="flex h-14 min-w-36 items-center justify-center gap-2 rounded-xl bg-ok-600 px-6 text-lg font-extrabold text-white disabled:opacity-60">
             <Icon name="check" className="text-2xl" />{labels.ready}
           </button>
         </form>
       ) : (
         <div className="flex items-center gap-2">
-          <span className="flex h-14 items-center gap-2 bg-ok-50 px-5 text-lg font-extrabold text-ok-600"><Icon name="done_all" />{labels.done}</span>
+          <span className="flex h-14 items-center gap-2 rounded-xl bg-ok-50 px-5 text-lg font-extrabold text-ok-600"><Icon name="done_all" />{labels.done}</span>
           {canUndo && (
             <form action={action}>
               <input type="hidden" name="id" value={id} /><input type="hidden" name="to" value="new" />

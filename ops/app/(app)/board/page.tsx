@@ -36,19 +36,19 @@ export default async function BoardPage({ searchParams }: { searchParams: Promis
           <h1 className="text-2xl font-extrabold text-navy-700">{t("board.title")}</h1>
           <LiveRefresh label={t("board.live")} />
         </div>
-        <nav className="flex items-center gap-1 bg-white p-1 shadow-sm">
-          <Link href={`/board?date=${addDays(date, -1)}`} className="p-2 hover:bg-royal-50" aria-label={t("board.prev_day")}><Icon name="chevron_right" className="rtl:rotate-0 ltr:rotate-180" /></Link>
+        <nav className="flex items-center gap-1 rounded-xl bg-white p-1 shadow-sm">
+          <Link href={`/board?date=${addDays(date, -1)}`} className="rounded-lg p-2 hover:bg-royal-50" aria-label={t("board.prev_day")}><Icon name="chevron_right" className="rtl:rotate-0 ltr:rotate-180" /></Link>
           <span className="min-w-44 px-2 text-center font-bold">{date === today ? `${t("board.today")} · ` : ""}{dayLabel}</span>
-          <Link href={`/board?date=${addDays(date, 1)}`} className="p-2 hover:bg-royal-50" aria-label={t("board.next_day")}><Icon name="chevron_left" className="rtl:rotate-0 ltr:rotate-180" /></Link>
+          <Link href={`/board?date=${addDays(date, 1)}`} className="rounded-lg p-2 hover:bg-royal-50" aria-label={t("board.next_day")}><Icon name="chevron_left" className="rtl:rotate-0 ltr:rotate-180" /></Link>
           {date !== today && <Link href="/board" className="px-3 py-2 text-sm font-bold text-royal-600">{t("board.today")}</Link>}
         </nav>
         <div className="flex gap-2">
           {failed.length > 0 && (
-            <Link href="/board/failed" className="flex h-10 items-center gap-2 bg-bad-50 px-4 text-sm font-bold text-bad-600">
+            <Link href="/board/failed" className="flex h-10 items-center gap-2 rounded-xl bg-bad-50 px-4 text-sm font-bold text-bad-600">
               <Icon name="assignment_late" />{t("nav.failed")} ({failed.length})
             </Link>
           )}
-          <Link href="/board/new" className="flex h-10 items-center gap-2 bg-royal-600 px-4 text-sm font-bold text-white hover:bg-royal-700">
+          <Link href="/board/new" className="flex h-10 items-center gap-2 rounded-xl bg-royal-600 px-4 text-sm font-bold text-white hover:bg-royal-700">
             <Icon name="add" />{t("nav.new_order")}
           </Link>
         </div>
@@ -56,19 +56,19 @@ export default async function BoardPage({ searchParams }: { searchParams: Promis
 
       <div className="flex flex-wrap gap-2">
         {counts.map(([s, n]) => (
-          <span key={s} className="flex items-center gap-2 bg-white px-3 py-2 shadow-sm">
+          <span key={s} className="flex items-center gap-2 rounded-xl bg-white px-3 py-2 shadow-sm">
             <StatusChip status={s} t={t} /><b className="font-[family-name:var(--font-barlow)] text-lg">{n}</b>
           </span>
         ))}
       </div>
 
       {lanes.length === 0 ? (
-        <p className="bg-white p-10 text-center text-ink-500 shadow-sm">{t("board.empty")}</p>
+        <p className="rounded-2xl bg-white p-10 text-center text-ink-500 shadow-sm">{t("board.empty")}</p>
       ) : (
         <div className="grid gap-5 lg:grid-cols-2 2xl:grid-cols-3">
           {lanes.map((lane) => (
-            <section key={lane.key} className="border-t-4 border-royal-600 bg-white shadow-sm">
-              <header className="flex items-center justify-between bg-mist-100 px-4 py-3">
+            <section key={lane.key} className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-mist-200/60">
+              <header className="flex items-center justify-between border-b border-mist-100 bg-mist-50 px-4 py-3">
                 <h2 className="flex items-center gap-2 text-lg font-extrabold text-navy-700">
                   <Icon name={lane.external ? "local_shipping" : "person"} />{lane.label}
                 </h2>
@@ -79,7 +79,7 @@ export default async function BoardPage({ searchParams }: { searchParams: Promis
                   <li key={o.id} className="p-4" data-testid="order-card">
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex gap-3">
-                        <span className="grid h-7 w-7 shrink-0 place-items-center bg-navy-700 font-[family-name:var(--font-barlow)] text-sm font-bold text-white">{o.stop_seq ?? i + 1}</span>
+                        <span className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-navy-700 font-[family-name:var(--font-barlow)] text-sm font-bold text-white">{o.stop_seq ?? i + 1}</span>
                         <div>
                           <div className="font-bold">{o.branch?.customer?.name} — {o.branch?.name}</div>
                           <div className="mt-1 text-xs text-ink-500">

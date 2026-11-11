@@ -24,7 +24,7 @@ export function RepsSection({ reps, labels }: {
             <form action={toggleRepAction}>
               <input type="hidden" name="id" value={r.id} />
               <input type="hidden" name="active" value={String(!r.active)} />
-              <button className={`border px-3 py-1 text-sm ${r.active ? "border-royal-600 text-navy-700" : "border-mist-300 text-ink-500 line-through"}`}
+              <button className={`rounded-full border px-3 py-1 text-sm ${r.active ? "border-royal-600 text-navy-700" : "border-mist-300 text-ink-500 line-through"}`}
                 title={r.active ? labels.active : labels.inactive}>
                 {r.name}
               </button>

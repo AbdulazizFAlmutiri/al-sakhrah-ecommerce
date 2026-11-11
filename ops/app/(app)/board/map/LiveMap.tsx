@@ -60,5 +60,5 @@ export function LiveMap({ trips, warehouse, warehouseLabel }: { trips: MapTripVi
   }, [trips, warehouse, warehouseLabel]);
 
   useEffect(() => () => { map.current?.remove(); map.current = null; }, []);
-  return <div ref={el} className="h-[70vh] w-full bg-mist-100" data-testid="live-map" />;
+  return <div ref={el} className="h-[70vh] w-full overflow-hidden rounded-2xl bg-mist-100 shadow-sm" data-testid="live-map" />;
 }

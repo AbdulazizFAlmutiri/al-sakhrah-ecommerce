@@ -30,7 +30,7 @@ function Fields({ branches, reps, drivers, today, initialBranch, labels, state, 
   const [q, setQ] = useState("");
   const [open, setOpen] = useState(false);
   const results = useMemo(() => matchBranches(q, branches), [q, branches]);
-  const select = "h-11 border border-mist-300 bg-white px-2 text-base";
+  const select = "h-11 border border-mist-200 bg-white px-2 text-base";
 
   return (
     <form action={action} className="grid gap-5 md:grid-cols-2">
@@ -38,7 +38,7 @@ function Fields({ branches, reps, drivers, today, initialBranch, labels, state, 
         <span className="mb-1 block text-sm font-semibold text-ink-700">{labels.branch}</span>
         <input type="hidden" name="branch_id" value={picked?.id ?? ""} />
         {picked ? (
-          <div className="flex h-11 items-center justify-between border border-royal-600 bg-royal-50 px-3">
+          <div className="flex h-11 items-center justify-between rounded-xl border border-royal-500 bg-royal-50 px-3">
             <span className="font-bold text-navy-700">{picked.customer} — {picked.name}</span>
             <button type="button" onClick={() => { setPicked(null); setQ(""); }} className="text-ink-500" aria-label="clear">
               <Icon name="close" />
@@ -48,11 +48,11 @@ function Fields({ branches, reps, drivers, today, initialBranch, labels, state, 
           <input
             autoFocus value={q} placeholder={labels.search} role="combobox" aria-expanded={open} aria-controls="branch-list"
             onChange={(e) => { setQ(e.target.value); setOpen(e.target.value.trim().length > 0); }}
-            className="h-11 w-full border border-mist-300 bg-white px-3 text-base outline-none focus:border-royal-600 focus:ring-2 focus:ring-royal-100"
+            className="h-11 w-full border border-mist-200 bg-white px-3 text-base outline-none focus:border-royal-600 focus:ring-2 focus:ring-royal-100"
           />
         )}
         {!picked && open && (
-          <ul id="branch-list" role="listbox" className="absolute z-10 mt-1 max-h-72 w-full overflow-auto border border-mist-300 bg-white shadow-lg">
+          <ul id="branch-list" role="listbox" className="absolute z-10 mt-1 max-h-72 w-full overflow-auto rounded-xl border border-mist-200 bg-white shadow-lg">
             {results.map((b) => (
               <li key={b.id} role="option" aria-selected={false}>
                 <button type="button" onClick={() => { setPicked(b); setOpen(false); }} className="w-full px-3 py-2 text-start hover:bg-royal-50">
@@ -87,7 +87,7 @@ function Fields({ branches, reps, drivers, today, initialBranch, labels, state, 
       <Field label={labels.date} name="delivery_date" type="date" defaultValue={today} dir="ltr" required />
       <label className="flex flex-col gap-1 text-sm md:col-span-2">
         <span className="font-semibold text-ink-700">{labels.notes}</span>
-        <textarea name="notes" rows={2} className="border border-mist-300 bg-white px-3 py-2 text-base" />
+        <textarea name="notes" rows={2} className="border border-mist-200 bg-white px-3 py-2 text-base" />
       </label>
       <div className="flex flex-wrap items-center gap-3 md:col-span-2">
         <Button type="submit" name="intent" value="another" size="lg" disabled={pending}>

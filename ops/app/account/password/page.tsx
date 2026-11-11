@@ -9,7 +9,7 @@ export default async function PasswordPage() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center gap-8 p-6">
       <Logo variant="mark" className="w-16" />
-      <div className="w-full max-w-sm border-t-4 border-royal-600 bg-white p-6 shadow-sm">
+      <div className="w-full max-w-sm rounded-3xl bg-white p-7 shadow-lg ring-1 ring-mist-200/60">
         <h1 className="text-2xl font-bold text-navy-700">{t("password.title")}</h1>
         <p className="mb-6 mt-1 text-sm text-ink-500">{t("password.hint")}</p>
         <PasswordForm

@@ -22,11 +22,11 @@ export default async function WarehousePage() {
         <LiveRefresh label={t("board.live")} />
       </header>
       {lanes.length === 0 ? (
-        <p className="bg-white p-10 text-center text-lg text-ink-500 shadow-sm">{t("wh.empty")}</p>
+        <p className="rounded-2xl bg-white p-10 text-center text-lg text-ink-500 shadow-sm">{t("wh.empty")}</p>
       ) : (
         lanes.map((lane) => (
-          <section key={lane.key} className="border-t-4 border-royal-600 bg-white shadow-sm">
-            <h2 className="flex items-center gap-2 bg-mist-100 px-4 py-3 text-xl font-extrabold text-navy-700">
+          <section key={lane.key} className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-mist-200/60">
+            <h2 className="flex items-center gap-2 border-b border-mist-100 bg-mist-50 px-4 py-3 text-xl font-extrabold text-navy-700">
               <Icon name={lane.external ? "local_shipping" : "person"} />{lane.label}
             </h2>
             <ul className="divide-y divide-mist-200">

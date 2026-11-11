@@ -30,7 +30,7 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
   const toReady = avgMinutes(orders, "created_at", "ready_at");
   const toDeliver = avgMinutes(orders, "ready_at", "delivered_at");
   const selected = detail && orderId ? orders.find((o) => o.id === orderId) : null;
-  const sel = "h-10 border border-mist-300 bg-white px-2 text-sm";
+  const sel = "h-10 border border-mist-200 bg-white px-2 text-sm";
 
   const tiles: { key: string; label: string; value: string; color: string; icon: string }[] = [
     { key: "total", label: t("dash.total"), value: String(k.total), color: "text-navy-700", icon: "inventory_2" },
@@ -46,17 +46,17 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
     <div className="flex flex-col gap-5">
       <header className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-2xl font-extrabold text-navy-700">{t("dash.title")}</h1>
-        <a href={`/dashboard/export${filtersToQuery(f)}`} download className="flex h-10 items-center gap-2 bg-ok-600 px-4 text-sm font-bold text-white" data-testid="export">
+        <a href={`/dashboard/export${filtersToQuery(f)}`} download className="flex h-10 items-center gap-2 rounded-xl bg-ok-600 px-4 text-sm font-bold text-white" data-testid="export">
           <Icon name="download" />{t("dash.export")}
         </a>
       </header>
 
       {/* filters */}
-      <form className="flex flex-wrap items-end gap-2 bg-white p-4 shadow-sm" method="get">
+      <form className="flex flex-wrap items-end gap-2 rounded-2xl bg-white p-4 shadow-sm" method="get">
         <div className="flex gap-1">
           {PRESETS.map((p) => (
             <Link key={p} href={`/dashboard${filtersToQuery({ ...f, preset: p })}`}
-              className={`flex h-10 items-center px-3 text-sm font-bold ${f.preset === p ? "bg-royal-600 text-white" : "bg-mist-100 text-navy-700"}`}>{t(`dash.${p}` as const)}</Link>
+              className={`flex h-10 items-center rounded-xl px-3 text-sm font-bold ${f.preset === p ? "bg-royal-600 text-white" : "bg-mist-100 text-navy-700"}`}>{t(`dash.${p}` as const)}</Link>
           ))}
         </div>
         <label className="flex flex-col text-xs">{t("dash.from")}<input type="date" name="from" defaultValue={f.from} className={sel} dir="ltr" /></label>
@@ -74,13 +74,13 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
           <option value="">{t("dash.all_customers")}</option>
           {opts.customers.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
         </select>
-        <button className="h-10 bg-navy-700 px-4 text-sm font-bold text-white">{t("dash.apply")}</button>
+        <button className="h-10 rounded-xl bg-navy-700 px-4 text-sm font-bold text-white">{t("dash.apply")}</button>
       </form>
 
       {/* KPI tiles */}
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4 xl:grid-cols-7">
         {tiles.map((x) => (
-          <div key={x.key} className="border-t-4 border-royal-600 bg-white p-4 shadow-sm" data-testid={`kpi-${x.key}`}>
+          <div key={x.key} className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-mist-200/60" data-testid={`kpi-${x.key}`}>
             <div className="flex items-center justify-between text-sm text-ink-500">{x.label}<Icon name={x.icon} className={`text-2xl ${x.color}`} /></div>
             <div className={`mt-2 font-[family-name:var(--font-barlow)] text-4xl font-bold ${x.color}`}>{x.value}</div>
           </div>
@@ -99,7 +99,7 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
         }} extraHeads={[t("dash.col_trips"), t("dash.col_km")]} />
         <Breakdown title={t("dash.by_rep")} rows={byRep} t={t} />
         <Breakdown title={t("dash.by_customer")} rows={byCustomer} t={t} />
-        <section className="border-t-4 border-bad-600 bg-white shadow-sm">
+        <section className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-bad-600/20">
           <h2 className="px-4 py-3 font-extrabold text-navy-700">{t("dash.reasons")}</h2>
           <ul className="divide-y divide-mist-200">
             {reasons.length === 0 && <li className="px-4 py-3 text-sm text-ink-500">—</li>}
@@ -110,7 +110,7 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
                 <li key={r.reason_id ?? "none"} className="flex items-center gap-3 px-4 py-2 text-sm">
                   <Icon name={meta?.icon ?? "help"} className="text-bad-600" />
                   <span className="w-40">{meta ? label(meta) : t("failed.no_reason")}</span>
-                  <span className="h-3 bg-bad-600" style={{ width: `${(r.count / max) * 50}%` }} />
+                  <span className="h-3 rounded-full bg-bad-600" style={{ width: `${(r.count / max) * 50}%` }} />
                   <b>{r.count}</b>
                 </li>
               );
@@ -120,7 +120,7 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
       </div>
 
       {/* order table */}
-      <section className="border-t-4 border-royal-600 bg-white shadow-sm">
+      <section className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-mist-200/60">
         <h2 className="px-4 py-3 font-extrabold text-navy-700">{t("dash.orders_table")} ({orders.length})</h2>
         {orders.length === 0 ? <p className="p-8 text-center text-ink-500">{t("dash.empty")}</p> : (
           <div className="overflow-x-auto">
@@ -148,8 +148,8 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
 
       {/* order detail drawer */}
       {selected && detail && (
-        <aside className="fixed inset-y-0 end-0 z-40 flex w-full max-w-md flex-col overflow-auto bg-white shadow-2xl" data-testid="order-detail">
-          <header className="flex items-center justify-between border-b-4 border-royal-600 bg-mist-100 px-4 py-3">
+        <aside className="fixed inset-y-0 end-0 z-40 flex w-full max-w-md flex-col overflow-auto bg-white shadow-2xl md:rounded-s-3xl" data-testid="order-detail">
+          <header className="flex items-center justify-between border-b border-mist-200 bg-mist-50 px-4 py-3">
             <div>
               <div className="font-extrabold text-navy-700">{selected.customer} — {selected.branch}</div>
               <div className="text-xs text-ink-500" dir="ltr">{selected.po_number}</div>
@@ -161,7 +161,7 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
               <h3 className="mb-2 font-bold text-navy-700">{t("dash.photo")}</h3>
               {detail.photoUrl
                 // eslint-disable-next-line @next/next/no-img-element -- short-lived signed URL
-                ? <a href={detail.photoUrl} target="_blank" rel="noreferrer"><img src={detail.photoUrl} alt={t("dash.photo")} className="max-h-96 w-full bg-mist-100 object-contain" /></a>
+                ? <a href={detail.photoUrl} target="_blank" rel="noreferrer"><img src={detail.photoUrl} alt={t("dash.photo")} className="max-h-96 w-full rounded-2xl bg-mist-100 object-contain" /></a>
                 : <p className="bg-mist-50 p-4 text-sm text-ink-500">{t("dash.no_photo")}</p>}
               {detail.proof?.far_from_store && <p className="mt-2 flex items-center gap-1 text-sm font-bold text-warn-600"><Icon name="wrong_location" />{t("board.far")}</p>}
             </div>
@@ -190,7 +190,7 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
 
 function Timing({ label, v, t }: { label: string; v: number | null; t: T }) {
   return (
-    <div className="flex items-center justify-between bg-white p-4 shadow-sm">
+    <div className="flex items-center justify-between rounded-2xl bg-white p-4 shadow-sm">
       <span className="flex items-center gap-2 text-sm text-ink-500"><Icon name="timer" className="text-royal-600" />{label}</span>
       <b className="font-[family-name:var(--font-barlow)] text-2xl text-navy-700">{v === null ? "—" : t("dash.minutes", { n: v })}</b>
     </div>
@@ -199,7 +199,7 @@ function Timing({ label, v, t }: { label: string; v: number | null; t: T }) {
 
 function Breakdown({ title, rows, t, extra, extraHeads = [] }: { title: string; rows: Row[]; t: T; extra?: (r: Row) => (string | number)[]; extraHeads?: string[] }) {
   return (
-    <section className="border-t-4 border-royal-600 bg-white shadow-sm">
+    <section className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-mist-200/60">
       <h2 className="px-4 py-3 font-extrabold text-navy-700">{title}</h2>
       <table className="w-full text-sm">
         <thead className="bg-mist-100 text-xs text-ink-500">

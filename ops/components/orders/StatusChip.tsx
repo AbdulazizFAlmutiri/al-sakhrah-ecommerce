@@ -14,7 +14,7 @@ const STYLE: Record<OrderStatus, { cls: string; icon: string }> = {
 export function StatusChip({ status, t }: { status: OrderStatus; t: T }) {
   const s = STYLE[status];
   return (
-    <span className={`inline-flex items-center gap-1 px-2 py-1 text-xs font-bold ${s.cls}`}>
+    <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-bold ${s.cls}`}>
       <Icon name={s.icon} className="text-base" />
       {t(`status.${status}` as const)}
     </span>

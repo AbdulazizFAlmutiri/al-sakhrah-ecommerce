@@ -11,7 +11,7 @@ export function LocaleSwitcher({ current, labels }: { current: Locale; labels: R
           name="locale"
           value={l}
           aria-pressed={l === current}
-          className={`px-3 py-1 text-sm ${l === current ? "bg-royal-600 text-white" : "text-navy-700 hover:bg-royal-50"}`}
+          className={`rounded-lg px-3 py-1 text-sm ${l === current ? "bg-royal-600 text-white" : "text-navy-700 hover:bg-royal-50"}`}
         >
           {labels[l]}
         </button>

@@ -19,13 +19,13 @@ export function CreateUserForm({ labels }: { labels: UserFormLabels }) {
       <Field label={labels.fullName} name="full_name" required />
       <label className="flex flex-col gap-1 text-sm">
         <span className="font-semibold text-ink-700">{labels.role}</span>
-        <select name="role" className="h-11 border border-mist-300 bg-white px-2" defaultValue="driver">
+        <select name="role" className="h-11 border border-mist-200 bg-white px-2" defaultValue="driver">
           {Object.entries(labels.roles).map(([v, l]) => <option key={v} value={v}>{l}</option>)}
         </select>
       </label>
       <label className="flex flex-col gap-1 text-sm">
         <span className="font-semibold text-ink-700">{labels.locale}</span>
-        <select name="locale" className="h-11 border border-mist-300 bg-white px-2" defaultValue="ar">
+        <select name="locale" className="h-11 border border-mist-200 bg-white px-2" defaultValue="ar">
           {Object.entries(labels.locales).map(([v, l]) => <option key={v} value={v}>{l}</option>)}
         </select>
       </label>

@@ -29,17 +29,17 @@ export default async function MapPage() {
         <LiveRefresh label={t("board.live")} tables={["orders", "driver_locations", "trips"]} />
       </header>
       <div className="grid gap-4 lg:grid-cols-[1fr_360px]">
-        <div className="border-t-4 border-royal-600 bg-white shadow-sm">
+        <div className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-mist-200/60">
           <LiveMap trips={views} warehouse={warehouse} warehouseLabel={t("map.warehouse")} />
         </div>
         <aside className="flex flex-col gap-3">
-          {trips.length === 0 && <p className="bg-white p-6 text-center text-ink-500 shadow-sm">{t("map.no_trips")}</p>}
+          {trips.length === 0 && <p className="rounded-2xl bg-white p-6 text-center text-ink-500 shadow-sm">{t("map.no_trips")}</p>}
           {trips.map((tr, i) => {
             const age = tr.last ? ageParts(tr.last.recorded_at, now) : null;
             const stale = !age || age.h > 0 || age.m >= 3;
             const ageText = !age ? "—" : age.h === 0 && age.m === 0 ? t("time.just_now") : age.h === 0 ? t("time.m", { m: age.m }) : t("time.hm", { h: age.h, m: age.m });
             return (
-              <section key={tr.id} className="bg-white shadow-sm" style={{ borderTop: `4px solid ${COLORS[i % COLORS.length]}` }} data-testid="map-trip">
+              <section key={tr.id} className="overflow-hidden rounded-2xl bg-white shadow-sm" style={{ borderTop: `4px solid ${COLORS[i % COLORS.length]}` }} data-testid="map-trip">
                 <header className="flex items-center justify-between px-4 py-3">
                   <span className="flex items-center gap-2 text-lg font-extrabold"><Icon name="local_shipping" />{tr.driver}</span>
                   <span className={`text-xs font-bold ${stale ? "text-bad-600" : "text-ok-600"}`}>

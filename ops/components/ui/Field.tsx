@@ -8,7 +8,7 @@ export function Field({ label, name, ...props }: InputHTMLAttributes<HTMLInputEl
         id={name}
         name={name}
         {...props}
-        className="h-11 border border-mist-300 bg-white px-3 text-base outline-none focus:border-royal-600 focus:ring-2 focus:ring-royal-100"
+        className="h-11 rounded-xl border border-mist-200 bg-white px-3 text-base outline-none focus:border-royal-600 focus:ring-2 focus:ring-royal-100"
       />
     </label>
   );

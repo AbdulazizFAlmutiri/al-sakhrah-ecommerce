@@ -17,7 +17,7 @@ export default async function LoginPage() {
       <LoginHero title={t("app.name")} tagline={t("login.tagline")} />
       <section className="flex flex-col items-center justify-center gap-8 p-6">
         <Logo className="w-40" />
-        <div className="w-full max-w-sm border-t-4 border-royal-600 bg-white p-6 shadow-sm">
+        <div className="w-full max-w-sm rounded-3xl bg-white p-7 shadow-lg ring-1 ring-mist-200/60">
           <span className="eyebrow text-royal-600">{t("login.eyebrow")}</span>
           <h2 className="mb-6 mt-1 text-2xl font-bold text-navy-700">{t("login.title")}</h2>
           <LoginForm

@@ -31,7 +31,7 @@ export function AddBranchForm({ customers, labels, returnTo, defaultCustomer }: 
       {returnTo && <input type="hidden" name="return" value={returnTo} />}
       <label className="flex flex-col gap-1 text-sm">
         <span className="font-semibold text-ink-700">{labels.customer}</span>
-        <select name="customer_id" required defaultValue={defaultCustomer ?? ""} className="h-11 border border-mist-300 bg-white px-2">
+        <select name="customer_id" required defaultValue={defaultCustomer ?? ""} className="h-11 border border-mist-200 bg-white px-2">
           <option value="" disabled>{labels.choose}</option>
           {customers.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
         </select>

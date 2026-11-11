@@ -16,10 +16,10 @@ export function FailedActions({ id, defaultDate, drivers, labels }: {
       <form action={rsAction} className="flex flex-wrap items-end gap-2">
         <input type="hidden" name="id" value={id} />
         <label className="flex flex-col gap-1 text-xs">{labels.date}
-          <input type="date" name="delivery_date" defaultValue={defaultDate} required dir="ltr" className="h-9 border border-mist-300 px-2 text-sm" />
+          <input type="date" name="delivery_date" defaultValue={defaultDate} required dir="ltr" className="h-9 border border-mist-200 px-2 text-sm" />
         </label>
         <label className="flex flex-col gap-1 text-xs">{labels.driver}
-          <select name="driver" required defaultValue="" className="h-9 border border-mist-300 bg-white px-2 text-sm">
+          <select name="driver" required defaultValue="" className="h-9 border border-mist-200 bg-white px-2 text-sm">
             <option value="" disabled>{labels.choose}</option>
             {drivers.map((d) => <option key={d.user_id} value={d.user_id}>{d.full_name}</option>)}
             <option value="external">{labels.external}</option>
@@ -29,7 +29,7 @@ export function FailedActions({ id, defaultDate, drivers, labels }: {
       </form>
       <form action={csAction} className="flex flex-wrap items-center gap-2">
         <input type="hidden" name="id" value={id} />
-        <input name="note" placeholder={labels.note} className="h-9 border border-mist-300 px-2 text-sm" />
+        <input name="note" placeholder={labels.note} className="h-9 border border-mist-200 px-2 text-sm" />
         <Button type="submit" variant="ghost" disabled={csPending} className="!h-9 text-bad-600">{labels.cancel}</Button>
       </form>
       <FormMessage kind="error">{(rs.error && labels.errors[rs.error]) || (cs.error && labels.errors[cs.error]) || null}</FormMessage>

@@ -11,7 +11,7 @@ type Labels = { code: string; ar: string; en: string; ur: string; icon: string; 
 
 function ReasonForm({ r, labels }: { r?: Reason; labels: Labels }) {
   const [state, action, pending] = useActionState<ActionState, FormData>(saveReasonAction, {});
-  const input = "h-9 w-full min-w-0 border border-mist-300 px-2 text-sm";
+  const input = "h-9 w-full min-w-0 border border-mist-200 px-2 text-sm";
   return (
     <form action={action} className="grid items-center gap-2 border-b border-mist-200 py-3 grid-cols-2 lg:grid-cols-[32px_repeat(5,minmax(0,1fr))_64px_auto_auto]">
       {r && <input type="hidden" name="id" value={r.id} />}

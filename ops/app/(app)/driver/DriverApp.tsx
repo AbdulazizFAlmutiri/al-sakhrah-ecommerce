@@ -155,11 +155,11 @@ export function DriverApp({ userId, tripActive, stops, waiting, reasons, labels 
       {!tripActive && (
         <>
           {waiting.length === 0 ? (
-            <p className="bg-white p-10 text-center text-xl text-ink-500 shadow-sm">{labels.noOrders}</p>
+            <p className="rounded-2xl bg-white p-10 text-center text-xl text-ink-500 shadow-sm">{labels.noOrders}</p>
           ) : (
             <ul className="flex flex-col gap-3">
               {waiting.map((w) => (
-                <li key={w.id} className={`flex items-center justify-between bg-white p-5 shadow-sm ${w.status !== "ready" ? "opacity-50" : ""}`}>
+                <li key={w.id} className={`flex items-center justify-between rounded-2xl bg-white p-5 shadow-sm ${w.status !== "ready" ? "opacity-50" : ""}`}>
                   <div>
                     <div className="text-xl font-extrabold">{w.store}</div>
                     <div className="text-lg text-ink-500">{w.branch}</div>
@@ -173,7 +173,7 @@ export function DriverApp({ userId, tripActive, stops, waiting, reasons, labels 
           )}
           {readyCount > 0 && (
             <button onClick={start} disabled={busy || gpsDenied} data-testid="start-trip"
-              className="fixed inset-x-4 bottom-4 z-20 mx-auto flex h-20 max-w-3xl items-center justify-center gap-3 bg-royal-600 text-2xl font-extrabold text-white shadow-xl disabled:bg-mist-300">
+              className="fixed inset-x-4 bottom-4 z-20 mx-auto flex h-20 max-w-3xl items-center justify-center gap-3 rounded-2xl bg-royal-600 text-2xl font-extrabold text-white shadow-xl disabled:bg-mist-300">
               <Icon name="play_arrow" className="text-4xl" filled />{labels.start} · {labels.readyN.replace("{n}", String(readyCount))}
             </button>
           )}
@@ -187,9 +187,9 @@ export function DriverApp({ userId, tripActive, stops, waiting, reasons, labels 
               const isNext = s.id === nextId;
               const done = s.status === "delivered" || s.status === "failed";
               return (
-                <li key={s.id} data-testid="stop" className={`bg-white shadow-sm ${isNext ? "border-s-8 border-royal-600" : ""} ${done ? "opacity-60" : ""}`}>
+                <li key={s.id} data-testid="stop" className={`overflow-hidden rounded-2xl bg-white shadow-sm ${isNext ? "ring-2 ring-royal-500 shadow-lg" : ""} ${done ? "opacity-60" : ""}`}>
                   <div className="flex items-start gap-4 p-5">
-                    <span className={`grid h-12 w-12 shrink-0 place-items-center text-2xl font-extrabold text-white ${done ? (s.status === "delivered" ? "bg-ok-600" : "bg-bad-600") : "bg-navy-700"}`}>
+                    <span className={`grid h-12 w-12 shrink-0 place-items-center rounded-xl text-2xl font-extrabold text-white ${done ? (s.status === "delivered" ? "bg-ok-600" : "bg-bad-600") : "bg-navy-700"}`}>
                       {done ? <Icon name={s.status === "delivered" ? "check" : "close"} className="text-3xl" /> : (s.seq ?? i + 1)}
                     </span>
                     <div className="min-w-0 flex-1">
@@ -221,11 +221,11 @@ export function DriverApp({ userId, tripActive, stops, waiting, reasons, labels 
             })}
           </ol>
           {open.length === 0 && (
-            <div className="flex flex-col items-center gap-4 bg-white p-8 text-center shadow-sm">
+            <div className="flex flex-col items-center gap-4 rounded-3xl bg-white p-8 text-center shadow-sm">
               <Icon name="flag" className="text-6xl text-ok-600" filled />
               <div className="text-2xl font-extrabold">{labels.doneTitle}</div>
               <div className="text-lg text-ink-500">{labels.doneHint}</div>
-              <button onClick={end} disabled={busy || pendingCount > 0} data-testid="end-trip" className="h-16 w-full max-w-md bg-navy-700 text-xl font-extrabold text-white">{labels.end}</button>
+              <button onClick={end} disabled={busy || pendingCount > 0} data-testid="end-trip" className="h-16 w-full max-w-md rounded-2xl bg-navy-700 text-xl font-extrabold text-white">{labels.end}</button>
             </div>
           )}
         </>
@@ -241,21 +241,21 @@ export function DriverApp({ userId, tripActive, stops, waiting, reasons, labels 
       {/* sheet: delivered with photo / not delivered with reason */}
       {mode && (
         <div className="fixed inset-0 z-30 flex items-end bg-navy-900/60" role="dialog" aria-modal="true">
-          <div className="max-h-[92vh] w-full overflow-auto bg-white p-5">
+          <div className="max-h-[92vh] w-full overflow-auto rounded-t-3xl bg-white p-5">
             <div className="mb-4 text-xl font-extrabold">{mode.stop.store} — {mode.stop.branch}</div>
             {mode.kind === "photo" ? (
               <div className="flex flex-col gap-4">
                 {photo
                   // eslint-disable-next-line @next/next/no-img-element -- local blob preview
-                  ? <img src={photo.url} alt="" className="max-h-[50vh] w-full object-contain bg-mist-100" />
-                  : <button onClick={() => fileRef.current?.click()} className="flex h-48 flex-col items-center justify-center gap-2 border-4 border-dashed border-royal-600 text-royal-600">
+                  ? <img src={photo.url} alt="" className="max-h-[50vh] w-full rounded-2xl object-contain bg-mist-100" />
+                  : <button onClick={() => fileRef.current?.click()} className="flex h-48 flex-col items-center justify-center gap-2 rounded-3xl border-4 border-dashed border-royal-500/60 bg-royal-50/50 text-royal-600">
                       <Icon name="photo_camera" className="text-6xl" /><span className="text-lg font-bold">{labels.takePhoto}</span></button>}
-                {photo && <button onClick={() => fileRef.current?.click()} className="h-12 font-bold text-royal-600">{labels.retake}</button>}
-                <input value={note} onChange={(e) => setNote(e.target.value)} placeholder={labels.note} className="h-12 border border-mist-300 px-3" />
+                {photo && <button onClick={() => fileRef.current?.click()} className="h-12 rounded-xl font-bold text-royal-600">{labels.retake}</button>}
+                <input value={note} onChange={(e) => setNote(e.target.value)} placeholder={labels.note} className="h-12 border border-mist-200 px-3" />
                 <div className="grid grid-cols-2 gap-3">
-                  <button onClick={() => setMode(null)} className="h-16 border border-mist-300 text-lg font-bold">{labels.cancel}</button>
+                  <button onClick={() => setMode(null)} className="h-16 rounded-2xl border border-mist-200 text-lg font-bold">{labels.cancel}</button>
                   <button data-testid="confirm-delivered" onClick={() => submitDelivered(mode.stop)} disabled={!photo || busy}
-                    className="h-16 bg-ok-600 text-lg font-extrabold text-white disabled:bg-mist-300">{busy ? labels.uploading : labels.confirm}</button>
+                    className="h-16 rounded-2xl bg-ok-600 text-lg font-extrabold text-white disabled:bg-mist-300">{busy ? labels.uploading : labels.confirm}</button>
                 </div>
               </div>
             ) : (
@@ -264,16 +264,16 @@ export function DriverApp({ userId, tripActive, stops, waiting, reasons, labels 
                 <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
                   {reasons.map((r) => (
                     <button key={r.id} onClick={() => setReason(r.id)} aria-pressed={reason === r.id} data-testid="reason"
-                      className={`flex h-24 flex-col items-center justify-center gap-1 border-2 text-lg font-bold ${reason === r.id ? "border-bad-600 bg-bad-50 text-bad-600" : "border-mist-300"}`}>
+                      className={`flex h-24 flex-col items-center justify-center gap-1 rounded-2xl border-2 text-lg font-bold ${reason === r.id ? "border-bad-600 bg-bad-50 text-bad-600" : "border-mist-300"}`}>
                       <Icon name={r.icon} className="text-4xl" />{r.label}
                     </button>
                   ))}
                 </div>
-                <input value={note} onChange={(e) => setNote(e.target.value)} placeholder={labels.note} className="h-12 border border-mist-300 px-3" />
+                <input value={note} onChange={(e) => setNote(e.target.value)} placeholder={labels.note} className="h-12 border border-mist-200 px-3" />
                 <div className="grid grid-cols-2 gap-3">
-                  <button onClick={() => setMode(null)} className="h-16 border border-mist-300 text-lg font-bold">{labels.cancel}</button>
+                  <button onClick={() => setMode(null)} className="h-16 rounded-2xl border border-mist-200 text-lg font-bold">{labels.cancel}</button>
                   <button data-testid="confirm-failed" onClick={() => submitFailed(mode.stop)} disabled={!reason || busy}
-                    className="h-16 bg-bad-600 text-lg font-extrabold text-white disabled:bg-mist-300">{busy ? labels.uploading : labels.confirm}</button>
+                    className="h-16 rounded-2xl bg-bad-600 text-lg font-extrabold text-white disabled:bg-mist-300">{busy ? labels.uploading : labels.confirm}</button>
                 </div>
               </div>
             )}
@@ -291,5 +291,5 @@ function subscribeOnline(cb: () => void) {
 
 function Banner({ tone, icon, children }: { tone: "ok" | "warn" | "bad"; icon: string; children: React.ReactNode }) {
   const cls = tone === "ok" ? "bg-ok-50 text-ok-600" : tone === "warn" ? "bg-warn-50 text-warn-600" : "bg-bad-50 text-bad-600";
-  return <div role="status" className={`flex items-center gap-2 px-4 py-3 text-lg font-bold ${cls}`}><Icon name={icon} className="text-2xl" />{children}</div>;
+  return <div role="status" className={`flex items-center gap-2 rounded-2xl px-4 py-3 text-lg font-bold ${cls}`}><Icon name={icon} className="text-2xl" />{children}</div>;
 }

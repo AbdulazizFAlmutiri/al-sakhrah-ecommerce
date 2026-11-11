@@ -45,7 +45,7 @@ export default async function CustomersPage({ searchParams }: { searchParams: Pr
               </div>
               <ul className="mt-2 flex flex-wrap gap-2">
                 {c.branches.map((b) => (
-                  <li key={b.id} className="flex items-center gap-2 border border-mist-300 bg-white px-3 py-1 text-sm">
+                  <li key={b.id} className="flex items-center gap-2 rounded-full border border-mist-200 bg-white px-3 py-1 text-sm">
                     {b.name}
                     <a className="text-royal-600" target="_blank" rel="noreferrer" href={`https://www.google.com/maps?q=${b.lat},${b.lng}`} aria-label={t("customers.map")}>
                       <Icon name="location_on" className="text-base" />

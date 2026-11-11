@@ -46,13 +46,13 @@ export function OrderCardActions({ id, status, external, reasons, labels }: {
           <input type="hidden" name="id" value={id} /><input type="hidden" name="outcome" value="failed" />
           <div className="flex flex-wrap gap-2" role="radiogroup" aria-label={labels.reason}>
             {reasons.map((r) => (
-              <label key={r.id} className="flex cursor-pointer items-center gap-1 border border-mist-300 px-2 py-1 text-sm has-[:checked]:border-bad-600 has-[:checked]:bg-bad-50">
+              <label key={r.id} className="flex cursor-pointer items-center gap-1 rounded-full border border-mist-200 px-3 py-1 text-sm has-[:checked]:border-bad-600 has-[:checked]:bg-bad-50">
                 <input type="radio" name="reason_id" value={r.id} required className="sr-only" />
                 <Icon name={r.icon} className="text-base" />{r.label}
               </label>
             ))}
           </div>
-          <input name="note" placeholder={labels.note} className="h-9 border border-mist-300 px-2 text-sm" />
+          <input name="note" placeholder={labels.note} className="h-9 border border-mist-200 px-2 text-sm" />
           <Button type="submit" variant="danger" disabled={pending} className="!h-9 self-start">{labels.confirm}</Button>
         </form>
       )}

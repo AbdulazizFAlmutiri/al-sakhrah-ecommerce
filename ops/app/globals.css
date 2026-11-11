@@ -24,6 +24,26 @@
   --color-warn-50: #fff4e5;
 
   --font-sans: var(--font-barlow), var(--font-almarai), var(--font-naskh), system-ui, sans-serif;
+
+  /* Soft, diffuse shadows — easy on the eyes */
+  --shadow-sm: 0 1px 2px rgb(15 27 51 / 0.04), 0 4px 14px rgb(15 27 51 / 0.05);
+  --shadow: 0 2px 4px rgb(15 27 51 / 0.05), 0 8px 24px rgb(15 27 51 / 0.07);
+  --shadow-lg: 0 4px 10px rgb(15 27 51 / 0.05), 0 16px 40px rgb(15 27 51 / 0.09);
+  --shadow-xl: 0 8px 20px rgb(15 27 51 / 0.08), 0 24px 56px rgb(15 27 51 / 0.12);
+}
+
+/* Rounded, gentle form controls everywhere */
+@layer base {
+  input:not([type="checkbox"], [type="radio"], [type="file"], [type="hidden"]), select, textarea {
+    border-radius: 0.75rem;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  input:not([type="checkbox"], [type="radio"]):focus-visible, select:focus-visible, textarea:focus-visible {
+    outline: none;
+    border-color: var(--color-royal-500);
+    box-shadow: 0 0 0 3px var(--color-royal-100);
+  }
+  button, a { transition: background-color 0.15s, color 0.15s, border-color 0.15s, box-shadow 0.15s; }
 }
 
 :root:lang(ar) {
