@@ -4,6 +4,7 @@ import { homeFor } from "@/lib/auth/roles";
 import { getT } from "@/lib/i18n/server";
 import { LOCALES } from "@/lib/i18n";
 import { Logo } from "@/components/brand/Logo";
+import { LoginHero } from "@/components/brand/LoginHero";
 import { LocaleSwitcher } from "@/components/shell/LocaleSwitcher";
 import { LoginForm } from "./LoginForm";
 
@@ -13,14 +14,7 @@ export default async function LoginPage() {
   const { locale, t } = await getT();
   return (
     <main className="grid min-h-screen md:grid-cols-2">
-      <section className="corner-accent hidden flex-col justify-between bg-navy-700 p-10 text-white md:flex">
-        <span className="eyebrow text-royal-100">Al-Sakhra for Industry</span>
-        <div>
-          <h1 className="text-4xl font-extrabold leading-tight">{t("app.name")}</h1>
-          <div className="mt-4 h-1 w-16 bg-royal-500" />
-        </div>
-        <span className="eyebrow text-royal-100">Al-Kharj · Riyadh</span>
-      </section>
+      <LoginHero title={t("app.name")} tagline={t("login.tagline")} />
       <section className="flex flex-col items-center justify-center gap-8 p-6">
         <Logo className="w-40" />
         <div className="w-full max-w-sm border-t-4 border-royal-600 bg-white p-6 shadow-sm">

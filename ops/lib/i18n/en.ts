@@ -11,6 +11,7 @@ export const en = {
   "common.error_generic": "Something went wrong. Please try again.",
   "common.not_authorized": "You do not have permission to do this.",
   "login.title": "Sign in",
+  "login.tagline": "From the factory to every store — on time, on the map.",
   "login.eyebrow": "Operations portal",
   "login.username": "Username",
   "login.password": "Password",

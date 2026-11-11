@@ -13,6 +13,7 @@ export const ar: Record<MessageKey, string> = {
   "common.error_generic": "حدث خطأ. حاول مرة أخرى.",
   "common.not_authorized": "ليست لديك صلاحية لهذا الإجراء.",
   "login.title": "تسجيل الدخول",
+  "login.tagline": "من المصنع إلى كل محل — في الوقت، وعلى الخريطة.",
   "login.eyebrow": "Operations portal",
   "login.username": "اسم المستخدم",
   "login.password": "كلمة المرور",

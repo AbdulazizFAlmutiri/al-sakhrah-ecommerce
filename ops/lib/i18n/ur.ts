@@ -13,6 +13,7 @@ export const ur: Record<MessageKey, string> = {
   "common.error_generic": "کچھ غلط ہو گیا۔ دوبارہ کوشش کریں۔",
   "common.not_authorized": "آپ کو اس کی اجازت نہیں ہے۔",
   "login.title": "سائن ان",
+  "login.tagline": "فیکٹری سے ہر دکان تک — وقت پر، نقشے پر۔",
   "login.eyebrow": "Operations portal",
   "login.username": "یوزر نیم",
   "login.password": "پاس ورڈ",
