@@ -224,4 +224,6 @@ export const ur: Record<MessageKey, string> = {
   "dash.empty": "اس مدت میں کوئی آرڈر نہیں۔",
   "dash.view": "دیکھیں",
   "dash.created": "بنایا گیا",
+  "drv.tracking_notice": "اس سفر کے دوران آپ کا مقام دفتر کے ساتھ شیئر ہو رہا ہے۔",
+  "drv.pending": "{n} بھیجنے کے منتظر — خود بخود بھیجا جائے گا",
 };

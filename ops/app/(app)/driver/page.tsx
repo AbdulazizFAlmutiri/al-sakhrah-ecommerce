@@ -28,6 +28,7 @@ export default async function DriverPage() {
         retake: t("drv.retake"), confirm: t("drv.confirm"), cancel: t("drv.cancel"), uploading: t("drv.uploading"),
         chooseReason: t("drv.choose_reason"), next: t("drv.next"), doneTitle: t("drv.done_title"), doneHint: t("drv.done_hint"),
         gpsOff: t("drv.gps_off"), offline: t("drv.offline"), tracking: t("drv.tracking"), note: t("board.note"),
+        trackingNotice: t("drv.tracking_notice"), pending: t("drv.pending"),
         errors: {
           "drv.error_photo": t("drv.error_photo"), "drv.error_trip": t("drv.error_trip"), "drv.stops_remaining": t("drv.stops_remaining"),
           "common.error_generic": t("common.error_generic"),

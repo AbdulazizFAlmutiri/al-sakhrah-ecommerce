@@ -44,9 +44,17 @@ test("driver runs a trip: start, route, photo proof, not delivered, end; office 
   await driver.getByTestId("photo-input").setInputFiles(path.join(__dirname, "fixtures/stamped-po.jpg"));
   await expect(driver.getByRole("dialog").locator("img")).toBeVisible();
   if (SHOTS) await driver.screenshot({ path: `${SHOTS}/p3-04-photo.png` });
+  // no internet: the proof is kept on the tablet and the stop is marked done right away
+  await driver.context().setOffline(true);
   await driver.getByTestId("confirm-delivered").click();
   await expect(driver.getByRole("dialog")).toHaveCount(0);
   await expect(driver.getByTestId("deliver")).toHaveCount(1);
+  await expect(driver.getByText("بانتظار الإرسال")).toBeVisible();
+  await expect(driver.getByTestId("end-trip")).toHaveCount(0);
+  if (SHOTS) await driver.screenshot({ path: `${SHOTS}/p5-01-offline-pending.png` });
+  // back online: it sends by itself
+  await driver.context().setOffline(false);
+  await expect(driver.getByText("بانتظار الإرسال")).toHaveCount(0, { timeout: 30_000 });
 
   // stop 2: not delivered, store closed
   await driver.getByTestId("fail").click();

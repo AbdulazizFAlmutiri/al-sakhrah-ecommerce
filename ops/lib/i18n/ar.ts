@@ -224,4 +224,6 @@ export const ar: Record<MessageKey, string> = {
   "dash.empty": "لا توجد طلبات في هذه الفترة.",
   "dash.view": "عرض",
   "dash.created": "أُنشئ",
+  "drv.tracking_notice": "يتم مشاركة موقعك مع المكتب خلال هذه الرحلة.",
+  "drv.pending": "{n} بانتظار الإرسال — سيُرسل تلقائياً",
 };

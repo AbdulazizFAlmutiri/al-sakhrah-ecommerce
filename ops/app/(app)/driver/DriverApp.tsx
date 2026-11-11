@@ -3,6 +3,8 @@ import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "
 import { useRouter } from "next/navigation";
 import { createBrowserSupabase } from "@/lib/db/browser";
 import { endTripAction, recordProofAction, reportLocationAction, startTripAction } from "./actions";
+import { IdbStore, Outbox } from "@/lib/offline/queue";
+import { isNativeApp, watchLocation } from "@/lib/native/location";
 import { Icon } from "@/components/ui/Icon";
 
 export type DStop = {
@@ -12,7 +14,8 @@ export type DStop = {
 type Reason = { id: string; icon: string; label: string };
 type L = Record<
   | "start" | "end" | "preparing" | "readyN" | "noOrders" | "navigate" | "delivered" | "failed" | "takePhoto" | "retake" | "confirm"
-  | "cancel" | "uploading" | "chooseReason" | "next" | "doneTitle" | "doneHint" | "gpsOff" | "offline" | "tracking" | "note",
+  | "cancel" | "uploading" | "chooseReason" | "next" | "doneTitle" | "doneHint" | "gpsOff" | "offline" | "tracking" | "note"
+  | "trackingNotice" | "pending",
   string
 > & { errors: Record<string, string> };
 
@@ -33,7 +36,6 @@ export function DriverApp({ userId, tripActive, stops, waiting, reasons, labels 
   userId: string; tripActive: boolean; stops: DStop[]; waiting: DStop[]; reasons: Reason[]; labels: L;
 }) {
   const router = useRouter();
-  const [pos, setPos] = useState<Pos | null>(null);
   const [gpsDenied, setGpsDenied] = useState(false);
   const online = useSyncExternalStore(subscribeOnline, () => navigator.onLine, () => true);
   const [busy, setBusy] = useState(false);
@@ -42,40 +44,66 @@ export function DriverApp({ userId, tripActive, stops, waiting, reasons, labels 
   const [photo, setPhoto] = useState<{ blob: Blob; url: string } | null>(null);
   const [reason, setReason] = useState<string | null>(null);
   const [note, setNote] = useState("");
+  const [pendingCount, setPendingCount] = useState(0);
+  const [localDone, setLocalDone] = useState<Record<string, "delivered" | "failed">>({});
   const fileRef = useRef<HTMLInputElement>(null);
   const posRef = useRef<Pos | null>(null);
   const reports = useRef(0);
+  const lastSent = useRef(0);
+  const tripRef = useRef(tripActive);
+  const outbox = useRef<Outbox | null>(null);
 
-  // Location: watch while the page is open (needed to start and for proof positions).
+  useEffect(() => { tripRef.current = tripActive; }, [tripActive]);
+
+  // Durable outbox: proofs and locations are stored on the device first, then sent.
+  const flush = useCallback(async () => {
+    const ob = outbox.current;
+    if (!ob) return;
+    const before = (await ob.pending()).length;
+    const sent = navigator.onLine ? await ob.flush() : 0;
+    setPendingCount((await ob.pending()).length);
+    if (sent > 0 && before > 0) router.refresh();
+  }, [router]);
+
   useEffect(() => {
-    if (!("geolocation" in navigator)) { queueMicrotask(() => setGpsDenied(true)); return; }
-    const id = navigator.geolocation.watchPosition(
-      (p) => { const v = { lat: p.coords.latitude, lng: p.coords.longitude, accuracy: p.coords.accuracy ?? null, speed: p.coords.speed ?? null }; posRef.current = v; setPos(v); setGpsDenied(false); },
-      (e) => { if (e.code === e.PERMISSION_DENIED) setGpsDenied(true); },
-      { enableHighAccuracy: true, maximumAge: 10_000, timeout: 20_000 },
-    );
-    return () => navigator.geolocation.clearWatch(id);
-  }, []);
+    const supabase = createBrowserSupabase();
+    outbox.current = new Outbox(new IdbStore(), {
+      uploadPhoto: async (path, blob) => {
+        const up = await supabase.storage.from("proofs").upload(path, blob, { contentType: "image/jpeg", upsert: false });
+        if (!up.error) return "ok";
+        return /exist|duplicate/i.test(up.error.message) ? "exists" : "error";
+      },
+      // Permanent server refusals (e.g. order reassigned) are dropped so they never block the queue.
+      sendProof: async (p) => { const r = await recordProofAction(p); return !r.error || r.error !== "common.error_generic"; },
+      sendLocation: async (p) => { const r = await reportLocationAction(p); return !r.error || r.error === "no_trip"; },
+    });
+    flush();
+    const i = setInterval(flush, 20_000);
+    window.addEventListener("online", flush);
+    return () => { clearInterval(i); window.removeEventListener("online", flush); };
+  }, [flush]);
 
-
-  // During a trip: report every 30 s, refresh ETAs every 4th report (~2 min), keep the screen on.
+  // Location: native background service in the Android app, browser geolocation otherwise.
+  // During a trip each fix is queued at most every 30 s; every 4th report refreshes ETAs.
   useEffect(() => {
-    if (!tripActive) return;
+    return watchLocation((f) => {
+      posRef.current = f; setGpsDenied(false);
+      if (!tripRef.current || Date.now() - lastSent.current < REPORT_MS) return;
+      lastSent.current = Date.now(); reports.current += 1;
+      outbox.current?.add({ id: crypto.randomUUID(), kind: "location", tries: 0, createdAt: Date.now(),
+        payload: { client_id: crypto.randomUUID(), lat: f.lat, lng: f.lng, accuracy: f.accuracy, speed: f.speed, recorded_at: new Date().toISOString(), refresh: reports.current % 4 === 0 } })
+        .then(flush);
+    }, () => setGpsDenied(true), { title: labels.tracking, message: labels.trackingNotice });
+  }, [flush, labels.tracking, labels.trackingNotice]);
+
+  // Keep the screen awake in the browser during a trip.
+  useEffect(() => {
+    if (!tripActive || isNativeApp()) return;
     let lock: { release: () => Promise<void> } | null = null;
     const nav = navigator as Navigator & { wakeLock?: { request: (t: "screen") => Promise<{ release: () => Promise<void> }> } };
     nav.wakeLock?.request("screen").then((l) => { lock = l; }).catch(() => {});
-    const send = () => {
-      const p = posRef.current;
-      if (!p || !navigator.onLine) return;
-      reports.current += 1;
-      reportLocationAction({ client_id: crypto.randomUUID(), lat: p.lat, lng: p.lng, accuracy: p.accuracy, speed: p.speed, recorded_at: new Date().toISOString(), refresh: reports.current % 4 === 0 })
-        .then(() => { if (reports.current % 4 === 0) router.refresh(); })
-        .catch(() => {});
-    };
-    const first = setTimeout(send, 2_000);
-    const i = setInterval(send, REPORT_MS);
-    return () => { clearTimeout(first); clearInterval(i); lock?.release().catch(() => {}); };
-  }, [tripActive, router]);
+    return () => { lock?.release().catch(() => {}); };
+  }, [tripActive]);
 
   const run = useCallback(async (fn: () => Promise<{ ok?: boolean; error?: string }>) => {
     setBusy(true); setError(null);
@@ -91,24 +119,26 @@ export function DriverApp({ userId, tripActive, stops, waiting, reasons, labels 
   const start = () => run(() => startTripAction(posRef.current ? { lat: posRef.current.lat, lng: posRef.current.lng } : null));
   const end = () => run(() => endTripAction());
 
-  const submitDelivered = (stop: DStop) => run(async () => {
-    if (!photo) return { error: "drv.error_photo" };
+  /** Queue a proof (works offline), mark the stop done on screen, then try to send. */
+  const queueProof = async (stop: DStop, outcome: "delivered" | "failed") => {
+    if (outcome === "delivered" && !photo) { setError(labels.errors["drv.error_photo"]); return; }
     const clientId = crypto.randomUUID();
-    const path = `${userId}/${stop.id}-${clientId}.jpg`;
-    const supabase = createBrowserSupabase();
-    const up = await supabase.storage.from("proofs").upload(path, photo.blob, { contentType: "image/jpeg", upsert: false });
-    if (up.error) return { error: "common.error_generic" };
     const p = posRef.current;
-    return recordProofAction({ client_id: clientId, order_id: stop.id, outcome: "delivered", reason_id: null, note: note || null, photo_path: path,
-      lat: p?.lat ?? null, lng: p?.lng ?? null, accuracy: p?.accuracy ?? null, recorded_at: new Date().toISOString() });
-  });
+    const path = outcome === "delivered" ? `${userId}/${stop.id}-${clientId}.jpg` : null;
+    await outbox.current!.add({
+      id: clientId, kind: "proof", tries: 0, createdAt: Date.now(), photo: outcome === "delivered" ? photo!.blob : null,
+      payload: { client_id: clientId, order_id: stop.id, outcome, reason_id: outcome === "failed" ? reason : null, note: note || null, photo_path: path,
+        lat: p?.lat ?? null, lng: p?.lng ?? null, accuracy: p?.accuracy ?? null, recorded_at: new Date().toISOString() },
+    });
+    setLocalDone((d) => ({ ...d, [stop.id]: outcome }));
+    setMode(null); setPhoto(null); setReason(null); setNote(""); setError(null);
+    setBusy(true);
+    try { await flush(); } finally { setBusy(false); }
+  };
+  const submitDelivered = (stop: DStop) => queueProof(stop, "delivered");
+  const submitFailed = (stop: DStop) => queueProof(stop, "failed");
 
-  const submitFailed = (stop: DStop) => run(async () => {
-    const p = posRef.current;
-    return recordProofAction({ client_id: crypto.randomUUID(), order_id: stop.id, outcome: "failed", reason_id: reason, note: note || null, photo_path: null,
-      lat: p?.lat ?? null, lng: p?.lng ?? null, accuracy: p?.accuracy ?? null, recorded_at: new Date().toISOString() });
-  });
-
+  stops = stops.map((s) => (localDone[s.id] && s.status === "on_the_way" ? { ...s, status: localDone[s.id] } : s));
   const open = stops.filter((s) => s.status === "on_the_way");
   const nextId = open[0]?.id;
   const readyCount = waiting.filter((w) => w.status === "ready").length;
@@ -119,6 +149,7 @@ export function DriverApp({ userId, tripActive, stops, waiting, reasons, labels 
       {gpsDenied && <Banner tone="bad" icon="location_off">{labels.gpsOff}</Banner>}
       {!online && <Banner tone="warn" icon="cloud_off">{labels.offline}</Banner>}
       {tripActive && online && !gpsDenied && <Banner tone="ok" icon="my_location">{labels.tracking}</Banner>}
+      {pendingCount > 0 && <Banner tone="warn" icon="sync">{labels.pending.replace("{n}", String(pendingCount))}</Banner>}
       {error && <Banner tone="bad" icon="error">{error}</Banner>}
 
       {!tripActive && (
@@ -194,7 +225,7 @@ export function DriverApp({ userId, tripActive, stops, waiting, reasons, labels 
               <Icon name="flag" className="text-6xl text-ok-600" filled />
               <div className="text-2xl font-extrabold">{labels.doneTitle}</div>
               <div className="text-lg text-ink-500">{labels.doneHint}</div>
-              <button onClick={end} disabled={busy} data-testid="end-trip" className="h-16 w-full max-w-md bg-navy-700 text-xl font-extrabold text-white">{labels.end}</button>
+              <button onClick={end} disabled={busy || pendingCount > 0} data-testid="end-trip" className="h-16 w-full max-w-md bg-navy-700 text-xl font-extrabold text-white">{labels.end}</button>
             </div>
           )}
         </>
@@ -249,7 +280,6 @@ export function DriverApp({ userId, tripActive, stops, waiting, reasons, labels 
           </div>
         </div>
       )}
-      {pos === null && !gpsDenied && <span className="sr-only">locating</span>}
     </div>
   );
 }

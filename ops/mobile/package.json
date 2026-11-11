@@ -1,0 +1,12 @@
+{
+  "name": "al-sakhrah-driver-app",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": { "sync": "cap sync android" },
+  "dependencies": {
+    "@capacitor/android": "8.6.0",
+    "@capacitor/core": "8.6.0",
+    "@capacitor-community/background-geolocation": "1.3.1"
+  },
+  "devDependencies": { "@capacitor/cli": "8.6.0" }
+}

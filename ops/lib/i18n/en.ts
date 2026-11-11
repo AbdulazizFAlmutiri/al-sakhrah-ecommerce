@@ -222,6 +222,8 @@ export const en = {
   "dash.empty": "No orders in this period.",
   "dash.view": "View",
   "dash.created": "Created",
+  "drv.tracking_notice": "Sharing your location with the office during this trip.",
+  "drv.pending": "{n} waiting to send — will send automatically",
 } as const;
 
 export type MessageKey = keyof typeof en;

@@ -1,0 +1,10 @@
+{
+  "appId": "sa.alsakhrah.ops",
+  "appName": "الصخرة - السائق",
+  "webDir": "www",
+  "server": {
+    "url": "https://al-sakhrah-ops.vercel.app/driver",
+    "allowNavigation": ["al-sakhrah-ops.vercel.app", "*.supabase.co"]
+  },
+  "android": { "useLegacyBridge": true }
+}

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">الصخرة - السائق</string>
+    <string name="title_activity_main">الصخرة - السائق</string>
+    <string name="package_name">sa.alsakhrah.ops</string>
+    <string name="custom_url_scheme">sa.alsakhrah.ops</string>
+</resources>
