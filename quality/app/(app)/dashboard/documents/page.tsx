@@ -20,7 +20,7 @@ export default async function DocumentsPage({ searchParams }: { searchParams: Pr
 
   return (
     <>
-      <PageHeader title={t("documents")} subtitle={ar ? `${docs.length} وثيقة` : `${docs.length} documents`} />
+      <PageHeader title={t("documents")} image="/images/lab.jpg" subtitle={ar ? `${docs.length} وثيقة معتمدة مع تواريخ ضبطها وملفاتها الأصلية.` : `${docs.length} documents with their control dates and original files.`} />
       {user?.role === "admin" && (
         <div className="mb-5">
           <AdminForm action={saveDocument} summary={ar ? "إضافة إجراء جديد" : "Add a new SOP"} saveLabel={t("save")} savedLabel={t("saved")}>
@@ -35,9 +35,9 @@ export default async function DocumentsPage({ searchParams }: { searchParams: Pr
       {list.length === 0 ? (
         <Empty>{t("empty")}</Empty>
       ) : (
-        <div className="overflow-x-auto border border-ink/10 bg-white">
-          <table className="w-full min-w-[640px] text-sm">
-            <thead className="bg-surface text-start text-xs font-semibold uppercase tracking-wider text-ink/60">
+        <div className="overflow-x-auto border border-ink/10 bg-white shadow-sm shadow-brand-950/[0.03]">
+          <table className="data-table min-w-[640px]">
+            <thead>
               <tr>
                 <th className="px-4 py-3 text-start">{t("title")}</th>
                 <th className="px-4 py-3 text-start">{t("code")}</th>

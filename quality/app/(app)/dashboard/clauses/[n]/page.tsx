@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
-import { Badge, Card } from "@/components/ui";
+import { ChevronLeft, ChevronRight, ClipboardList, Paperclip, Search } from "lucide-react";
+import { Badge, Card, CardTitle, PageHeader } from "@/components/ui";
 import { ViewButton } from "@/components/PdfViewer";
 import { AdminForm, DeleteButton, Field, FileInput, NoteEditor, fieldCls } from "@/components/AdminUI";
 import { getCurrentUser } from "@/lib/auth/session";
@@ -38,38 +38,35 @@ export default async function ClausePage({ params }: { params: Promise<{ n: stri
 
   return (
     <>
-      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-        <Link href="/dashboard/clauses" className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 hover:underline">
-          <ArrowRight size={16} className="ltr:rotate-180" /> {t("clauses")}
-        </Link>
-        <div className="flex gap-2">
-          {prev && <Link href={`/dashboard/clauses/${prev.number}`} className="inline-flex items-center gap-1 bg-white px-3 py-1.5 text-sm font-semibold text-brand-900 ring-1 ring-ink/10 hover:bg-brand-100">{ar ? <ChevronRight size={16} /> : <ChevronLeft size={16} />} {prev.number}</Link>}
-          {next && <Link href={`/dashboard/clauses/${next.number}`} className="inline-flex items-center gap-1 bg-white px-3 py-1.5 text-sm font-semibold text-brand-900 ring-1 ring-ink/10 hover:bg-brand-100">{next.number} {ar ? <ChevronLeft size={16} /> : <ChevronRight size={16} />}</Link>}
-        </div>
-      </div>
-
-      <Card className="p-6">
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="text-3xl font-bold tabular-nums text-brand-700">{c.number}</span>
+      <PageHeader
+        image="/images/plant.jpg"
+        back={{ href: "/dashboard/clauses", label: t("clauses") }}
+        eyebrow={`${ar ? "البند" : "Clause"} ${c.number} / ${clauses.length}`}
+        title={<span className="text-2xl leading-relaxed md:text-3xl">{pick(c, "text", lang)}</span>}
+        actions={<div className="flex gap-2">
+          {prev && <Link href={`/dashboard/clauses/${prev.number}`} className="inline-flex items-center gap-1 bg-white px-3 py-2 text-sm font-semibold text-brand-900 transition-colors hover:bg-brand-100">{ar ? <ChevronRight size={16} /> : <ChevronLeft size={16} />} {prev.number}</Link>}
+          {next && <Link href={`/dashboard/clauses/${next.number}`} className="inline-flex items-center gap-1 bg-white px-3 py-2 text-sm font-semibold text-brand-900 transition-colors hover:bg-brand-100">{next.number} {ar ? <ChevronLeft size={16} /> : <ChevronRight size={16} />}</Link>}
+        </div>}
+      >
+        <div className="flex flex-wrap items-center gap-2 text-sm">
           <Badge tone={c.severity === "major" ? "bad" : "neutral"}>{c.severity === "major" ? (ar ? "ملاحظة مؤثرة" : "Major") : (ar ? "ملاحظة ثانوية" : "Minor")}</Badge>
-          {c.reference && <span className="text-sm text-ink/55">{ar ? "مرجع" : "Ref."} <span dir="ltr">{c.reference}</span></span>}
+          {c.reference && <span className="bg-white/10 px-2 py-0.5 font-semibold text-white/85">{ar ? "مرجع" : "Ref."} <span dir="ltr">{c.reference}</span></span>}
         </div>
-        <p className="mt-3 text-lg leading-loose">{pick(c, "text", lang)}</p>
-      </Card>
+      </PageHeader>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-2">
-        <Card className="p-5">
-          <h2 className="mb-3 font-bold text-brand-900">{ar ? "ملاحظات المقيّم" : "Assessor notes"}</h2>
-          <NoteEditor initial={c.assessor_notes ?? ""} readOnly={!canAssess} onSave={saveClauseNote.bind(null, c.number, "assessor_notes")} labels={noteLabels} />
+        <Card>
+          <CardTitle icon={ClipboardList}>{ar ? "ملاحظات المقيّم" : "Assessor notes"}</CardTitle>
+          <div className="p-5"><NoteEditor initial={c.assessor_notes ?? ""} readOnly={!canAssess} onSave={saveClauseNote.bind(null, c.number, "assessor_notes")} labels={noteLabels} /></div>
         </Card>
-        <Card className="p-5">
-          <h2 className="mb-3 font-bold text-brand-900">{ar ? "ملاحظات التفتيش" : "Inspection notes"}</h2>
-          <NoteEditor initial={c.inspection_notes ?? ""} readOnly={!canInspect} onSave={saveClauseNote.bind(null, c.number, "inspection_notes")} labels={noteLabels} />
+        <Card>
+          <CardTitle icon={Search}>{ar ? "ملاحظات التفتيش" : "Inspection notes"}</CardTitle>
+          <div className="p-5"><NoteEditor initial={c.inspection_notes ?? ""} readOnly={!canInspect} onSave={saveClauseNote.bind(null, c.number, "inspection_notes")} labels={noteLabels} /></div>
         </Card>
       </div>
 
       <Card className="mt-6">
-        <h2 className="border-b border-ink/10 px-5 py-3 font-bold text-brand-900">{ar ? "مرفقات وأدلة" : "Attachments & evidence"} ({items.length})</h2>
+        <CardTitle icon={Paperclip} count={items.length}>{ar ? "مرفقات وأدلة" : "Attachments & evidence"}</CardTitle>
         <ul className="divide-y divide-ink/10">
           {items.map(({ e, title, url, href }) => (
             <li key={e.id} className="flex flex-wrap items-center gap-3 px-5 py-2.5 text-sm">

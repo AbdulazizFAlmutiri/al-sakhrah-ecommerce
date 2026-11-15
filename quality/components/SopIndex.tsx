@@ -22,20 +22,20 @@ export function SopIndex({ docs, forms, depts, dept, q, lang, t }: {
   return (
     <div className="grid gap-6">
       {groups.map(({ dep, docs }) => (
-        <section key={dep.code} className="break-inside-avoid border border-ink/10 bg-white">
-          <header className="flex items-center gap-3 border-b border-ink/10 bg-brand-950 px-4 py-3 text-white">
-            <span className="bg-white/15 px-2 py-0.5 text-xs font-bold" dir="ltr">{dep.code}</span>
+        <section key={dep.code} className="break-inside-avoid border border-ink/10 bg-white shadow-sm shadow-brand-950/[0.03]">
+          <header className="pattern-lines flex items-center gap-3 bg-brand-950 px-5 py-3.5 text-white">
+            <span className="bg-white px-2 py-0.5 text-xs font-bold text-brand-900" dir="ltr">{dep.code}</span>
             <h2 className="flex-1 font-bold">{pick(dep, "name", lang)}</h2>
-            <span className="text-sm text-white/70 tabular-nums">{docs.length}</span>
+            <span className="text-sm text-brand-200 tabular-nums">{docs.length} {lang === "ar" ? "إجراء" : docs.length === 1 ? "procedure" : "procedures"}</span>
           </header>
           <ol className="divide-y divide-ink/10">
             {docs.map((d, i) => {
               const fs = (formsByDoc.get(d.id) ?? []).filter((f) => !q || matches(q, f.code, f.title_ar, f.title_en) || matches(q, d.code, d.title_ar, d.title_en));
               const title = pick(d, "title", lang);
               return (
-                <li key={d.id} className="px-4 py-3">
+                <li key={d.id} className="px-5 py-3.5 transition-colors hover:bg-brand-100/30">
                   <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-                    <span className="w-6 text-sm font-bold tabular-nums text-brand-700">{i + 1}</span>
+                    <span className="grid h-8 w-8 shrink-0 place-items-center bg-brand-100 text-sm font-bold tabular-nums text-brand-700">{i + 1}</span>
                     <div className="min-w-0 flex-1">
                       <Link href={`/dashboard/documents/${d.id}`} className="font-semibold text-brand-900 hover:underline">{title}</Link>
                       <p className="text-xs text-ink/55" dir="ltr">{d.code}{d.doc_type === "manual" ? ` · ${t("manual")}` : ""}</p>
@@ -43,7 +43,7 @@ export function SopIndex({ docs, forms, depts, dept, q, lang, t }: {
                     <ViewButton url={fileUrl(d.file_ar)} title={`${d.code} · ${title}`} label={t("view")} />
                   </div>
                   {fs.length > 0 && (
-                    <ul className="mt-2 grid gap-1.5 border-s-2 border-brand-100 ps-4 ms-8">
+                    <ul className="mt-3 grid gap-2 border-s-2 border-brand-200 ps-4 ms-[2.75rem]">
                       {fs.map((f) => {
                         const ft = pick(f, "title", lang);
                         return (

@@ -5,7 +5,7 @@ import { Printer, Search } from "lucide-react";
 
 export function PrintButton({ label }: { label: string }) {
   return (
-    <button type="button" onClick={() => window.print()} className="inline-flex items-center gap-1.5 bg-white px-3 py-2 text-sm font-semibold text-brand-900 ring-1 ring-ink/10 hover:bg-brand-100">
+    <button type="button" onClick={() => window.print()} className="inline-flex items-center gap-1.5 bg-white px-4 py-2.5 text-sm font-semibold text-brand-900 transition-colors hover:bg-brand-100">
       <Printer size={16} /> {label}
     </button>
   );
@@ -32,7 +32,7 @@ export function SearchBox({ placeholder }: { placeholder: string }) {
         value={q}
         onChange={(e) => setQ(e.target.value)}
         placeholder={placeholder}
-        className="w-full border border-ink/15 bg-white py-2.5 ps-10 pe-3 text-sm outline-none focus:border-brand-700 focus:ring-2 focus:ring-brand-700/20"
+        className="w-full border border-ink/15 bg-white py-2.5 ps-10 pe-3 text-sm shadow-sm shadow-brand-950/[0.03] outline-none transition-shadow focus:border-brand-700 focus:ring-4 focus:ring-brand-700/15"
       />
     </label>
   );

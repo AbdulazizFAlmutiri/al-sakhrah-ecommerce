@@ -3,11 +3,13 @@ import { cache } from "react";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/db/server";
 import { createAdminClient } from "@/lib/db/admin";
+import { DEMO, demoUser } from "@/lib/demo";
 
 export type Role = "admin" | "manager" | "inspector";
 export type CurrentUser = { id: string; username: string; fullName: string; role: Role; department: string | null };
 
 export const getCurrentUser = cache(async (): Promise<CurrentUser | null> => {
+  if (DEMO) return demoUser;
   const supabase = await createClient();
   const { data: auth } = await supabase.auth.getUser();
   if (!auth.user) return null;

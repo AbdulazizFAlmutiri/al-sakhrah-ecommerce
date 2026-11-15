@@ -29,3 +29,14 @@ New project from this repo with **Root Directory = `quality`**, the three enviro
 - Tables are read through row level security; all writes go through server actions that check the role first, then use the service role (`app/admin-actions.ts`). Every write is recorded in `audit_log`.
 - PDFs live in a private bucket and are streamed by `/api/files` and `/api/distributed/[copyId]` (which stamps "CONTROLLED COPY No. XX - DEPT").
 - Uploads go straight from the browser to storage through one-time signed upload URLs (no size limit from Vercel functions).
+
+## Design preview without the database
+
+To work on the look of the system with sample data and a signed-in admin (no Supabase needed):
+
+```bash
+cd quality
+QUALITY_DEMO=1 NEXT_PUBLIC_SUPABASE_URL=https://example.supabase.co NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=x npm run dev
+```
+
+Demo mode only works in development; production builds ignore `QUALITY_DEMO`.

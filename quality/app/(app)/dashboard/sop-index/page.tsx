@@ -15,6 +15,7 @@ export default async function SopIndexPage({ searchParams }: { searchParams: Pro
       <PrintHeader title={lang === "ar" ? "الصخرة للصناعة — فهرس إجراءات العمل القياسية" : "Al-Sakhra for Industry — SOP index"} sub={new Date().toLocaleDateString(lang === "ar" ? "ar-SA" : "en-GB")} />
       <PageHeader
         title={t("sopIndex")}
+        image="/images/factory-line.jpg"
         subtitle={lang === "ar" ? "كل إجراء ومعه نماذجه، اضغط عرض لفتح الملف مباشرة." : "Every procedure with its forms. Press View to open the file."}
         actions={<PrintButton label={t("print")} />}
       />

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PageHeader, Chips, Badge, Empty, PrintHeader } from "@/components/ui";
+import { PageHeader, Chips, Badge, Empty, PrintHeader, Progress } from "@/components/ui";
 import { PrintButton, SearchBox } from "@/components/ClientBits";
 import { AdminForm, Field, fieldCls } from "@/components/AdminUI";
 import { getCurrentUser } from "@/lib/auth/session";
@@ -17,7 +17,6 @@ export default async function ClausesPage({ searchParams }: { searchParams: Prom
   evidence.forEach((e) => ev.set(e.clause_number, (ev.get(e.clause_number) ?? 0) + 1));
   const isDone = (n: number, notes: string | null) => (ev.get(n) ?? 0) > 0 || Boolean(notes?.trim());
   const done = clauses.filter((c) => isDone(c.number, c.assessor_notes)).length;
-  const pct = clauses.length ? Math.round((done / clauses.length) * 100) : 0;
   const list = clauses.filter((c) => (!sev || c.severity === sev) && matches(q, String(c.number), c.text_ar, c.text_en, c.reference));
   const sevLabel = (s: string) => (s === "major" ? (ar ? "ملاحظة مؤثرة" : "Major") : (ar ? "ملاحظة ثانوية" : "Minor"));
 
@@ -25,18 +24,13 @@ export default async function ClausesPage({ searchParams }: { searchParams: Prom
     <>
       <PrintHeader title={ar ? "الصخرة للصناعة — التقييم الذاتي" : "Al-Sakhra — self-assessment"} sub={`${done} / ${clauses.length} · ${new Date().toLocaleDateString(ar ? "ar-SA" : "en-GB")}`} />
       <PageHeader
+        image="/images/plant.jpg"
         title={`${t("clauses")} (${clauses.length})`}
         subtitle={ar ? "متطلبات الهيئة، وكل بند مربوط بالإجراءات التي تثبت الالتزام به." : "Regulator requirements, each linked to the procedures that show compliance."}
         actions={<PrintButton label={t("print")} />}
       />
-      <div className="mb-5 border border-ink/10 bg-white p-4">
-        <div className="flex items-center justify-between text-sm font-semibold">
-          <span className="text-brand-900">{ar ? "نسبة الإنجاز" : "Progress"}</span>
-          <span className="tabular-nums text-ink/70">{done} / {clauses.length} · {pct}%</span>
-        </div>
-        <div className="mt-2 h-2.5 bg-surface" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100}>
-          <div className="h-full bg-brand-700" style={{ width: `${pct}%` }} />
-        </div>
+      <div className="mb-5 border border-ink/10 bg-white p-5 shadow-sm shadow-brand-950/[0.03]">
+        <Progress value={done} max={clauses.length} label={ar ? "نسبة الإنجاز" : "Progress"} />
       </div>
       {user?.role === "admin" && (
         <div className="mb-5">
@@ -56,11 +50,11 @@ export default async function ClausesPage({ searchParams }: { searchParams: Prom
         <SearchBox placeholder={ar ? "ابحث برقم البند أو نصه…" : "Search by number or text…"} />
       </div>
       {list.length === 0 ? <Empty>{t("empty")}</Empty> : (
-        <ul className="divide-y divide-ink/10 border border-ink/10 bg-white">
+        <ul className="divide-y divide-ink/10 border border-ink/10 bg-white shadow-sm shadow-brand-950/[0.03]">
           {list.map((c) => (
             <li key={c.number}>
-              <Link href={`/dashboard/clauses/${c.number}`} className="flex gap-4 px-4 py-3 hover:bg-brand-100/30">
-                <span className="w-8 shrink-0 text-lg font-bold tabular-nums text-brand-700">{c.number}</span>
+              <Link href={`/dashboard/clauses/${c.number}`} className="group flex gap-4 px-4 py-4 transition-colors hover:bg-brand-100/50">
+                <span className={`grid h-11 w-11 shrink-0 place-items-center text-lg font-bold tabular-nums transition-colors ${isDone(c.number, c.assessor_notes) ? "bg-brand-900 text-white" : "bg-brand-100 text-brand-700 group-hover:bg-brand-900 group-hover:text-white"}`}>{c.number}</span>
                 <span className="min-w-0 flex-1">
                   <span className="block text-sm leading-relaxed">{pick(c, "text", lang)}</span>
                   <span className="mt-1.5 flex flex-wrap items-center gap-2">

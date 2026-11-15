@@ -24,7 +24,7 @@ export default async function DeptCopiesPage({ params }: { params: Promise<{ dep
       <Link href="/dashboard/distribution" className="no-print mb-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 hover:underline">
         <ArrowRight size={16} className="ltr:rotate-180" /> {t("distribution")}
       </Link>
-      <PageHeader title={`${pick(holder, "name", lang)} (${held.length})`} subtitle={ar ? "النسخ التي يحتفظ بها القسم، مجمّعة حسب القسم المالك للإجراء" : "Copies this department holds, grouped by the owning department"} actions={<PrintButton label={t("print")} />} />
+      <PageHeader image="/images/conveyor.jpg" back={{ href: "/dashboard/distribution", label: t("distribution") }} title={`${pick(holder, "name", lang)} (${held.length})`} subtitle={ar ? "النسخ التي يحتفظ بها القسم، مجمّعة حسب القسم المالك للإجراء" : "Copies this department holds, grouped by the owning department"} actions={<PrintButton label={t("print")} />} />
       {groups.length === 0 ? <Empty>{t("empty")}</Empty> : (
         <div className="grid gap-5">
           {groups.map(({ owner, items }) => (

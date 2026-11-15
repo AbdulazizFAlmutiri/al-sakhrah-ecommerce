@@ -27,11 +27,11 @@ export default async function DocControlPage({ searchParams }: { searchParams: P
   return (
     <>
       <PrintHeader title={`${ar ? "الصخرة للصناعة — ضبط الوثائق" : "Al-Sakhra — document control"} · ${label[tab]}`} sub={new Date().toLocaleDateString(ar ? "ar-SA" : "en-GB")} />
-      <PageHeader title={t("docControl")} subtitle={ar ? "متابعة إصدار الوثائق المعتمدة ونسخها الموزّعة والملغاة." : "Track approved documents and their issued and cancelled copies."} actions={<PrintButton label={t("print")} />} />
-      <nav className="no-print mb-5 flex flex-wrap gap-1 border-b border-ink/10">
+      <PageHeader title={t("docControl")} image="/images/production.jpg" subtitle={ar ? "متابعة إصدار الوثائق المعتمدة ونسخها الموزّعة والملغاة." : "Track approved documents and their issued and cancelled copies."} actions={<PrintButton label={t("print")} />} />
+      <nav className="no-print mb-6 grid gap-px border border-ink/10 bg-ink/10 sm:grid-cols-3">
         {TABS.map((k) => (
-          <Link key={k} href={`/dashboard/doc-control?tab=${k}`} className={`-mb-px border-b-2 px-4 py-2.5 text-sm font-semibold ${tab === k ? "border-brand-900 text-brand-900" : "border-transparent text-ink/55 hover:text-brand-900"}`}>
-            {label[k]} <span className="tabular-nums text-ink/45">({count[k]})</span>
+          <Link key={k} href={`/dashboard/doc-control?tab=${k}`} aria-current={tab === k ? "page" : undefined} className={`flex items-center justify-between gap-3 px-5 py-4 text-sm font-semibold transition-colors ${tab === k ? "bg-brand-900 text-white" : "bg-white text-brand-900 hover:bg-brand-100"}`}>
+            <span>{label[k]}</span> <span className={`text-2xl font-bold tabular-nums ${tab === k ? "text-white" : "text-brand-700"}`}>{count[k]}</span>
           </Link>
         ))}
       </nav>
@@ -71,9 +71,9 @@ export default async function DocControlPage({ searchParams }: { searchParams: P
       {tab === "cancelled" && (() => {
         const rows = copies.filter((c) => c.status === "cancelled").map((c) => ({ c, d: docs.find((x) => x.id === c.document_id) })).filter(({ d }) => d && (!dept || d.department === dept) && matches(q, d.code, d.title_ar, d.title_en));
         return rows.length === 0 ? <Empty>{t("empty")}</Empty> : (
-          <div className="overflow-x-auto border border-ink/10 bg-white">
-            <table className="w-full min-w-[640px] text-sm">
-              <thead className="bg-surface text-xs font-semibold text-ink/60">
+          <div className="overflow-x-auto border border-ink/10 bg-white shadow-sm shadow-brand-950/[0.03]">
+            <table className="data-table min-w-[640px]">
+              <thead>
                 <tr>
                   <th className="px-4 py-2.5 text-start">{t("title")}</th>
                   <th className="px-4 py-2.5 text-start">{ar ? "النسخة" : "Copy"}</th>

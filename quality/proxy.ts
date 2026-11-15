@@ -6,6 +6,7 @@ const PUBLIC_PATHS = ["/login"];
 // Refreshes the login session and sends signed-out visitors to /login.
 // Pages and routes still check the user themselves (lib/auth/session.ts).
 export async function proxy(request: NextRequest) {
+  if (process.env.QUALITY_DEMO === "1" && process.env.NODE_ENV !== "production") return NextResponse.next();
   let response = NextResponse.next({ request });
   const supabase = createServerClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!, {
     cookies: {

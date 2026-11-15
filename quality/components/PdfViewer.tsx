@@ -20,7 +20,9 @@ export function PdfViewerProvider({ children, labels }: { children: React.ReactN
       {children}
       {doc && (
         <div role="dialog" aria-modal="true" aria-label={doc.title} className="fixed inset-0 z-50 flex flex-col bg-black/85">
-          <div className="flex items-center gap-3 bg-brand-950 px-4 py-3 text-white">
+          <div className="flex items-center gap-3 bg-brand-950 px-4 py-3 text-white shadow-lg">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/mark-white.png" alt="" className="h-7 w-auto" />
             <p className="min-w-0 flex-1 truncate font-semibold">{doc.title}</p>
             <button onClick={() => frame.current?.contentWindow?.print()} className="inline-flex items-center gap-1.5 bg-white/10 px-3 py-1.5 text-sm hover:bg-white/20">
               <Printer size={16} /> {labels.print}
@@ -41,7 +43,7 @@ export function ViewButton({ url, title, label, disabled }: { url: string | null
       type="button"
       disabled={disabled || !url}
       onClick={() => url && open(url, title)}
-      className="inline-flex shrink-0 items-center gap-1.5 border border-brand-700/30 px-3 py-1.5 text-sm font-semibold text-brand-900 transition-colors hover:bg-brand-100 disabled:cursor-not-allowed disabled:opacity-40"
+      className="inline-flex shrink-0 items-center gap-1.5 bg-brand-100 px-3 py-1.5 text-sm font-semibold text-brand-900 transition-colors hover:bg-brand-900 hover:text-white disabled:cursor-not-allowed disabled:bg-surface disabled:text-ink/40 disabled:hover:bg-surface"
     >
       <Eye size={15} /> {label}
     </button>

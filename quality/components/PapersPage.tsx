@@ -1,3 +1,4 @@
+import { FileText } from "lucide-react";
 import { PageHeader, Empty } from "./ui";
 import { ViewButton } from "./PdfViewer";
 import { AdminForm, DeleteButton, Field, FileInput, fieldCls } from "./AdminUI";
@@ -22,7 +23,7 @@ export async function PapersPage({ category, titleKey }: { category: Paper["cate
 
   return (
     <>
-      <PageHeader title={t(titleKey)} subtitle={sub} />
+      <PageHeader title={t(titleKey)} subtitle={sub} image={titleKey === "calibration" ? "/images/lab.jpg" : titleKey === "contracts" ? "/images/plant.jpg" : "/images/cover.jpg"} />
       {admin && (
         <div className="mb-5">
           <AdminForm action={savePaper} summary={ar ? "إضافة ملف" : "Add a file"} saveLabel={t("save")} savedLabel={t("saved")}>
@@ -36,12 +37,13 @@ export async function PapersPage({ category, titleKey }: { category: Paper["cate
       {papers.length === 0 ? (
         <Empty>{t("empty")}</Empty>
       ) : (
-        <ul className="divide-y divide-ink/10 border border-ink/10 bg-white">
+        <ul className="divide-y divide-ink/10 border border-ink/10 bg-white shadow-sm shadow-brand-950/[0.03]">
           {papers.map((p) => {
             const title = pick(p, "title", lang);
             return (
               <li key={p.id} className="px-4 py-3">
                 <div className="flex flex-wrap items-center gap-3">
+                  <span className="grid h-10 w-10 shrink-0 place-items-center bg-brand-100 text-brand-700"><FileText size={18} strokeWidth={1.75} /></span>
                   <p className="min-w-0 flex-1 font-semibold text-brand-900">{title}</p>
                   {!p.file && <span className="text-xs text-ink/45">{t("noFile")}</span>}
                   <ViewButton url={fileUrl(p.file)} title={title} label={t("view")} />

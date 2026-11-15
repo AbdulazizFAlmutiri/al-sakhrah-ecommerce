@@ -1,6 +1,7 @@
 import "server-only";
 import { cache } from "react";
 import { createClient } from "@/lib/db/server";
+import * as demo from "@/lib/demo";
 
 // All reads go through the signed-in user's client, so row level security applies.
 
@@ -18,48 +19,56 @@ export type Paper = { id: string; category: "general" | "calibration" | "contrac
 export type Evidence = { id: string; clause_number: number; document_id: string | null; form_id: string | null; paper_id: string | null; label: string | null; file: string | null };
 
 export const getDepartments = cache(async (): Promise<Department[]> => {
+  if (demo.DEMO) return demo.demoDepartments;
   const s = await createClient();
   const { data } = await s.from("departments").select("*").order("sort");
   return data ?? [];
 });
 
 export const getDocuments = cache(async (): Promise<Doc[]> => {
+  if (demo.DEMO) return demo.demoDocuments;
   const s = await createClient();
   const { data } = await s.from("documents").select("*").order("doc_type", { ascending: false }).order("department").order("sort").order("code");
   return data ?? [];
 });
 
 export const getForms = cache(async (): Promise<Form[]> => {
+  if (demo.DEMO) return demo.demoForms;
   const s = await createClient();
   const { data } = await s.from("forms").select("*").order("sort").order("code");
   return data ?? [];
 });
 
 export const getCopies = cache(async (): Promise<Copy[]> => {
+  if (demo.DEMO) return demo.demoCopies;
   const s = await createClient();
   const { data } = await s.from("distributed_copies").select("*").order("copy_number");
   return data ?? [];
 });
 
 export const getClauses = cache(async (): Promise<Clause[]> => {
+  if (demo.DEMO) return demo.demoClauses;
   const s = await createClient();
   const { data } = await s.from("clauses").select("*").order("number");
   return data ?? [];
 });
 
 export const countClauses = cache(async (): Promise<number> => {
+  if (demo.DEMO) return demo.demoClauses.length;
   const s = await createClient();
   const { count } = await s.from("clauses").select("number", { count: "exact", head: true });
   return count ?? 0;
 });
 
 export const getPapers = cache(async (category: Paper["category"]): Promise<Paper[]> => {
+  if (demo.DEMO) return demo.demoPapers.filter((p) => p.category === category);
   const s = await createClient();
   const { data } = await s.from("papers").select("*").eq("category", category).order("sort").order("created_at");
   return data ?? [];
 });
 
 export const getEvidence = cache(async (): Promise<Evidence[]> => {
+  if (demo.DEMO) return demo.demoEvidence;
   const s = await createClient();
   const { data } = await s.from("clause_evidence").select("*").order("created_at");
   return data ?? [];

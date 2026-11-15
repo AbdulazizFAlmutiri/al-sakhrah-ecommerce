@@ -31,7 +31,7 @@ export default async function UsersPage() {
 
   return (
     <>
-      <PageHeader title={t("users")} subtitle={ar ? "حسابات الموظفين وصلاحياتهم" : "Staff accounts and permissions"} />
+      <PageHeader title={t("users")} image="/images/automation.jpg" subtitle={ar ? "حسابات الموظفين وصلاحياتهم" : "Staff accounts and permissions"} />
       <div className="mb-5">
         <AdminForm action={createUser} summary={ar ? "إضافة مستخدم" : "Add a user"} saveLabel={t("save")} savedLabel={t("saved")}>
           <Field label={ar ? "الاسم *" : "Name *"}><input name="full_name" required className={fieldCls} /></Field>

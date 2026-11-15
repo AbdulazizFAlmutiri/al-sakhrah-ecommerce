@@ -1,7 +1,6 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight } from "lucide-react";
-import { Badge, Card, PrintHeader } from "@/components/ui";
+import { CalendarClock, FileText, Files, Info, Share2 } from "lucide-react";
+import { Badge, Card, CardTitle, PageHeader, PrintHeader } from "@/components/ui";
 import { PrintButton } from "@/components/ClientBits";
 import { ViewButton } from "@/components/PdfViewer";
 import { AdminForm, DeleteButton, Field, FileInput, fieldCls } from "@/components/AdminUI";
@@ -48,28 +47,32 @@ export default async function DocumentPage({ params }: { params: Promise<{ id: s
         title={ar ? "نظام الجودة — مصنع الصخرة للصناعة — وثيقة معتمدة" : "Quality system — AlSakhra Factory — approved document"}
         sub={(ar ? "صُدّرت من النظام: " : "Exported from the system: ") + new Date().toLocaleString(ar ? "ar-SA" : "en-GB")}
       />
-      <div className="no-print mb-4 flex items-center justify-between">
-        <Link href="/dashboard/documents" className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 hover:underline">
-          <ArrowRight size={16} className="ltr:rotate-180" /> {t("documents")}
-        </Link>
-        <PrintButton label={t("print")} />
-      </div>
-
-      <header className="mb-6">
-        <p className="text-sm font-semibold text-brand-700" dir="ltr">{doc.code}</p>
-        <h1 className="mt-1 text-2xl font-bold text-brand-900 md:text-3xl">{title}</h1>
-        <div className="mt-2"><Badge tone={doc.status === "active" ? "ok" : "neutral"}>{doc.status === "active" ? t("active") : t("obsolete")}</Badge></div>
-      </header>
+      <PageHeader
+        image="/images/lab.jpg"
+        back={{ href: "/dashboard/documents", label: t("documents") }}
+        eyebrow={<span dir="ltr">{doc.code}</span>}
+        title={title}
+        actions={<PrintButton label={t("print")} />}
+      >
+        <div className="flex flex-wrap items-center gap-2 text-sm">
+          <Badge tone={doc.status === "active" ? "ok" : "neutral"}>{doc.status === "active" ? t("active") : t("obsolete")}</Badge>
+          <span className="bg-white/10 px-2 py-0.5 font-semibold text-white/85">{ar ? "الإصدار" : "Version"} <span dir="ltr">{doc.version}</span></span>
+          <span className="bg-white/10 px-2 py-0.5 font-semibold text-white/85">{dept ? pick(dept, "name", lang) : doc.department}</span>
+        </div>
+      </PageHeader>
 
       <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
-        <Card className="p-5">
+        <Card>
+          <CardTitle icon={Info}>{ar ? "بيانات الوثيقة" : "Document details"}</CardTitle>
+          <div className="p-5">
           <dl className="grid grid-cols-2 gap-4 sm:grid-cols-4">
             {meta.map(([k, v]) => (
-              <div key={k}><dt className="text-xs font-semibold text-ink/55">{k}</dt><dd className="mt-1 font-semibold tabular-nums">{v || "—"}</dd></div>
+              <div key={k}><dt className="text-xs font-semibold text-ink/55">{k}</dt><dd className="mt-1 font-semibold text-brand-900 tabular-nums">{v || "—"}</dd></div>
             ))}
           </dl>
           <div className="mt-6 border-t border-ink/10 pt-5">
             <div className="mb-4 flex flex-wrap items-center gap-2">
+              <CalendarClock size={18} className="text-brand-700" />
               <h2 className="font-bold text-brand-900">{ar ? "بيانات ضبط الوثيقة" : "Document control data"}</h2>
               {rs !== "unknown" && (
                 <Badge tone={rs === "ok" ? "ok" : rs === "soon" ? "warn" : "bad"}>
@@ -79,21 +82,22 @@ export default async function DocumentPage({ params }: { params: Promise<{ id: s
             </div>
             <dl className="grid grid-cols-2 gap-4 sm:grid-cols-3">
               {control.map(([k, v]) => (
-                <div key={k}><dt className="text-xs font-semibold text-ink/55">{k}</dt><dd className="mt-1 tabular-nums" dir="ltr">{v || "—"}</dd></div>
+                <div key={k}><dt className="text-xs font-semibold text-ink/55">{k}</dt><dd className="mt-1 font-semibold text-brand-900 tabular-nums"><bdi>{v || "—"}</bdi></dd></div>
               ))}
             </dl>
           </div>
+          </div>
         </Card>
 
-        <Card className="p-5">
-          <h2 className="mb-4 font-bold text-brand-900">{ar ? "الملفات" : "Files"}</h2>
-          <ul className="grid gap-3">
-            <li className="flex items-center justify-between gap-3">
-              <span>{ar ? "النسخة العربية (الأصل المعتمد)" : "Arabic version (approved original)"}</span>
+        <Card>
+          <CardTitle icon={FileText}>{ar ? "الملفات" : "Files"}</CardTitle>
+          <ul className="grid gap-3 p-5">
+            <li className="flex items-center justify-between gap-3 bg-surface px-4 py-3">
+              <span className="text-sm font-semibold">{ar ? "النسخة العربية (الأصل المعتمد)" : "Arabic version (approved original)"}</span>
               <ViewButton url={fileUrl(doc.file_ar)} title={`${doc.code} · AR`} label={ar ? "فتح / طباعة" : "Open / print"} />
             </li>
-            <li className="flex items-center justify-between gap-3">
-              <span>{ar ? "النسخة الإنجليزية" : "English version"}</span>
+            <li className="flex items-center justify-between gap-3 bg-surface px-4 py-3">
+              <span className="text-sm font-semibold">{ar ? "النسخة الإنجليزية" : "English version"}</span>
               <ViewButton url={fileUrl(doc.file_en)} title={`${doc.code} · EN`} label={ar ? "فتح / طباعة" : "Open / print"} />
             </li>
           </ul>
@@ -102,7 +106,7 @@ export default async function DocumentPage({ params }: { params: Promise<{ id: s
 
       {/* Forms */}
       <Card className="mt-6">
-        <h2 className="border-b border-ink/10 px-5 py-3 font-bold text-brand-900">{t("forms")} ({forms.length})</h2>
+        <CardTitle icon={Files} count={forms.length}>{t("forms")}</CardTitle>
         <ul className="divide-y divide-ink/10">
           {forms.map((f) => {
             const ft = pick(f, "title", lang);
@@ -131,12 +135,10 @@ export default async function DocumentPage({ params }: { params: Promise<{ id: s
 
       {/* Distributed copies */}
       <Card className="mt-6">
-        <h2 className="border-b border-ink/10 px-5 py-3 font-bold text-brand-900">
-          {t("distribution")} ({docCopies.filter((c) => c.status === "distributed").length})
-        </h2>
+        <CardTitle icon={Share2} count={docCopies.filter((c) => c.status === "distributed").length}>{t("distribution")}</CardTitle>
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[560px] text-sm">
-            <thead className="bg-surface text-xs font-semibold text-ink/60">
+          <table className="data-table min-w-[560px]">
+            <thead>
               <tr>
                 <th className="px-5 py-2.5 text-start">{ar ? "رقم النسخة" : "Copy no."}</th>
                 <th className="px-5 py-2.5 text-start">{ar ? "القسم المستلم" : "Receiving department"}</th>

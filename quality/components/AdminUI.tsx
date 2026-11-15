@@ -31,9 +31,9 @@ export function AdminForm({ action, summary, children, saveLabel, savedLabel, op
     if (state.ok && resetOnSave) ref.current?.reset();
   }, [state, resetOnSave]);
   return (
-    <details open={startOpen} className="no-print group border border-ink/10 bg-white">
-      <summary className="flex cursor-pointer list-none items-center gap-2 px-4 py-3 text-sm font-semibold text-brand-900 hover:bg-brand-100/40">
-        <Plus size={16} className="transition-transform group-open:rotate-45" /> {summary}
+    <details open={startOpen} className="no-print group border border-dashed border-brand-700/30 bg-white open:border-solid open:border-ink/10 open:shadow-sm">
+      <summary className="flex cursor-pointer list-none items-center gap-3 px-4 py-3 text-sm font-semibold text-brand-900 transition-colors hover:bg-brand-100/40">
+        <span className="grid h-7 w-7 place-items-center bg-brand-900 text-white"><Plus size={16} className="transition-transform group-open:rotate-45" /></span> {summary}
       </summary>
       <form ref={ref} action={formAction} className="grid gap-4 border-t border-ink/10 p-4 sm:grid-cols-2">
         {children}
