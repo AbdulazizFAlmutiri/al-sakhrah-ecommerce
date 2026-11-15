@@ -1,10 +1,9 @@
 import type { NextConfig } from "next";
-import path from "node:path";
 
+// Builds on its own, separate from the company website in the parent folder.
+// (Vercel sets the file-tracing root itself; don't pin turbopack.root here.)
 const nextConfig: NextConfig = {
   poweredByHeader: false,
-  // This app builds on its own, separate from the company website in the parent folder.
-  turbopack: { root: path.resolve(__dirname) },
 };
 
 export default nextConfig;
