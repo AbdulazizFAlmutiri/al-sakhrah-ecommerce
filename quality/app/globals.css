@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+/* Same brand palette as the company website (alsakhrah.com) */
+@theme {
+  --color-brand-950: #061a4f;
+  --color-brand-900: #0a2a85;
+  --color-brand-800: #0b339c;
+  --color-brand-700: #0047bb;
+  --color-brand-600: #1556d6;
+  --color-brand-500: #2f6cf0;
+  --color-brand-200: #c9d6f2;
+  --color-brand-100: #e4ebf8;
+  --color-surface: #f2f4f8;
+  --color-ink: #13203f;
+
+  --font-ar: var(--font-arabic), Tahoma, ui-sans-serif, system-ui, sans-serif;
+  --font-en: var(--font-latin), ui-sans-serif, system-ui, sans-serif;
+}
+
+html[lang="ar"] body { font-family: var(--font-ar); }
+html[lang="en"] body { font-family: var(--font-en); }
+
+/* Print: only the content, with the company header that print pages add */
+@media print {
+  .no-print { display: none !important; }
+  .print-only { display: block !important; }
+  body { background: #fff !important; }
+  main { padding: 0 !important; }
+}
+.print-only { display: none; }
