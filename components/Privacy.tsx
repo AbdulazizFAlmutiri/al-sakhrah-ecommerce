@@ -104,7 +104,7 @@ export default function PrivacyPage() {
       <main className="bg-surface py-14 md:py-20">
         <Container className="max-w-3xl">
           <h1 className="text-3xl font-bold text-brand-900 md:text-4xl"><T t={{ ar: "سياسة الخصوصية", en: "Privacy policy" }} /></h1>
-          <p className="mt-2 text-sm text-ink/55"><T t={UPDATED} /></p>
+          <p className="mt-2 text-sm text-ink/70"><T t={UPDATED} /></p>
           <div className="mt-10 space-y-8 bg-white p-6 md:p-10">
             {SECTIONS.map((s) => (
               <section key={s.h.en}>

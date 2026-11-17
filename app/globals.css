@@ -55,7 +55,19 @@ html[data-lang="en"] body {
   opacity: 0.9;
 }
 
+/* Browser surfaces in the brand palette */
+html {
+  accent-color: var(--color-brand-700);
+  caret-color: var(--color-brand-700);
+  scrollbar-color: var(--color-brand-700) var(--color-surface);
+}
+::selection { background: var(--color-brand-700); color: #fff; }
+a { text-underline-offset: 0.2em; }
+:focus-visible { outline: 2px solid var(--color-brand-600); outline-offset: 3px; }
+.bg-brand-900 :focus-visible, .bg-brand-950 :focus-visible, #site-header :focus-visible { outline-color: #fff; }
+
+/* Reduced motion: keep colour feedback, drop movement and smooth scrolling */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  *, *::before, *::after { transition-duration: 0.01ms !important; }
+  *, *::before, *::after { animation: none !important; transition-property: color, background-color, border-color, opacity !important; }
 }

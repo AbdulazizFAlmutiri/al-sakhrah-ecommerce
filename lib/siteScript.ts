@@ -11,6 +11,10 @@ export const SITE_SCRIPT = `
   document.querySelectorAll("[data-ph-ar]").forEach(function (el) {
     el.setAttribute("placeholder", el.getAttribute("data-ph-" + lang));
   });
+  // Dropdown options can't hide one language with CSS, so set their text here.
+  document.querySelectorAll("option[data-ar]").forEach(function (el) {
+    el.textContent = el.getAttribute("data-" + lang);
+  });
 
   var header = document.getElementById("site-header");
   var menu = document.getElementById("mobile-menu");

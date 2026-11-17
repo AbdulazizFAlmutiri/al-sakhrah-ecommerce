@@ -44,12 +44,3 @@ export function TintedPhoto({ src, className = "" }: { src: string; className?: 
 export function Container({ className = "", children }: { className?: string; children: React.ReactNode }) {
   return <div className={`mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 ${className}`}>{children}</div>;
 }
-
-export function Eyebrow({ t, light = false }: { t: L; light?: boolean }) {
-  return (
-    <p className={`flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] ${light ? "text-brand-200" : "text-brand-700"}`}>
-      <span className={`h-[2px] w-8 ${light ? "bg-brand-200" : "bg-brand-700"}`} />
-      <T t={t} />
-    </p>
-  );
-}

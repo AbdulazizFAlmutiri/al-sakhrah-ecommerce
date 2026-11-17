@@ -127,7 +127,7 @@ export const PRODUCTS: (L & { icon: string; use: L; image?: string })[] = [
 ];
 
 export const CUSTOM = {
-  title: { ar: "التصنيع لعلامتك الخاصة (Private Label)", en: "Private label manufacturing" },
+  title: { ar: "التصنيع لعلامتك الخاصة (\u2066Private\u00A0Label\u2069)", en: "Private label manufacturing" },
   body: {
     ar: "نصنّع ونعبّئ المنتجات باسم علامتك التجارية، مع تركيبات خاصة حسب متطلباتك.",
     en: "We manufacture and fill products under your brand, with custom formulations to your specification.",
@@ -136,7 +136,7 @@ export const CUSTOM = {
 
 export const REQUEST_TYPES: L[] = [
   { ar: "عرض سعر لمنتجات", en: "Product quote" },
-  { ar: "تصنيع لعلامة خاصة (Private Label)", en: "Private label manufacturing" },
+  { ar: "تصنيع لعلامة خاصة (\u2066Private\u00A0Label\u2069)", en: "Private label manufacturing" },
   { ar: "تركيبة خاصة", en: "Custom formulation" },
   { ar: "توريد حكومي / مؤسسي", en: "Government / institutional supply" },
 ];

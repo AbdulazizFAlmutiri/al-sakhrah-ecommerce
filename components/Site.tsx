@@ -1,5 +1,5 @@
 import { Menu, Mail, ChevronDown, Copy, Send, MapPin, MessageCircle, ArrowLeft, FileDown, Languages, Eye, Flag, Check } from "lucide-react";
-import { Container, Eyebrow, Icon, T, TintedPhoto } from "./ui";
+import { Container, Icon, T, TintedPhoto } from "./ui";
 import {
   ABOUT, BRANDS, CERTS, LEGAL, CLIENTS, CONTACT, SOCIAL, CUSTOM, REQUEST_TYPES, GOV, HERO, NAV, PRODUCTS, SECTORS, WHY,
 } from "@/lib/content";
@@ -92,8 +92,7 @@ export function Hero() {
 
       <Container className="grid items-center gap-12 py-16 md:py-24 lg:grid-cols-[1.25fr_1fr]">
         <div>
-          <Eyebrow t={HERO.eyebrow} light />
-          <h1 className="mt-5 text-4xl font-bold leading-tight text-balance text-white md:text-5xl md:leading-tight">
+          <h1 className="text-4xl font-bold leading-tight text-balance text-white md:text-5xl md:leading-tight">
             <T t={HERO.title} />
           </h1>
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/80">
@@ -105,14 +104,17 @@ export function Hero() {
               <ArrowLeft size={18} className="ltr:rotate-180" />
             </a>
           </div>
+          <p className="mt-6 flex items-center gap-2 text-sm font-medium text-brand-100">
+            <MapPin size={16} className="shrink-0" aria-hidden /> <T t={HERO.eyebrow} />
+          </p>
         </div>
 
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/logo/logo-white.png" alt="Al-Sakhra for Industry, الصخرة للصناعة" className="mx-auto hidden h-72 w-auto lg:block" />
+        <img src="/logo/logo-white.png" alt="Al-Sakhra for Industry, الصخرة للصناعة" width={656} height={646} className="mx-auto hidden h-72 w-auto lg:block" />
       </Container>
 
       {/* Certification strip — proof up front */}
-      <div className="border-t border-white/15 bg-brand-950/60 backdrop-blur-sm">
+      <div className="border-t border-white/15 bg-brand-950/75">
         <Container className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
           {CERTS.map((c) => (
             <div key={c.code} className="flex items-center gap-3 py-5 pe-3 last:col-span-2 sm:last:col-span-1">
@@ -172,8 +174,7 @@ export function Products() {
       <Container>
         <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div>
-            <Eyebrow t={{ ar: "خطوط الإنتاج", en: "Production lines" }} />
-            <h2 className="mt-4 text-3xl font-bold text-brand-900 md:text-4xl">
+            <h2 className="text-3xl font-bold text-brand-900 md:text-4xl">
               <T t={{ ar: "منتجاتنا", en: "Our products" }} />
             </h2>
           </div>
@@ -194,7 +195,7 @@ export function Products() {
                 </span>
               )}
               <h3 className="mt-6 text-lg font-bold text-brand-900 transition-colors group-hover:text-white"><T t={p} /></h3>
-              <p className="mt-1 text-sm text-ink/60 transition-colors group-hover:text-white/70"><T t={p.use} /></p>
+              <p className="mt-1 text-sm text-ink/70 transition-colors group-hover:text-white/80"><T t={p.use} /></p>
             </div>
           ))}
           <a href="#contact" data-request-type="1" className="col-span-2 flex flex-col justify-between gap-6 bg-brand-900 p-6 text-white transition-colors hover:bg-brand-700">
@@ -224,7 +225,7 @@ export function Products() {
                   className={`flex min-h-48 flex-col items-center justify-center gap-5 p-8 ${g ? "bg-gradient-to-br from-[#ef3b2d] via-[#c42bb3] to-[#6a2ad8]" : "border border-brand-700/15 bg-white"}`}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={b.logo} alt={`${b.name} (${b.nameAr})`} className="h-24 w-auto object-contain md:h-28" />
+                  <img src={b.logo} alt={`${b.name} (${b.nameAr})`} width={1200} height={600} loading="lazy" className="h-24 w-auto object-contain md:h-28" />
                 </article>
               );
             })}
@@ -242,8 +243,7 @@ export function Sectors() {
       <TintedPhoto src="/images/automation.jpg" className="-z-10 opacity-50" />
       <Container className="grid gap-12 lg:grid-cols-[1fr_1.4fr] lg:items-center">
         <div>
-          <Eyebrow t={GOV.eyebrow} light />
-          <h2 className="mt-4 text-3xl font-bold md:text-4xl"><T t={GOV.title} /></h2>
+          <h2 className="text-3xl font-bold md:text-4xl"><T t={GOV.title} /></h2>
           <p className="mt-5 text-lg leading-relaxed text-white/80"><T t={GOV.body} /></p>
           <ul className="mt-7 grid gap-3">
             {WHY.map((w) => (
@@ -259,7 +259,7 @@ export function Sectors() {
           <h3 className="mb-4 font-bold text-brand-200"><T t={{ ar: "القطاعات التي نخدمها", en: "Sectors we serve" }} /></h3>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
             {SECTORS.map((s) => (
-              <div key={s.en} className="border border-white/15 bg-brand-950/50 p-5 backdrop-blur-sm">
+              <div key={s.en} className="border border-white/15 bg-brand-950/70 p-5">
                 <Icon name={s.icon} size={26} className="text-white" />
                 <p className="mt-4 text-sm font-semibold leading-snug"><T t={s} /></p>
               </div>
@@ -277,8 +277,7 @@ export function Quality() {
     <section id="quality" className="bg-white py-16 md:py-24">
       <Container>
         <div className="max-w-2xl">
-          <Eyebrow t={{ ar: "ضمان الجودة والاعتمادات", en: "Quality & certifications" }} />
-          <h2 className="mt-4 text-3xl font-bold text-brand-900 md:text-4xl">
+          <h2 className="text-3xl font-bold text-brand-900 md:text-4xl">
             <T t={{ ar: "الثقة تُبنى قبل المنتج", en: "Trust is built before the product" }} />
           </h2>
         </div>
@@ -308,7 +307,7 @@ export function Clients() {
   return (
     <section className="border-y border-ink/10 bg-white py-10">
       <Container>
-        <p className="text-center text-sm font-semibold text-ink/60"><T t={{ ar: "يثق بنا", en: "Trusted by" }} /></p>
+        <p className="text-center text-sm font-semibold text-ink/70"><T t={{ ar: "يثق بنا", en: "Trusted by" }} /></p>
         <div className="mt-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
           {CLIENTS.map((c) => (
             // eslint-disable-next-line @next/next/no-img-element
@@ -328,8 +327,7 @@ export function Contact() {
     <section id="contact" className="bg-surface py-16 md:py-24">
       <Container className="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
         <div>
-          <Eyebrow t={{ ar: "تواصل معنا", en: "Contact us" }} />
-          <h2 className="mt-4 text-3xl font-bold text-brand-900 md:text-4xl">
+          <h2 className="text-3xl font-bold text-brand-900 md:text-4xl">
             <T t={{ ar: "لنبدأ طلبك", en: "Let's start your order" }} />
           </h2>
           <p className="mt-4 text-ink/70">
@@ -360,7 +358,7 @@ export function Contact() {
                 className="grid grid-rows-[0fr] opacity-0 transition-all duration-300 ease-out group-data-[open=true]/email:grid-rows-[1fr] group-data-[open=true]/email:opacity-100"
               >
                 <div className="overflow-hidden">
-                  <p className="px-5 text-sm text-ink/60">
+                  <p className="px-5 text-sm text-ink/70">
                     <T t={{ ar: "كيف تريد مراسلتنا؟", en: "How would you like to email us?" }} />
                   </p>
                   <div className="grid grid-cols-2 gap-2 p-5 pt-3">
@@ -416,18 +414,18 @@ export function Contact() {
               <label htmlFor="q-type" className={label}><T t={{ ar: "نوع الطلب", en: "Request type" }} /></label>
               <select id="q-type" name="type" className={field} defaultValue={`${REQUEST_TYPES[0].ar} / ${REQUEST_TYPES[0].en}`}>
                 {REQUEST_TYPES.map((r) => (
-                  <option key={r.en} value={`${r.ar} / ${r.en}`}>{r.ar} · {r.en}</option>
+                  <option key={r.en} value={`${r.ar} / ${r.en}`} data-ar={r.ar} data-en={r.en}>{r.ar}</option>
                 ))}
               </select>
             </div>
             <div>
               <label htmlFor="q-sector" className={label}><T t={{ ar: "القطاع", en: "Sector" }} /></label>
               <select id="q-sector" name="sector" className={field} defaultValue="">
-                <option value="" disabled>اختر · Select</option>
+                <option value="" disabled data-ar="اختر القطاع" data-en="Choose a sector">اختر القطاع</option>
                 {SECTORS.map((s) => (
-                  <option key={s.en} value={`${s.ar} / ${s.en}`}>{s.ar} · {s.en}</option>
+                  <option key={s.en} value={`${s.ar} / ${s.en}`} data-ar={s.ar} data-en={s.en}>{s.ar}</option>
                 ))}
-                <option value="أخرى / Other">أخرى · Other</option>
+                <option value="أخرى / Other" data-ar="أخرى" data-en="Other">أخرى</option>
               </select>
             </div>
             <div className="sm:col-span-2">
@@ -455,7 +453,7 @@ export function Contact() {
           <a id="quote-fallback" hidden target="_blank" rel="noopener noreferrer" className="mt-3 block text-center text-sm font-semibold text-brand-700 underline">
             <T t={{ ar: "لم يفتح واتساب؟ اضغط هنا", en: "WhatsApp didn't open? Tap here" }} />
           </a>
-          <p className="mt-3 text-center text-xs text-ink/50">
+          <p className="mt-3 text-center text-xs text-ink/70">
             <T t={{ ar: "سيُفتح واتساب برسالة جاهزة تحتوي على تفاصيلك.", en: "WhatsApp opens with a ready message containing your details." }} />
           </p>
         </form>
@@ -526,7 +524,7 @@ export function WhatsAppFab() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="WhatsApp"
-      className="fixed bottom-5 end-5 z-40 grid h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-lg shadow-black/20 transition-transform hover:scale-105"
+      className="fixed bottom-5 end-5 z-40 grid h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-lg shadow-black/20 transition-transform motion-safe:hover:scale-105"
     >
       <MessageCircle size={28} />
     </a>
